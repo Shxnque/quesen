@@ -1,0 +1,133 @@
+# Quesen — Developer Portal
+
+> **Quesen** is the deterministic AI decision engine for **A2A (Agent-to-Agent)**
+> risk evaluation. It is the trust filter that sits between autonomous agents
+> and capital loss.
+>
+> This repository is the **public developer portal**. It contains **only**
+> documentation, integration guides, examples, registry manifests, and
+> reference links. **No engine source code lives here.** Quesen's engine
+> implementation is sovereign, non-public infrastructure.
+
+---
+
+## Quick start (30 seconds)
+
+### Python
+
+```bash
+pip install quesen-sdk
+```
+
+```python
+from quesen_sdk import QuesenClient
+
+q = QuesenClient(base_url="https://web-production-30ab5.up.railway.app",
+                 api_key="YOUR_KEY")
+
+verdict = q.validate(domain_age_days=1, engagement_ratio=0.95, scam_keyword_count=4)
+if verdict.decision == "SKIP":
+    return  # respect the deterministic answer
+```
+
+### JavaScript / TypeScript
+
+```bash
+npm i quesen-sdk
+```
+
+```ts
+import { QuesenClient } from "quesen-sdk";
+
+const q = new QuesenClient({
+  baseUrl: "https://web-production-30ab5.up.railway.app",
+  apiKey: process.env.QUESEN_API_KEY,
+});
+
+const verdict = await q.validate({
+  domain_age_days: 1,
+  engagement_ratio: 0.95,
+  scam_keyword_count: 4,
+});
+```
+
+### Framework wrappers
+
+| Framework | Package | Repository |
+| --- | --- | --- |
+| LangChain / LangGraph | `quesen-langchain` | [Shxnque/quesen-langchain](https://github.com/Shxnque/quesen-langchain) |
+| CrewAI | `quesen-crewai` | [Shxnque/quesen-crewai](https://github.com/Shxnque/quesen-crewai) |
+| AutoGen v0.4+ | `quesen-autogen` | [Shxnque/quesen-autogen](https://github.com/Shxnque/quesen-autogen) |
+| Python (core) | `quesen-sdk` | [Shxnque/quesen-sdk-py](https://github.com/Shxnque/quesen-sdk-py) |
+| JavaScript / TypeScript | `quesen-sdk` (npm) | [Shxnque/quesen-sdk-js](https://github.com/Shxnque/quesen-sdk-js) |
+
+### MCP (Claude Desktop, Cursor, Windsurf, etc.)
+
+See [`docs/mcp.md`](docs/mcp.md) for the client-config snippet.
+
+---
+
+## Why Quesen?
+
+Autonomous agents make more decisions per second than any human oversight can
+audit. When those decisions involve capital — launching a token, opening a
+position, executing a trade, greenlighting a smart-contract deployment — the
+marginal cost of a bad decision is fatal.
+
+**Quesen answers exactly one question:**
+
+> *Should the calling agent proceed with this action?*
+
+Inputs are typed. Outputs are one of `PROCEED`, `REVIEW`, `SKIP`, always with a
+`risk_score` in `[0.0, 1.0]`, a `confidence` in `[0.0, 1.0]`, and the exact
+conflict rules that fired. **Same inputs → same output. Every time.** Every
+response embeds `engine_version`, `weights`, and `thresholds`. Fully
+reproducible. Fully auditable.
+
+### What Quesen is not
+
+- **Not an LLM wrapper.** No prompts. No probabilities.
+- **Not a chatbot.** It is A2A infrastructure.
+- **Not a KYC/identity system.** It scores risk, not identity.
+- **Not chain-locked / framework-locked / LLM-locked.** Ecosystem-neutral by design.
+
+---
+
+## Documentation
+
+- [Architecture overview](docs/architecture.md)
+- [Integration guide](docs/integrations.md)
+- [API reference](docs/api-reference.md)
+- [MCP setup](docs/mcp.md)
+- [Pricing tiers](docs/pricing.md)
+- [FAQ](docs/faq.md)
+
+---
+
+## Live status
+
+- Production: `https://web-production-30ab5.up.railway.app`
+- Health check: `GET /health` returns `{"status":"ok","engine_version":"1.6.0"}`
+- Version snapshot: `GET /version` returns full engine + billing + on-chain flags
+- Uptime and version widget on [senueren.co.za/quesen](https://senueren.co.za/quesen)
+
+---
+
+## Contributing
+
+This is a documentation-only repository. Engine PRs cannot be accepted here.
+If you have integration-specific feedback, please [open an issue](https://github.com/Shxnque/quesen/issues).
+
+SDK contributions belong in the corresponding public SDK repository:
+
+- Python: [Shxnque/quesen-sdk-py](https://github.com/Shxnque/quesen-sdk-py)
+- JavaScript: [Shxnque/quesen-sdk-js](https://github.com/Shxnque/quesen-sdk-js)
+- LangChain: [Shxnque/quesen-langchain](https://github.com/Shxnque/quesen-langchain)
+- CrewAI: [Shxnque/quesen-crewai](https://github.com/Shxnque/quesen-crewai)
+- AutoGen: [Shxnque/quesen-autogen](https://github.com/Shxnque/quesen-autogen)
+
+---
+
+## License
+
+MIT. See [`LICENSE`](LICENSE).

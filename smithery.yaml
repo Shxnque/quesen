@@ -1,0 +1,61 @@
+# Smithery MCP Registry Manifest
+#
+# Registration for https://smithery.ai/
+# See https://smithery.ai/docs for schema.
+
+name: quesen
+displayName: Quesen
+description: Deterministic AI decision engine for autonomous-agent (A2A) risk evaluation. Returns PROCEED / REVIEW / SKIP verdicts with explicit conflict-rule attribution. No LLM inside; fully deterministic; auditable.
+version: 1.6.0
+homepage: https://senueren.co.za/quesen
+repository: https://github.com/Shxnque/quesen
+license: MIT
+tags:
+  - risk-evaluation
+  - deterministic
+  - agent-to-agent
+  - a2a
+  - autonomous-agents
+  - mcp
+  - langchain
+  - crewai
+  - autogen
+  - eliza
+  - onchain
+  - evm
+
+author:
+  name: Senueren Bureau
+  url: https://senueren.co.za
+  email: shinque03@gmail.com
+
+mcp:
+  transport: stdio
+  command: python
+  args:
+    - -m
+    - quesen.mcp_server
+  env:
+    QUESEN_BASE_URL:
+      description: Base URL of the Quesen API (production or self-hosted)
+      required: true
+      example: https://web-production-30ab5.up.railway.app
+    QUESEN_API_KEY:
+      description: API key issued via https://senueren.co.za/quesen
+      required: true
+
+tools:
+  - name: quesen_validate
+    description: Deterministic risk verdict. Returns PROCEED / REVIEW / SKIP with a risk_score, confidence, and the exact conflict rules that fired.
+  - name: quesen_simulate
+    description: Counterfactual scoring with optional weight and threshold overrides. Returns baseline and simulated verdicts plus delta.
+  - name: quesen_report
+    description: Post-trade outcome feedback. Feeds the Conflict Matrix future admission pipeline.
+
+docs:
+  - title: Integration Guide
+    url: https://github.com/Shxnque/quesen/blob/main/docs/integrations.md
+  - title: API Reference
+    url: https://github.com/Shxnque/quesen/blob/main/docs/api-reference.md
+  - title: MCP Setup
+    url: https://github.com/Shxnque/quesen/blob/main/docs/mcp.md

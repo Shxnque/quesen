@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Quesen",
+  "name_for_model": "quesen",
+  "description_for_human": "Deterministic AI decision engine for autonomous-agent risk evaluation. Given typed inputs, returns PROCEED / REVIEW / SKIP with a risk score, confidence, and the exact conflict rules that fired.",
+  "description_for_model": "Use Quesen to obtain a deterministic risk verdict before an autonomous agent commits capital to an action. Call POST /validate with domain_age_days, engagement_ratio, scam_keyword_count, and optionally chain + contract_address for on-chain enrichment. Returns one of PROCEED, REVIEW, SKIP with a risk_score in [0.0, 1.0] and the exact conflict_triggers. Determinism: same inputs → same output for a given engine_version.",
+  "auth": {
+    "type": "user_http",
+    "authorization_type": "bearer"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://web-production-30ab5.up.railway.app/openapi.json"
+  },
+  "logo_url": "https://senueren.co.za/quesen-logo.png",
+  "contact_email": "shinque03@gmail.com",
+  "legal_info_url": "https://senueren.co.za/"
+}
