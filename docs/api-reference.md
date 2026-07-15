@@ -64,7 +64,7 @@ header.
   "decision": "SKIP",
   "risk_score": 0.9825,
   "confidence": 1.0,
-  "conflict_triggers": ["R1_domain_lt_2d_and_engagement_gt_0.9", "R3_scam_gt_3_and_domain_lt_7d"],
+  "conflict_triggers": ["<rule_id>", "<rule_id>"],
   "engine_version": "1.6.0",
   "latency_ms": 3,
   "request_id": "a1b2c3…",
