@@ -9,11 +9,11 @@ state columns.
 
 ---
 
-## Live registry state (evidence-verified 2026-07-17 · Session 13A)
+## Live registry state (evidence-verified 2026-07-17 · Session 13B)
 
 | Registry | State | Notes |
 | --- | --- | --- |
-| **Smithery.ai** | ⚠️ **STUB — not connected.** Listing exists at [`smithery.ai/servers/@shinque03/Quesen`](https://smithery.ai/servers/@shinque03/Quesen), name + description populated, but **no GitHub connection, no `deploymentUrl`, `remote: false`, `tools: null`, `connections: []`**. Clients cannot use it via Smithery. | Operator dashboard action required — see below. |
+| **Smithery.ai** | ✅ **LIVE.** Listing `shinque03/Quesen` is fully populated: `remote: true`, `deploymentUrl: https://quesen--shinque03.run.tools`, `iconUrl` set, **5 tools indexed with input schemas** (`quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`, `quesen.version`), 1 HTTP connection configured. Installable via `npx -y @smithery/cli mcp add shinque03/Quesen`. Listing page: https://smithery.ai/servers/@shinque03/Quesen. | Published in Session 13B via the Smithery Platform API. Release `7df59cac-...` status `SUCCESS`. |
 | **MCP.so** | ❌ Not listed. `GET https://mcp.so/server/quesen` returns 404. | Operator dashboard action required. |
 | **Awesome MCP Servers** | ❌ No PR found. GitHub search of `punkpeye/awesome-mcp-servers` for `quesen` returns zero hits. | Operator must open a PR against `punkpeye/awesome-mcp-servers` linking `https://github.com/Shxnque/quesen`. |
 | **PyPI — `quesen-sdk`** | ready, not yet published | Operator holds PyPI token. |
@@ -42,30 +42,20 @@ All four files are aligned with production (engine v1.9.0; five tools
 
 ## Operator actions to complete the registry rollout
 
-The following actions **cannot be automated**. They require the operator to
-sign in to each service's web dashboard.
+The following actions **cannot be automated** (or, in Smithery's case, have now been completed). They require the operator to sign in to each service's web dashboard.
 
-### 1. Smithery — connect the GitHub App to this repository
+### 1. ✅ Smithery — COMPLETED in Session 13B
 
-The Smithery listing `shinque03/Quesen` currently exists as a stub. To
-transition it from stub to functional:
+The Smithery listing `shinque03/Quesen` was published programmatically via the Smithery CLI. State:
 
-1. Sign in to https://smithery.ai/ as `shinque03`.
-2. Open the existing Quesen listing (https://smithery.ai/servers/@shinque03/Quesen).
-3. Click "Connect GitHub" (or "Add source" / "Link repository").
-4. Select **`Shxnque/quesen`** as the source repository. Do NOT select any
-   other repository — in particular, do NOT select any private engineering
-   repository. The public developer repository `Shxnque/quesen` is the sole
-   canonical registry source per the internal Repository Sovereignty rule.
-5. Smithery will read [`smithery.yaml`](../smithery.yaml) from the repository
-   root, discover `startCommand.type = http` with
-   `url: https://web-production-30ab5.up.railway.app/mcp`, and populate:
-   - `remote: true`
-   - `deploymentUrl: https://web-production-30ab5.up.railway.app/mcp`
-   - `connections: [{ type: "http", ... }]`
-   - `tools: [quesen.validate, quesen.simulate, quesen.report, quesen.health, quesen.version]`
-6. Re-verify by hitting `GET https://registry.smithery.ai/servers/shinque03/Quesen`
-   and confirming `remote=true`, `deploymentUrl` set, `tools` populated.
+- `remote: true`
+- `deploymentUrl: https://quesen--shinque03.run.tools` (Smithery proxy → Railway MCP endpoint)
+- `iconUrl: https://api.smithery.ai/servers/shinque03/Quesen/icon` (Smithery CDN)
+- All 5 tools indexed with full input schemas
+- Listing page: https://smithery.ai/servers/@shinque03/Quesen
+- Install command for MCP clients: `npx -y @smithery/cli mcp add shinque03/Quesen`
+
+No further Smithery action is required unless a schema, description, or deployment URL needs to change (in which case re-publish with `smithery mcp publish ... -n shinque03/Quesen`).
 
 ### 2. MCP.so — submit the public repository
 
