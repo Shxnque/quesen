@@ -6,14 +6,29 @@ description = """
 Quesen answers exactly one question for autonomous agents: should this action
 proceed? Inputs are typed. Outputs are one of PROCEED, REVIEW, SKIP. Same input
 in, same output every time. No LLM inside. No randomness. No PII persistence.
+Quesen speaks the Model Context Protocol (MCP) natively over Streamable HTTP
+and also negotiates on-chain settlement (USDC on Base) via the Agent Settlement
+Protocol (ASP/1.0) when API-key credits are exhausted.
 """
-version = "1.6.0"
+version = "1.9.0"
+engine_version = "1.9.0"
+protocol = "ASP/1.0"
 license = "MIT (SDKs); sovereign (engine)"
 homepage = "https://senueren.co.za/quesen"
+repository = "https://github.com/Shxnque/quesen"
 api = "https://web-production-30ab5.up.railway.app"
 health = "https://web-production-30ab5.up.railway.app/health"
 version_endpoint = "https://web-production-30ab5.up.railway.app/version"
 openapi = "https://web-production-30ab5.up.railway.app/openapi.json"
+mcp_endpoint = "https://web-production-30ab5.up.railway.app/mcp"
+mcp_protocol_version = "2025-03-26"
+
+[mcp.tools]
+validate = "quesen.validate"
+simulate = "quesen.simulate"
+report = "quesen.report"
+health = "quesen.health"
+version = "quesen.version"
 
 [install.python]
 command = "pip install quesen-sdk"
@@ -44,12 +59,23 @@ report = "POST /report (X-API-Key)"
 catalog = "GET /billing/plans"
 stripe_checkout = "POST /billing/stripe/checkout"
 crypto_checkout = "POST /billing/crypto/checkout"
+mcp = "POST /mcp (JSON-RPC 2.0 over Streamable HTTP)"
+asp_quotes = "POST /asp/quotes"
+asp_redeem = "POST /asp/redeem"
+asp_providers = "GET /asp/providers"
 
 [docs]
 integrations = "https://github.com/Shxnque/quesen/blob/main/docs/integrations.md"
 api_reference = "https://github.com/Shxnque/quesen/blob/main/docs/api-reference.md"
 mcp = "https://github.com/Shxnque/quesen/blob/main/docs/mcp.md"
 pricing = "https://github.com/Shxnque/quesen/blob/main/docs/pricing.md"
+architecture = "https://github.com/Shxnque/quesen/blob/main/docs/architecture.md"
+registries = "https://github.com/Shxnque/quesen/blob/main/docs/registries.md"
+
+[registries]
+smithery = "https://smithery.ai/server/@Shxnque/quesen"
+mcp_so = "https://mcp.so/server/quesen"
+awesome_mcp_servers = "https://github.com/punkpeye/awesome-mcp-servers"
 
 [contact]
 email = "shinque03@gmail.com"

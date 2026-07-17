@@ -1,0 +1,97 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/manifest/2025-03",
+  "name": "quesen",
+  "displayName": "Quesen — Deterministic Trust & Settlement for Agents",
+  "version": "1.9.0",
+  "engineVersion": "1.9.0",
+  "description": "Deterministic risk-decision engine + Agent Settlement Protocol (ASP/1.0) exposed as MCP tools. Zero-LLM, same-inputs-same-decision. HTTP 402 payment discipline built in.",
+  "homepage": "https://senueren.co.za/quesen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shxnque/quesen.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Senueren Bureau",
+    "url": "https://senueren.co.za",
+    "email": "shinque03@gmail.com"
+  },
+  "tags": [
+    "mcp",
+    "agents",
+    "autonomous-agents",
+    "risk-evaluation",
+    "deterministic",
+    "agent-to-agent",
+    "a2a",
+    "settlement",
+    "protocol",
+    "http-402",
+    "usdc",
+    "base",
+    "onchain",
+    "evm",
+    "langchain",
+    "crewai",
+    "autogen"
+  ],
+  "transports": {
+    "streamable-http": {
+      "url": "https://web-production-30ab5.up.railway.app/mcp",
+      "protocolVersion": "2025-03-26"
+    },
+    "stdio": {
+      "command": "python",
+      "args": ["-m", "quesen.mcp_server"],
+      "requires": ["quesen-sdk>=1.9.0", "mcp>=1.9.0"]
+    }
+  },
+  "install": {
+    "http": {
+      "url": "https://web-production-30ab5.up.railway.app/mcp",
+      "baseUrl": "https://web-production-30ab5.up.railway.app",
+      "openapi": "https://web-production-30ab5.up.railway.app/openapi.json"
+    },
+    "stdio": {
+      "command": "python",
+      "args": ["-m", "quesen.mcp_server"]
+    }
+  },
+  "tools": [
+    {
+      "name": "quesen.validate",
+      "description": "Deterministic pre-decision risk validation for autonomous agents. Returns PROCEED / REVIEW / SKIP with a risk_score in [0.0, 1.0], a confidence in [0.0, 1.0], and the exact conflict rules that fired."
+    },
+    {
+      "name": "quesen.simulate",
+      "description": "Counterfactual scoring. Compare the baseline decision against a simulated decision with optional weight and threshold overrides. Sandbox only."
+    },
+    {
+      "name": "quesen.report",
+      "description": "Post-decision outcome feedback. Accepts request_id + outcome and feeds the Conflict Matrix admission pipeline."
+    },
+    {
+      "name": "quesen.health",
+      "description": "Liveness probe. Returns engine_version and transport metadata."
+    },
+    {
+      "name": "quesen.version",
+      "description": "Full engine configuration — weights, thresholds, protocol version, feature flags."
+    }
+  ],
+  "protocol": {
+    "name": "ASP",
+    "version": "ASP/1.0",
+    "paymentFlow": {
+      "scheme": "HTTP 402",
+      "discoveryHeader": "Link: </asp/quotes>; rel=\"payment\"; type=\"application/asp+json\""
+    }
+  },
+  "docs": {
+    "integrations": "https://github.com/Shxnque/quesen/blob/main/docs/integrations.md",
+    "api_reference": "https://github.com/Shxnque/quesen/blob/main/docs/api-reference.md",
+    "mcp": "https://github.com/Shxnque/quesen/blob/main/docs/mcp.md",
+    "pricing": "https://github.com/Shxnque/quesen/blob/main/docs/pricing.md",
+    "architecture": "https://github.com/Shxnque/quesen/blob/main/docs/architecture.md"
+  }
+}

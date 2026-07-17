@@ -1,5 +1,10 @@
 # Quesen — Developer Portal
 
+[![MCP compatible](https://img.shields.io/badge/MCP-2025--03--26-8B5CF6?labelColor=1F2937)](https://spec.modelcontextprotocol.io/)
+[![ASP version](https://img.shields.io/badge/ASP-1.0-06B6D4?labelColor=1F2937)](docs/api-reference.md)
+[![Engine version](https://img.shields.io/badge/engine-1.9.0-16A34A?labelColor=1F2937)](https://web-production-30ab5.up.railway.app/version)
+[![License](https://img.shields.io/badge/license-MIT-6B7280?labelColor=1F2937)](./LICENSE)
+
 > **Quesen** is the deterministic AI decision engine for **A2A (Agent-to-Agent)**
 > risk evaluation. It is the trust filter that sits between autonomous agents
 > and capital loss.
@@ -8,6 +13,17 @@
 > documentation, integration guides, examples, registry manifests, and
 > reference links. **No engine source code lives here.** Quesen's engine
 > implementation is sovereign, non-public infrastructure.
+
+**Live production**
+
+| Surface | URL |
+| :--- | :--- |
+| REST API | `https://web-production-30ab5.up.railway.app` |
+| MCP (Streamable HTTP) | `https://web-production-30ab5.up.railway.app/mcp` |
+| OpenAPI 3.1 | `https://web-production-30ab5.up.railway.app/openapi.json` |
+| Swagger UI | `https://web-production-30ab5.up.railway.app/docs` |
+| Health | `https://web-production-30ab5.up.railway.app/health` |
+| Version | `https://web-production-30ab5.up.railway.app/version` |
 
 ---
 
@@ -63,7 +79,8 @@ const verdict = await q.validate({
 
 ### MCP (Claude Desktop, Cursor, Windsurf, etc.)
 
-See [`docs/mcp.md`](docs/mcp.md) for the client-config snippet.
+Quesen exposes **five** MCP tools over the production endpoint. See
+[`docs/mcp.md`](docs/mcp.md) for the client-config snippet.
 
 ---
 
@@ -101,22 +118,37 @@ reproducible. Fully auditable.
 - [MCP setup](docs/mcp.md)
 - [Pricing tiers](docs/pricing.md)
 - [FAQ](docs/faq.md)
+- [Registry status](docs/registries.md)
 
 ---
 
 ## Live status
 
 - Production: `https://web-production-30ab5.up.railway.app`
-- Health check: `GET /health` returns `{"status":"ok","engine_version":"1.6.0"}`
-- Version snapshot: `GET /version` returns full engine + billing + on-chain flags
+- Health check: `GET /health` returns `{"status":"ok","engine_version":"1.9.0"}`
+- Version snapshot: `GET /version` returns full engine + billing + on-chain flags (ASP/1.0)
 - Uptime and version widget on [senueren.co.za/quesen](https://senueren.co.za/quesen)
+
+---
+
+## Registry presence
+
+Quesen is discoverable via Model Context Protocol registries and the standard
+agent-directory ecosystem. See [`docs/registries.md`](docs/registries.md) for
+the current state of each submission. Manifests:
+
+- [`smithery.yaml`](./smithery.yaml) — Smithery.ai (canonical)
+- [`mcp.json`](./mcp.json) — MCP.so / generic MCP client (canonical)
+- [`.well-known/ai-plugin.json`](./.well-known/ai-plugin.json) — OpenAI plugin
+  manifest / `.well-known/ai-plugin.json` autodiscovery
+- [`llms.txt`](./llms.txt) — machine-readable summary for LLM crawlers
 
 ---
 
 ## Contributing
 
 This is a documentation-only repository. Engine PRs cannot be accepted here.
-If you have integration-specific feedback, please [open an issue](https://github.com/Shxnque/quesen/issues).
+If you have integration-specific feedback, please [open an issue](https://github.com/Shxnque/quesen/issues) or read [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 SDK contributions belong in the corresponding public SDK repository:
 
@@ -125,6 +157,8 @@ SDK contributions belong in the corresponding public SDK repository:
 - LangChain: [Shxnque/quesen-langchain](https://github.com/Shxnque/quesen-langchain)
 - CrewAI: [Shxnque/quesen-crewai](https://github.com/Shxnque/quesen-crewai)
 - AutoGen: [Shxnque/quesen-autogen](https://github.com/Shxnque/quesen-autogen)
+
+Security issues: please read [`SECURITY.md`](SECURITY.md) before filing publicly.
 
 ---
 

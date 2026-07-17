@@ -1,56 +1,80 @@
-# Smithery MCP Registry Manifest
+# Smithery.ai manifest — canonical registry entry for Quesen.
 #
-# Registration for https://smithery.ai/
-# See https://smithery.ai/docs for schema.
+# This is the SUBMISSION SOURCE OF TRUTH for the Smithery registry.
+# The Smithery GitHub App must be installed on this repository
+# (`Shxnque/quesen`) and no other.
+#
+# Live endpoint:  https://web-production-30ab5.up.railway.app/mcp
+# Transport:      Streamable HTTP (JSON-RPC 2.0 over POST)
+# MCP spec:       https://spec.modelcontextprotocol.io/specification/2025-03-26/
+# Engine version: 1.9.0
+#
+# References:
+#   - https://smithery.ai/docs/build/deployments/http
+#   - README.md
+#   - docs/mcp.md
+#   - .well-known/ai-plugin.json
+
+startCommand:
+  type: http
+  url: https://web-production-30ab5.up.railway.app/mcp
 
 name: quesen
-displayName: Quesen
-description: Deterministic AI decision engine for autonomous-agent (A2A) risk evaluation. Returns PROCEED / REVIEW / SKIP verdicts with explicit conflict-rule attribution. No LLM inside; fully deterministic; auditable.
-version: 1.6.0
+displayName: Quesen — Deterministic Trust & Settlement for Agents
+description: |-
+  Quesen exposes a deterministic risk-decision engine plus the Agent Settlement
+  Protocol (ASP/1.0) as MCP tools. Every autonomous agent that speaks MCP can:
+
+    * call `quesen.validate` before committing capital to a risky opportunity,
+    * call `quesen.simulate` to preview a decision without spending credits,
+    * call `quesen.report` to feed the outcome back into the Conflict Matrix,
+    * probe `quesen.health` and `quesen.version` for capability discovery.
+
+  Zero LLM in the loop. Same inputs → same decision, always. When credits are
+  exhausted the server negotiates over ASP/1.0 (HTTP 402 → signed quote → USDC
+  on Base → signed receipt) instead of redirecting to a browser flow.
+
+version: 1.9.0
+engineVersion: 1.9.0
+author: Senueren Bureau
 homepage: https://senueren.co.za/quesen
 repository: https://github.com/Shxnque/quesen
 license: MIT
 tags:
+  - mcp
+  - agents
+  - autonomous-agents
   - risk-evaluation
   - deterministic
   - agent-to-agent
   - a2a
-  - autonomous-agents
-  - mcp
+  - settlement
+  - protocol
+  - http-402
+  - usdc
+  - base
+  - onchain
+  - evm
   - langchain
   - crewai
   - autogen
-  - eliza
-  - onchain
-  - evm
 
-author:
+author_details:
   name: Senueren Bureau
   url: https://senueren.co.za
   email: shinque03@gmail.com
 
-mcp:
-  transport: stdio
-  command: python
-  args:
-    - -m
-    - quesen.mcp_server
-  env:
-    QUESEN_BASE_URL:
-      description: Base URL of the Quesen API (production or self-hosted)
-      required: true
-      example: https://web-production-30ab5.up.railway.app
-    QUESEN_API_KEY:
-      description: API key issued via https://senueren.co.za/quesen
-      required: true
-
 tools:
-  - name: quesen_validate
-    description: Deterministic risk verdict. Returns PROCEED / REVIEW / SKIP with a risk_score, confidence, and the exact conflict rules that fired.
-  - name: quesen_simulate
-    description: Counterfactual scoring with optional weight and threshold overrides. Returns baseline and simulated verdicts plus delta.
-  - name: quesen_report
-    description: Post-trade outcome feedback. Feeds the Conflict Matrix future admission pipeline.
+  - name: quesen.validate
+    description: "Deterministic pre-decision risk validation for autonomous agents. Returns PROCEED / REVIEW / SKIP with a risk_score in [0.0, 1.0], a confidence in [0.0, 1.0], and the exact conflict rules that fired."
+  - name: quesen.simulate
+    description: "Counterfactual scoring. Compare the baseline decision against a simulated decision with optional weight and threshold overrides. Sandbox only — does not touch the ledger or the report store."
+  - name: quesen.report
+    description: "Post-decision outcome feedback. Accepts request_id + outcome (RUG / LOSS / OK / WIN / UNRESOLVED) and feeds the Conflict Matrix admission pipeline."
+  - name: quesen.health
+    description: "Liveness probe. Returns engine_version and transport metadata."
+  - name: quesen.version
+    description: "Full engine configuration — weights, thresholds, protocol version, feature flags."
 
 docs:
   - title: Integration Guide
@@ -59,3 +83,27 @@ docs:
     url: https://github.com/Shxnque/quesen/blob/main/docs/api-reference.md
   - title: MCP Setup
     url: https://github.com/Shxnque/quesen/blob/main/docs/mcp.md
+  - title: Pricing
+    url: https://github.com/Shxnque/quesen/blob/main/docs/pricing.md
+  - title: Architecture
+    url: https://github.com/Shxnque/quesen/blob/main/docs/architecture.md
+
+# Local (stdio) transport for Claude Desktop / Cursor / Windsurf users who
+# prefer to run the MCP server locally. Not the primary Smithery path; the
+# hosted HTTP transport above is the recommended 2026 wiring.
+local:
+  command: python
+  args:
+    - -m
+    - quesen.mcp_server
+  requires:
+    - "quesen-sdk>=1.9.0"
+    - "mcp>=1.9.0"
+  env:
+    QUESEN_BASE_URL:
+      description: Base URL of the Quesen API (production or self-hosted)
+      required: true
+      example: https://web-production-30ab5.up.railway.app
+    QUESEN_API_KEY:
+      description: API key issued via https://senueren.co.za/quesen
+      required: true
