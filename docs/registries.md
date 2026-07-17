@@ -53,9 +53,10 @@ transition it from stub to functional:
 1. Sign in to https://smithery.ai/ as `shinque03`.
 2. Open the existing Quesen listing (https://smithery.ai/servers/@shinque03/Quesen).
 3. Click "Connect GitHub" (or "Add source" / "Link repository").
-4. Select **`Shxnque/quesen`** as the source repository. Do NOT select
-   `Shxnque/Quesen-sib` (the private engineering repository — selecting it is
-   a constitutional violation per the internal Repository Sovereignty rule).
+4. Select **`Shxnque/quesen`** as the source repository. Do NOT select any
+   other repository — in particular, do NOT select any private engineering
+   repository. The public developer repository `Shxnque/quesen` is the sole
+   canonical registry source per the internal Repository Sovereignty rule.
 5. Smithery will read [`smithery.yaml`](../smithery.yaml) from the repository
    root, discover `startCommand.type = http` with
    `url: https://web-production-30ab5.up.railway.app/mcp`, and populate:
