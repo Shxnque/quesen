@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CODE_OF_CONDUCT.md`.
 
 ### Governance
-- Aligned with `Shxnque/Quesen-sib` ADR-041 (Repository Sovereignty).
+- Aligned with the internal Repository Sovereignty ADR maintained in the sovereign engineering repository (private).
 
 ## [0.1.0] — 2026-07-16 · Initial developer portal
 
