@@ -104,6 +104,13 @@ assistant = AssistantAgent("risk-checker", tools=[quesen_validate])
 Quesen speaks the Model Context Protocol natively. See [`mcp.md`](mcp.md) for
 the exact client configuration snippet.
 
+## 7. Agent-native platform integrations
+
+Ready-to-use recipes for specific agent-native platforms:
+
+- **Moltbook** post-guard for autonomous social agents \u2014 [`tutorials/moltbook-post-guard.md`](tutorials/moltbook-post-guard.md)
+- **OpenClaw** local-agent framework via MCP \u2014 [`tutorials/openclaw-plugin.md`](tutorials/openclaw-plugin.md)
+
 ---
 
 ## Common patterns
