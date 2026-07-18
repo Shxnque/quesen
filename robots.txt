@@ -1,0 +1,21 @@
+# robots.txt for the Quesen public developer portal on GitHub.
+#
+# GitHub itself does not honour repository-level robots.txt for repo browsing,
+# but crawlers that fetch this file directly (e.g., LLM training crawlers,
+# custom agents) will pick up the discovery hints below.
+#
+# See llms.txt for the full machine-readable summary.
+
+User-agent: *
+Allow: /
+
+# Explicit machine-readable manifests — crawlers should prefer these over
+# scraping the HTML rendering of the README.
+Sitemap: https://raw.githubusercontent.com/Shxnque/quesen/main/sitemap.xml
+
+# Discovery pointers
+#   llms.txt     https://raw.githubusercontent.com/Shxnque/quesen/main/llms.txt
+#   mcp.json     https://raw.githubusercontent.com/Shxnque/quesen/main/mcp.json
+#   smithery.yaml https://raw.githubusercontent.com/Shxnque/quesen/main/smithery.yaml
+#   .well-known/ai-plugin.json  https://raw.githubusercontent.com/Shxnque/quesen/main/.well-known/ai-plugin.json
+#   server.json  https://raw.githubusercontent.com/Shxnque/quesen/main/server.json

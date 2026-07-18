@@ -1,0 +1,41 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Shxnque/quesen",
+  "title": "Quesen",
+  "description": "Deterministic risk-decision engine and Agent Settlement Protocol for autonomous agents.",
+  "version": "1.9.0",
+  "repository": {
+    "url": "https://github.com/Shxnque/quesen",
+    "source": "github",
+    "id": "1302084518"
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/Shxnque/quesen/main/.github/quesen-icon.png",
+      "mimeType": "image/png",
+      "sizes": ["any"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://web-production-30ab5.up.railway.app/mcp",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "Quesen API key issued via https://senueren.co.za/quesen. Required for quesen.validate / quesen.simulate / quesen.report; not required for quesen.health / quesen.version.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "tool": "mcp-publisher",
+      "version": "1.8.0",
+      "notes": "Deterministic zero-LLM risk-decision engine. Same inputs -> same output. Includes Agent Settlement Protocol (ASP/1.0) with HTTP 402 + USDC-on-Base for autonomous-agent settlement."
+    }
+  }
+}
