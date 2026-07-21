@@ -1,7 +1,7 @@
 {
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/2025-03",
   "name": "quesen",
-  "displayName": "Quesen — Deterministic Trust & Settlement for Agents",
+  "displayName": "Quesen \u2014 Deterministic Trust & Settlement for Agents",
   "version": "1.9.0",
   "engineVersion": "1.9.0",
   "description": "Deterministic risk-decision engine + Agent Settlement Protocol (ASP/1.0) exposed as MCP tools. Zero-LLM, same-inputs-same-decision. HTTP 402 payment discipline built in.",
@@ -42,8 +42,14 @@
     },
     "stdio": {
       "command": "python",
-      "args": ["-m", "quesen.mcp_server"],
-      "requires": ["quesen-sdk>=1.9.0", "mcp>=1.9.0"]
+      "args": [
+        "-m",
+        "quesen.mcp_server"
+      ],
+      "requires": [
+        "mcp>=1.9.0"
+      ],
+      "_note": "The stdio transport requires a locally-available Quesen engine that exposes `python -m quesen.mcp_server`. The engine is not currently distributed via PyPI \u2014 self-hosters use the HTTP transport above, which reaches the operator's production endpoint. This entry is preserved for future compatibility with self-hosted engine builds."
     }
   },
   "install": {
@@ -54,7 +60,10 @@
     },
     "stdio": {
       "command": "python",
-      "args": ["-m", "quesen.mcp_server"]
+      "args": [
+        "-m",
+        "quesen.mcp_server"
+      ]
     }
   },
   "tools": [
@@ -76,7 +85,7 @@
     },
     {
       "name": "quesen.version",
-      "description": "Full engine configuration — weights, thresholds, protocol version, feature flags."
+      "description": "Full engine configuration \u2014 weights, thresholds, protocol version, feature flags."
     }
   ],
   "protocol": {

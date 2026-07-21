@@ -10,6 +10,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-07-21 · Triune-consistency pass (Session 18B)
+
+### Changed
+- `mcp.json` — `transports.stdio.requires` corrected from `["quesen-sdk>=1.9.0", "mcp>=1.9.0"]` to `["mcp>=1.9.0"]`. The prior `quesen-sdk>=1.9.0` requirement was incorrect: the public `quesen-sdk` PyPI package is at v0.1.0 (client-only, does not ship `quesen.mcp_server`). An explanatory `_note` field on the stdio transport clarifies that self-hosters must bring their own local engine build; HTTP transport remains the fully-supported path.
+- `README.md` — new **Tutorials** subsection under Documentation, linking `docs/tutorials/moltbook-post-guard.md` and `docs/tutorials/openclaw-plugin.md` (both landed in Session 15 but were previously unlinked from the top-level README).
+
+### Fixed
+- Governance-side hygiene: cross-repository homepage / documentation URL audit ran across the five SDK repositories in Session 18B. No fixes required in `Shxnque/quesen` itself, but engine-version pins in each SDK's README and `pyproject.toml` were normalised to `1.9.0` and all references to any non-public source of truth were removed. The public developer portal (`Shxnque/quesen`) remains the sole canonical registry-facing source of truth.
+
+## [0.2.1] — 2026-07-18 · Documentation additions (Session 14/15)
+
+### Added
+- `docs/tutorials/` — new directory carrying two reference integration tutorials extracted from real production integrations:
+  - `docs/tutorials/moltbook-post-guard.md` — canonical worked example for wiring Quesen as a pre-post safety gate on autonomous social agents. Includes signal-schema mapping, deterministic gate wiring, telemetry emission, and receipt-side auditability.
+  - `docs/tutorials/openclaw-plugin.md` — MCP-native integration walk-through for OpenClaw-style agents. Covers manifest wiring, tool discovery via `tools/list`, and the recommended pre-action call pattern.
+- Global distribution assets landed in Session 14: `.well-known/ai-plugin.json`, `llms.txt`, `robots.txt`, `sitemap.xml`, `server.json`. All indexed by the sitemap and referenced from `docs/registries.md`.
+
+### Changed
+- `docs/registries.md` — state column updated to reflect Session-14 submissions (Awesome MCP Servers PR `punkpeye/awesome-mcp-servers#10402` opened 2026-07-18, currently `open`; MCP.so submission remains a manual operator action).
+
 ## [0.2.0] — 2026-07-17 · Registry alignment
 
 ### Changed
@@ -48,6 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   pricing, faq, registries), initial `smithery.yaml`, `.well-known/ai-plugin.json`,
   `llms.txt`.
 
-[Unreleased]: https://github.com/Shxnque/quesen/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Shxnque/quesen/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Shxnque/quesen/releases/tag/v0.3.0
+[0.2.1]: https://github.com/Shxnque/quesen/releases/tag/v0.2.1
 [0.2.0]: https://github.com/Shxnque/quesen/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Shxnque/quesen/releases/tag/v0.1.0
