@@ -120,6 +120,11 @@ reproducible. Fully auditable.
 - [FAQ](docs/faq.md)
 - [Registry status](docs/registries.md)
 
+### Tutorials
+
+- [Moltbook post-guard](docs/tutorials/moltbook-post-guard.md) — deterministic pre-post safety gate for autonomous social agents.
+- [OpenClaw MCP plugin](docs/tutorials/openclaw-plugin.md) — wiring Quesen as an MCP-native guardrail into OpenClaw-style agents.
+
 ---
 
 ## Live status
