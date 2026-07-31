@@ -22,8 +22,8 @@ state columns.
 | **PyPI — `quesen-autogen`** | ready, not yet published | — |
 | **npm — `quesen-sdk`** | ready, not yet published | Operator holds npm token. |
 | **OpenAI plugin manifest** | ✅ Prepared. [`.well-known/ai-plugin.json`](../.well-known/ai-plugin.json) points at `senueren.co.za`. | Auto-discovered by ChatGPT / OpenAI clients when hosted at the plugin URL. |
-| **LLM crawler summary** | ✅ Prepared. [`../llms.txt`](../llms.txt) at engine v1.9.0. | Auto-discovered by LLM crawlers. |
-| **Live MCP endpoint** | ✅ **Healthy · engine v1.9.0 · 5 tools live** at `https://web-production-30ab5.up.railway.app/mcp` | Verified via `initialize` / `tools/list` / `tools/call`. |
+| **LLM crawler summary** | ✅ Prepared. [`../llms.txt`](../llms.txt) at engine v1.10.0. | Auto-discovered by LLM crawlers. |
+| **Live MCP endpoint** | ✅ **Healthy · engine v1.10.0 · 5 tools live** at `https://web-production-30ab5.up.railway.app/mcp` | Verified via `initialize` / `tools/list` / `tools/call`. |
 
 ---
 
@@ -34,7 +34,7 @@ state columns.
 - **OpenAI plugin** · [`.well-known/ai-plugin.json`](../.well-known/ai-plugin.json).
 - **LLM crawlers** · [`../llms.txt`](../llms.txt).
 
-All four files are aligned with production (engine v1.9.0; five tools
+All four files are aligned with production (engine v1.10.0; five tools
 `quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`,
 `quesen.version`; hosted-HTTP transport as primary).
 

@@ -3,7 +3,7 @@
   "name": "io.github.Shxnque/quesen",
   "title": "Quesen",
   "description": "Deterministic risk-decision engine and Agent Settlement Protocol for autonomous agents.",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "repository": {
     "url": "https://github.com/Shxnque/quesen",
     "source": "github",
