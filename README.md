@@ -130,7 +130,7 @@ reproducible. Fully auditable.
 ## Live status
 
 - Production: `https://web-production-30ab5.up.railway.app`
-- Health check: `GET /health` returns `{"status":"ok","engine_version":"1.9.0"}`
+- Health check: `GET /health` returns `{"status":"ok","engine_version":"1.10.0"}`
 - Version snapshot: `GET /version` returns full engine + billing + on-chain flags (ASP/1.0)
 - Uptime and version widget on [senueren.co.za/quesen](https://senueren.co.za/quesen)
 
