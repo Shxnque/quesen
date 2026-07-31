@@ -20,14 +20,14 @@ header.
 ## GET /health
 
 ```json
-{ "status": "ok", "engine_version": "1.6.0" }
+{ "status": "ok", "engine_version": "1.10.0" }
 ```
 
 ## GET /version
 
 ```json
 {
-  "engine_version": "1.6.0",
+  "engine_version": "1.10.0",
   "report_schema_version": "1.1.0",
   "weights": { "domain_age": 0.40, "engagement": 0.35, "scam_keywords": 0.25 },
   "thresholds": { "skip": 0.65, "review": 0.35 },

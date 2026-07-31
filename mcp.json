@@ -2,8 +2,8 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/2025-03",
   "name": "quesen",
   "displayName": "Quesen \u2014 Deterministic Trust & Settlement for Agents",
-  "version": "1.9.0",
-  "engineVersion": "1.9.0",
+  "version": "1.10.0",
+  "engineVersion": "1.10.0",
   "description": "Deterministic risk-decision engine + Agent Settlement Protocol (ASP/1.0) exposed as MCP tools. Zero-LLM, same-inputs-same-decision. HTTP 402 payment discipline built in.",
   "homepage": "https://senueren.co.za/quesen",
   "repository": {

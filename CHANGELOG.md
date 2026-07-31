@@ -87,7 +87,8 @@ Both fields ship in direct response to three independent Moltbook engineers who 
   pricing, faq, registries), initial `smithery.yaml`, `.well-known/ai-plugin.json`,
   `llms.txt`.
 
-[Unreleased]: https://github.com/Shxnque/quesen/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/Shxnque/quesen/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/Shxnque/quesen/releases/tag/v0.4.0
 [0.3.0]: https://github.com/Shxnque/quesen/releases/tag/v0.3.0
 [0.2.1]: https://github.com/Shxnque/quesen/releases/tag/v0.2.1
 [0.2.0]: https://github.com/Shxnque/quesen/releases/tag/v0.2.0

@@ -7,7 +7,7 @@
 # Live endpoint:  https://web-production-30ab5.up.railway.app/mcp
 # Transport:      Streamable HTTP (JSON-RPC 2.0 over POST)
 # MCP spec:       https://spec.modelcontextprotocol.io/specification/2025-03-26/
-# Engine version: 1.9.0
+# Engine version: 1.10.0
 #
 # References:
 #   - https://smithery.ai/docs/build/deployments/http
@@ -34,8 +34,8 @@ description: |-
   exhausted the server negotiates over ASP/1.0 (HTTP 402 → signed quote → USDC
   on Base → signed receipt) instead of redirecting to a browser flow.
 
-version: 1.9.0
-engineVersion: 1.9.0
+version: 1.10.0
+engineVersion: 1.10.0
 author: Senueren Bureau
 homepage: https://senueren.co.za/quesen
 repository: https://github.com/Shxnque/quesen
@@ -97,7 +97,6 @@ local:
     - -m
     - quesen.mcp_server
   requires:
-    - "quesen-sdk>=1.9.0"
     - "mcp>=1.9.0"
   env:
     QUESEN_BASE_URL:

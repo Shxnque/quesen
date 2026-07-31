@@ -2,7 +2,7 @@
 
 [![MCP compatible](https://img.shields.io/badge/MCP-2025--03--26-8B5CF6?labelColor=1F2937)](https://spec.modelcontextprotocol.io/)
 [![ASP version](https://img.shields.io/badge/ASP-1.0-06B6D4?labelColor=1F2937)](docs/api-reference.md)
-[![Engine version](https://img.shields.io/badge/engine-1.9.0-16A34A?labelColor=1F2937)](https://web-production-30ab5.up.railway.app/version)
+[![Engine version](https://img.shields.io/badge/engine-1.10.0-16A34A?labelColor=1F2937)](https://web-production-30ab5.up.railway.app/version)
 [![License](https://img.shields.io/badge/license-MIT-6B7280?labelColor=1F2937)](./LICENSE)
 
 > **Quesen** is the deterministic AI decision engine for **A2A (Agent-to-Agent)**

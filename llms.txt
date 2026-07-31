@@ -10,8 +10,8 @@ Quesen speaks the Model Context Protocol (MCP) natively over Streamable HTTP
 and also negotiates on-chain settlement (USDC on Base) via the Agent Settlement
 Protocol (ASP/1.0) when API-key credits are exhausted.
 """
-version = "1.9.0"
-engine_version = "1.9.0"
+version = "1.10.0"
+engine_version = "1.10.0"
 protocol = "ASP/1.0"
 license = "MIT (SDKs); sovereign (engine)"
 homepage = "https://senueren.co.za/quesen"
