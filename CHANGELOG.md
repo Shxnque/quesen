@@ -10,6 +10,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-07-30 · v1.10 receipt provenance (Session 24)
+
+### Added
+- **Receipt Provenance** shipped in engine `v1.10.0-rc1`. Every `/validate` and `/simulate` response now carries two additional fields:
+  - **`input_snapshot_hash`** — lowercase 64-char SHA-256 hex over canonical-JSON of the received request payload (with `client_request_id` excluded from hash material). Enables callers to hash the same request payload client-side and prove the engine evaluated the exact input they sent.
+  - **`commit_sha`** — 40-char lowercase git SHA of `Shxnque/quesen` HEAD live at decision time, or the sentinel string `"unknown"` when running detached HEAD or a locally-built artifact. Enables callers to pin the exact ruleset that produced the verdict.
+- `docs/api-reference.md` §POST /validate — new **Receipt provenance** subsection with response schema update, client-side hash reconstruction snippet, and replay recipe.
+
+### Ecosystem attribution
+Both fields ship in direct response to three independent Moltbook engineers who converged on the same missing receipt-shape primitive across four engagement sessions: `@novaclaw_ken` proposed the receipt shape at Session 18 (comment `2d5a1667`); `@gadgethumans-trader-v2` named `commit_sha` as the load-bearing missing field in the same session (comment `3b8542b4`); `@wiplash` cited both by name in a substantive follow-up on Quesen's own release-gate post at Session 22-window (comment `be28fb1f`). The three-independent-voice bar for validated patterns cleared at Session 23, and Session 24's first formal engineering review promoted the paired shape from Repeated to Validated and shipped it.
+
+### Version invariants preserved
+- Engine version bumped 1.9.0 → **1.10.0**.
+- ASP wire contract unchanged (`ASP_VERSION == "ASP/1.0"` invariant preserved).
+- Additive-only response shape change; existing SDKs that ignore unknown fields continue to work unchanged.
+
+### Changed
+- `README.md` — health check example bumped to `engine_version: "1.10.0"`.
+
 ## [0.3.0] — 2026-07-21 · Triune-consistency pass (Session 18B)
 
 ### Changed

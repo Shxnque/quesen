@@ -65,12 +65,48 @@ header.
   "risk_score": 0.9825,
   "confidence": 1.0,
   "conflict_triggers": ["<rule_id>", "<rule_id>"],
-  "engine_version": "1.6.0",
+  "engine_version": "1.10.0",
   "latency_ms": 3,
   "request_id": "a1b2c3…",
   "weights": { "domain_age": 0.40, "engagement": 0.35, "scam_keywords": 0.25 },
-  "thresholds": { "skip": 0.65, "review": 0.35 }
+  "thresholds": { "skip": 0.65, "review": 0.35 },
+  "input_snapshot_hash": "e8c3…64-char-hex…",
+  "commit_sha": "aabbcc…40-char-hex…"
 }
+```
+
+### Receipt provenance (v1.10)
+
+Every response carries two additional fields that make the verdict
+self-contained-replayable:
+
+- **`input_snapshot_hash`** · lowercase 64-char SHA-256 hex over canonical-JSON
+  of the received request payload, with `client_request_id` excluded from the
+  hash material. Callers can hash the same payload client-side and prove the
+  engine evaluated the exact input they sent.
+- **`commit_sha`** · 40-char lowercase git SHA of `Shxnque/quesen` HEAD live at
+  build time, or the sentinel `"unknown"` when running detached HEAD or a
+  locally-built artifact. Pins the exact ruleset that produced the verdict.
+
+**Client-side hash reconstruction:**
+
+```python
+import hashlib, json
+def input_snapshot_hash(payload: dict) -> str:
+    to_hash = {k: v for k, v in payload.items()
+               if v is not None and k != "client_request_id"}
+    canonical = json.dumps(to_hash, sort_keys=True, separators=(",", ":"),
+                           ensure_ascii=False, allow_nan=False).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+```
+
+**Replay recipe:**
+
+```
+git clone https://github.com/Shxnque/quesen && cd quesen
+git checkout $COMMIT_SHA
+pytest tests -q      # asserts engine state at decision time
+# Re-issue the request; verify input_snapshot_hash matches.
 ```
 
 ## POST /simulate
