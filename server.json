@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Shxnque/quesen",
-  "title": "Quesen",
-  "description": "Deterministic risk-decision engine and Agent Settlement Protocol for autonomous agents.",
-  "version": "1.10.0",
+  "title": "Quesen Deterministic Agent Decision Layer",
+  "description": "Deterministic decision layer for autonomous agents. Reproducible PROCEED, REVIEW, SKIP verdicts.",
+  "version": "1.10.1",
   "repository": {
     "url": "https://github.com/Shxnque/quesen",
     "source": "github",
@@ -13,7 +13,9 @@
     {
       "src": "https://raw.githubusercontent.com/Shxnque/quesen/main/.github/quesen-icon.png",
       "mimeType": "image/png",
-      "sizes": ["any"]
+      "sizes": [
+        "any"
+      ]
     }
   ],
   "remotes": [
