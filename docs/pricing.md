@@ -4,7 +4,7 @@
 > Commerce) is a settlement layer only.
 >
 > Prices are indicative for the current release; the live catalog is served
-> from [`GET /billing/plans`](https://web-production-30ab5.up.railway.app/billing/plans)
+> from [`GET /billing/plans`](https://web-production-aa5ba.up.railway.app/billing/plans)
 > and env-overridable per deployment.
 
 ## Subscription tiers

@@ -6,7 +6,7 @@
 
 - RapidAPI Hub aggregates ~40k public REST APIs and is the largest developer marketplace for HTTP APIs.
 - Publishing here gives Quesen a second discovery surface parallel to MCP directories, targeting non-MCP developers who want a deterministic risk-verdict API by HTTP alone.
-- Every RapidAPI listing gets its own quota / billing plumbing routed through RapidAPI's gateway — the caller sends `X-RapidAPI-Key` to `quesen.p.rapidapi.com`, RapidAPI meters, and forwards to `https://web-production-30ab5.up.railway.app`.
+- Every RapidAPI listing gets its own quota / billing plumbing routed through RapidAPI's gateway — the caller sends `X-RapidAPI-Key` to `quesen.p.rapidapi.com`, RapidAPI meters, and forwards to `https://web-production-aa5ba.up.railway.app`.
 
 ## Publisher path (operator action required)
 
@@ -15,7 +15,7 @@ RapidAPI's publishing dashboard requires an authenticated web session — the pl
 To publish Quesen:
 
 1. Sign in at [https://provider.rapidapi.com/](https://provider.rapidapi.com/) with the Senueren Bureau operator account.
-2. Click **Add New API** → paste the OpenAPI spec URL: `https://web-production-30ab5.up.railway.app/openapi.json`.
+2. Click **Add New API** → paste the OpenAPI spec URL: `https://web-production-aa5ba.up.railway.app/openapi.json`.
 3. Fill the fields below (all values are pre-verified against `v1.10.0-rc1`).
 
 ## Provider metadata (paste into the RapidAPI form)
@@ -23,14 +23,14 @@ To publish Quesen:
 | Field | Value |
 | :--- | :--- |
 | **API Name** | Quesen |
-| **Base URL** | `https://web-production-30ab5.up.railway.app` |
+| **Base URL** | `https://web-production-aa5ba.up.railway.app` |
 | **Category** | AI / Machine Learning · Cybersecurity (dual-category if allowed) |
 | **Tagline** | Deterministic risk-verdict engine for autonomous agents. Same input → same output. |
 | **Description** | Quesen returns a deterministic `PROCEED` / `REVIEW` / `SKIP` verdict for autonomous-agent actions. No LLM in the loop; every response embeds `engine_version`, `weights`, `thresholds`, `input_snapshot_hash` (SHA-256 of the canonical request), and `commit_sha` (git SHA of the engine ruleset at decision time) so every verdict is replayable. Built on the Agent Settlement Protocol (ASP/1.0) for HTTP-402 metered access with USDC-on-Base settlement. |
 | **Website / Homepage** | https://senueren.co.za/quesen |
 | **Terms of Service** | https://github.com/Shxnque/quesen/blob/main/docs/faq.md |
 | **Contact email** | shinque03@gmail.com |
-| **OpenAPI URL** | https://web-production-30ab5.up.railway.app/openapi.json |
+| **OpenAPI URL** | https://web-production-aa5ba.up.railway.app/openapi.json |
 | **Auth mode** | Header · `X-API-Key` (map from RapidAPI's `X-RapidAPI-Key` at the gateway) |
 | **Version tag** | 1.10.0 |
 
@@ -71,7 +71,7 @@ curl -H "X-RapidAPI-Key: <YOUR_CONSUMER_KEY>" \
 # Expected: {"status":"ok","engine_version":"1.10.0"}
 ```
 
-The response body must be byte-identical to a direct call to `https://web-production-30ab5.up.railway.app/health`. If it drifts, RapidAPI is rewriting the payload — open a support ticket.
+The response body must be byte-identical to a direct call to `https://web-production-aa5ba.up.railway.app/health`. If it drifts, RapidAPI is rewriting the payload — open a support ticket.
 
 ## Post-listing housekeeping
 

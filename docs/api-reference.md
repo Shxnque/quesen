@@ -1,7 +1,7 @@
 # API Reference
 
 Full HTTP contract for every public endpoint. Base URL:
-`https://web-production-30ab5.up.railway.app`
+`https://web-production-aa5ba.up.railway.app`
 
 ## Authentication
 

@@ -1,7 +1,7 @@
 # MCP Configuration
 
 Quesen speaks the Model Context Protocol natively at
-`https://web-production-30ab5.up.railway.app/mcp` (Streamable HTTP) and also as
+`https://web-production-aa5ba.up.railway.app/mcp` (Streamable HTTP) and also as
 a local stdio server (`python -m quesen.mcp_server`). Once configured, Claude
 Desktop, Cursor, Windsurf, and every other MCP-compatible client can call
 `quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`, and
@@ -20,7 +20,7 @@ HTTP works.
   "mcpServers": {
     "quesen": {
       "type": "http",
-      "url": "https://web-production-30ab5.up.railway.app/mcp",
+      "url": "https://web-production-aa5ba.up.railway.app/mcp",
       "headers": {
         "X-API-Key": "YOUR_KEY"
       }
@@ -51,7 +51,7 @@ Add this to your MCP client's `mcp.json` (Claude Desktop uses
       "command": "python",
       "args": ["-m", "quesen.mcp_server"],
       "env": {
-        "QUESEN_BASE_URL": "https://web-production-30ab5.up.railway.app",
+        "QUESEN_BASE_URL": "https://web-production-aa5ba.up.railway.app",
         "QUESEN_API_KEY": "YOUR_KEY"
       }
     }

@@ -14,7 +14,7 @@ the active file). Add the `quesen` server:
   "mcpServers": {
     "quesen": {
       "type": "http",
-      "url": "https://web-production-30ab5.up.railway.app/mcp",
+      "url": "https://web-production-aa5ba.up.railway.app/mcp",
       "headers": {
         "X-API-Key": "YOUR_KEY"
       }
@@ -48,7 +48,7 @@ pip install quesen-sdk
       "command": "python",
       "args": ["-m", "quesen_sdk.mcp_stdio"],
       "env": {
-        "QUESEN_BASE_URL": "https://web-production-30ab5.up.railway.app",
+        "QUESEN_BASE_URL": "https://web-production-aa5ba.up.railway.app",
         "QUESEN_API_KEY": "YOUR_KEY"
       }
     }
