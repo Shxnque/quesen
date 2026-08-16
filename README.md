@@ -29,17 +29,39 @@
 
 ## Quick start (30 seconds)
 
+**Fastest path — no install, no signup, no card.** Self-serve a free sandbox key and run a
+real deterministic decision against production. Full guide: [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
+· try it in the browser at [senueren.co.za/try](https://senueren.co.za/try).
+
+```bash
+# 1 · get a free sandbox key
+curl -X POST https://web-production-aa5ba.up.railway.app/sandbox/keys
+
+# 2 · evaluate an action (use the api_key from step 1)
+curl -X POST https://web-production-aa5ba.up.railway.app/validate \
+  -H "X-API-Key: sk_sandbox_..." \
+  -H "Content-Type: application/json" \
+  -d '{"domain_age_days": 1, "engagement_ratio": 0.95, "scam_keyword_count": 4}'
+# -> {"decision":"SKIP","risk_score":1.0,"conflict_triggers":[...],"input_snapshot_hash":"..."}
+```
+
+### SDKs
+
+> **Note:** the SDK packages below are in preview and are **not yet published to PyPI / npm**.
+> Until they are, use the HTTP quick start above (or install from the linked source repos).
+> The `base_url` + `X-API-Key` (including the sandbox key above) are identical across all SDKs.
+
 ### Python
 
 ```bash
-pip install quesen-sdk
+pip install quesen-sdk   # preview — not yet on PyPI; install from Shxnque/quesen-sdk-py for now
 ```
 
 ```python
 from quesen_sdk import QuesenClient
 
 q = QuesenClient(base_url="https://web-production-aa5ba.up.railway.app",
-                 api_key="YOUR_KEY")
+                 api_key="YOUR_KEY")   # a sandbox key from /sandbox/keys works here
 
 verdict = q.validate(domain_age_days=1, engagement_ratio=0.95, scam_keyword_count=4)
 if verdict.decision == "SKIP":
@@ -49,7 +71,7 @@ if verdict.decision == "SKIP":
 ### JavaScript / TypeScript
 
 ```bash
-npm i quesen-sdk
+npm i quesen-sdk   # preview — not yet on npm; install from Shxnque/quesen-sdk-js for now
 ```
 
 ```ts

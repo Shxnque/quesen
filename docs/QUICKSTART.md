@@ -97,6 +97,14 @@ else:
 | `scam_keyword_count` | int ≥ 0 | Number of scam-pattern keywords detected. |
 | `chain` + `contract_address` | optional | On-chain enrichment (EVM chains) when supplied. |
 
+Out-of-range or malformed inputs return `422` with a precise field-level error.
+
+### Post-decision feedback — `POST /report`
+
+Feed outcomes back to Quesen with `request_id` + `outcome`. **`outcome` must be one of**
+`RUG`, `LOSS`, `OK`, `WIN`, `UNKNOWN` (anything else returns `422`).
+
+
 ## 6. Going to production
 
 Sandbox is for evaluation. For production volume and pricing, see
