@@ -37,7 +37,7 @@
   ],
   "transports": {
     "streamable-http": {
-      "url": "https://web-production-30ab5.up.railway.app/mcp",
+      "url": "https://web-production-aa5ba.up.railway.app/mcp",
       "protocolVersion": "2025-03-26"
     },
     "stdio": {
@@ -54,9 +54,9 @@
   },
   "install": {
     "http": {
-      "url": "https://web-production-30ab5.up.railway.app/mcp",
-      "baseUrl": "https://web-production-30ab5.up.railway.app",
-      "openapi": "https://web-production-30ab5.up.railway.app/openapi.json"
+      "url": "https://web-production-aa5ba.up.railway.app/mcp",
+      "baseUrl": "https://web-production-aa5ba.up.railway.app",
+      "openapi": "https://web-production-aa5ba.up.railway.app/openapi.json"
     },
     "stdio": {
       "command": "python",

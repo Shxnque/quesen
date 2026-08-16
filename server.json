@@ -19,7 +19,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://web-production-30ab5.up.railway.app/mcp",
+      "url": "https://web-production-aa5ba.up.railway.app/mcp",
       "headers": [
         {
           "name": "X-API-Key",

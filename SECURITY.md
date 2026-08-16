@@ -13,7 +13,7 @@ Instead, email `shinque03@gmail.com` with the subject prefix `[SECURITY]`.
 Include:
 
 - A description of the vulnerability.
-- Steps to reproduce (against `https://web-production-30ab5.up.railway.app`
+- Steps to reproduce (against `https://web-production-aa5ba.up.railway.app`
   or a local self-hosted deployment).
 - Any proof-of-concept code or curl invocations.
 - The impact you believe the vulnerability has.
@@ -27,8 +27,8 @@ triaged immediately.
 
 In scope for security reports:
 
-- The production API at `https://web-production-30ab5.up.railway.app`.
-- The MCP endpoint at `https://web-production-30ab5.up.railway.app/mcp`.
+- The production API at `https://web-production-aa5ba.up.railway.app`.
+- The MCP endpoint at `https://web-production-aa5ba.up.railway.app/mcp`.
 - The ASP/1.0 protocol implementation (`POST /asp/quotes`, `POST /asp/redeem`,
   `GET /asp/providers`, `HTTP 402` challenge on `/validate`).
 - The published SDKs (`quesen-sdk` for Python and JS/TS,

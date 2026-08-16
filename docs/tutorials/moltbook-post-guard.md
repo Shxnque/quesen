@@ -28,7 +28,7 @@ import requests
 from quesen_sdk import QuesenClient
 
 q = QuesenClient(
-    base_url="https://web-production-30ab5.up.railway.app",
+    base_url="https://web-production-aa5ba.up.railway.app",
     api_key=os.environ["QUESEN_API_KEY"],
 )
 

@@ -2,7 +2,7 @@
 
 [![MCP compatible](https://img.shields.io/badge/MCP-2025--03--26-8B5CF6?labelColor=1F2937)](https://spec.modelcontextprotocol.io/)
 [![ASP version](https://img.shields.io/badge/ASP-1.0-06B6D4?labelColor=1F2937)](docs/api-reference.md)
-[![Engine version](https://img.shields.io/badge/engine-1.10.0-16A34A?labelColor=1F2937)](https://web-production-30ab5.up.railway.app/version)
+[![Engine version](https://img.shields.io/badge/engine-1.10.0-16A34A?labelColor=1F2937)](https://web-production-aa5ba.up.railway.app/version)
 [![License](https://img.shields.io/badge/license-MIT-6B7280?labelColor=1F2937)](./LICENSE)
 
 > **Quesen** is the deterministic AI decision engine for **A2A (Agent-to-Agent)**
@@ -18,12 +18,12 @@
 
 | Surface | URL |
 | :--- | :--- |
-| REST API | `https://web-production-30ab5.up.railway.app` |
-| MCP (Streamable HTTP) | `https://web-production-30ab5.up.railway.app/mcp` |
-| OpenAPI 3.1 | `https://web-production-30ab5.up.railway.app/openapi.json` |
-| Swagger UI | `https://web-production-30ab5.up.railway.app/docs` |
-| Health | `https://web-production-30ab5.up.railway.app/health` |
-| Version | `https://web-production-30ab5.up.railway.app/version` |
+| REST API | `https://web-production-aa5ba.up.railway.app` |
+| MCP (Streamable HTTP) | `https://web-production-aa5ba.up.railway.app/mcp` |
+| OpenAPI 3.1 | `https://web-production-aa5ba.up.railway.app/openapi.json` |
+| Swagger UI | `https://web-production-aa5ba.up.railway.app/docs` |
+| Health | `https://web-production-aa5ba.up.railway.app/health` |
+| Version | `https://web-production-aa5ba.up.railway.app/version` |
 
 ---
 
@@ -38,7 +38,7 @@ pip install quesen-sdk
 ```python
 from quesen_sdk import QuesenClient
 
-q = QuesenClient(base_url="https://web-production-30ab5.up.railway.app",
+q = QuesenClient(base_url="https://web-production-aa5ba.up.railway.app",
                  api_key="YOUR_KEY")
 
 verdict = q.validate(domain_age_days=1, engagement_ratio=0.95, scam_keyword_count=4)
@@ -56,7 +56,7 @@ npm i quesen-sdk
 import { QuesenClient } from "quesen-sdk";
 
 const q = new QuesenClient({
-  baseUrl: "https://web-production-30ab5.up.railway.app",
+  baseUrl: "https://web-production-aa5ba.up.railway.app",
   apiKey: process.env.QUESEN_API_KEY,
 });
 
@@ -129,7 +129,7 @@ reproducible. Fully auditable.
 
 ## Live status
 
-- Production: `https://web-production-30ab5.up.railway.app`
+- Production: `https://web-production-aa5ba.up.railway.app`
 - Health check: `GET /health` returns `{"status":"ok","engine_version":"1.10.0"}`
 - Version snapshot: `GET /version` returns full engine + billing + on-chain flags (ASP/1.0)
 - Uptime and version widget on [senueren.co.za/quesen](https://senueren.co.za/quesen)

@@ -4,7 +4,7 @@
 # The Smithery GitHub App must be installed on this repository
 # (`Shxnque/quesen`) and no other.
 #
-# Live endpoint:  https://web-production-30ab5.up.railway.app/mcp
+# Live endpoint:  https://web-production-aa5ba.up.railway.app/mcp
 # Transport:      Streamable HTTP (JSON-RPC 2.0 over POST)
 # MCP spec:       https://spec.modelcontextprotocol.io/specification/2025-03-26/
 # Engine version: 1.10.0
@@ -17,7 +17,7 @@
 
 startCommand:
   type: http
-  url: https://web-production-30ab5.up.railway.app/mcp
+  url: https://web-production-aa5ba.up.railway.app/mcp
 
 name: quesen
 displayName: Quesen — Deterministic Trust & Settlement for Agents
@@ -102,7 +102,7 @@ local:
     QUESEN_BASE_URL:
       description: Base URL of the Quesen API (production or self-hosted)
       required: true
-      example: https://web-production-30ab5.up.railway.app
+      example: https://web-production-aa5ba.up.railway.app
     QUESEN_API_KEY:
       description: API key issued via https://senueren.co.za/quesen
       required: true

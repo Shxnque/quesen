@@ -13,7 +13,7 @@ pip install quesen-sdk
 ```python
 from quesen_sdk import QuesenClient
 
-q = QuesenClient(base_url="https://web-production-30ab5.up.railway.app",
+q = QuesenClient(base_url="https://web-production-aa5ba.up.railway.app",
                  api_key="YOUR_KEY")
 
 decision = q.validate(domain_age_days=1, engagement_ratio=0.95, scam_keyword_count=4)
@@ -38,7 +38,7 @@ npm i quesen-sdk
 import { QuesenClient } from "quesen-sdk";
 
 const q = new QuesenClient({
-  baseUrl: "https://web-production-30ab5.up.railway.app",
+  baseUrl: "https://web-production-aa5ba.up.railway.app",
   apiKey: process.env.QUESEN_API_KEY,
 });
 
