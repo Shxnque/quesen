@@ -112,6 +112,7 @@ reproducible. Fully auditable.
 
 ## Documentation
 
+- [Quickstart](docs/QUICKSTART.md) — first decision in under 10 minutes (free sandbox key).
 - [Architecture overview](docs/architecture.md)
 - [Integration guide](docs/integrations.md)
 - [API reference](docs/api-reference.md)
