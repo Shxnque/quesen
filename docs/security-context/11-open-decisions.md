@@ -1,5 +1,10 @@
 # 11 · Open Decisions (require operator approval before implementation)
 
+> **STATUS UPDATE (Session 27):** Recommended resolutions for all nine decisions
+> are in [`12-adr-decision-review.md`](12-adr-decision-review.md) with an
+> all-environments impact matrix. They are **pending operator sign-off**; engine
+> Stage 1 (`13-stage1-implementation-plan.md`) does not begin until approved.
+
 Per the P1 mandate: where a choice is genuinely ambiguous, it is surfaced here as
 an explicit decision rather than silently made. Engine implementation (Stage 1)
 MUST NOT begin until these are resolved.

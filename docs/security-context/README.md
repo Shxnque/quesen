@@ -47,6 +47,8 @@ dimensions today so detectors can slot in later without another contract break.
 | `09-migration-plan.md` | Engine + six-client release train + evaluation v2 + AG2 |
 | `10-non-goals.md` | Explicit scope limits |
 | `11-open-decisions.md` | Decisions requiring operator approval before implementation |
+| `12-adr-decision-review.md` | **Recommended resolutions to D-1..D-9 + all-environments impact matrix (review gate)** |
+| `13-stage1-implementation-plan.md` | **Stage 1 engine blueprint: v1 byte-for-byte gate + rollback (execute after sign-off)** |
 | `tsc-v2.schema.json` | Machine-readable JSON Schema (draft 2020-12) |
 | `fixtures/tsc_v2_fixtures.json` | Canonical + adversarial fixtures |
 | `../../evaluation/tsc_v2_poc.py` | Runnable reference harness (proves determinism + invariants) |
