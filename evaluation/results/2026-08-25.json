@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "base_url": "https://web-production-aa5ba.up.railway.app",
+    "started_at": "2026-08-25T16:06:41.885499+00:00",
+    "harness": "domain_matrix.py",
+    "finished_at": "2026-08-25T16:09:04.460549+00:00",
+    "totals": {
+      "passed": 24,
+      "failed": 1
+    },
+    "failures": [
+      "[monotonicity] higher_engagement_nondecreasing: expected=risk non-decreasing with engagement (>=4 samples) actual=[0.7897, 0.7267, 1.0, 1.0, 1.0] "
+    ]
+  },
+  "engine": {
+    "engine_version": "1.10.0",
+    "report_schema_version": "1.1.0",
+    "weights": {
+      "domain_age": 0.4,
+      "engagement": 0.35,
+      "scam_keywords": 0.25
+    },
+    "thresholds": {
+      "skip": 0.65,
+      "review": 0.35
+    },
+    "telegram_enabled": true,
+    "api_keys_enabled": true,
+    "sandbox": {
+      "enabled": true,
+      "issue": "POST /sandbox/keys",
+      "active_keys": 14
+    },
+    "onchain_enabled": true,
+    "onchain_supported_chains": [
+      "arbitrum",
+      "avalanche",
+      "base",
+      "bnb",
+      "ethereum",
+      "optimism",
+      "polygon"
+    ],
+    "onchain_thresholds": {
+      "young_contract_days": 14,
+      "very_young_contract_days": 3,
+      "high_concentration_top1": 0.6
+    },
+    "billing_providers": {
+      "stripe": false,
+      "coinbase_commerce": false
+    },
+    "plan_ids": [
+      "developer",
+      "starter",
+      "professional",
+      "enterprise"
+    ],
+    "pack_ids": [
+      "pack_10k",
+      "pack_100k",
+      "pack_1m"
+    ],
+    "asp": {
+      "protocol": "Agent Settlement Protocol",
+      "protocol_short": "ASP",
+      "protocol_version": "ASP/1.0",
+      "protocol_major": 1,
+      "protocol_minor": 0,
+      "supported_majors": [
+        1
+      ],
+      "signing": {
+        "algorithm": "HMAC-SHA256",
+        "kid": "asp1",
+        "envelope": "<kid>.<base64url-nopad(sig)>"
+      },
+      "quote": {
+        "deterministic": true,
+        "expires": true,
+        "default_ttl_seconds": 600,
+        "max_ttl_seconds": 86400
+      },
+      "provider_agnostic": true,
+      "stateless": true
+    }
+  },
+  "suites": {
+    "determinism": {
+      "cases": [
+        {
+          "case": "input_0",
+          "passed": true,
+          "expected": "1 unique result over 5 calls",
+          "actual": "1 unique",
+          "note": "{'domain_age_days': 1, 'engagement_ratio': 0.95, 'scam_keyword_count': 4} -> ('SKIP', 1.0, '8f5a847af8e6e6d9d39c48af9082362bf6d724b9f609557b1af78fbc4b1402ba')"
+        },
+        {
+          "case": "input_1",
+          "passed": true,
+          "expected": "1 unique result over 5 calls",
+          "actual": "1 unique",
+          "note": "{'domain_age_days': 400, 'engagement_ratio': 0.05, 'scam_keyword_count': 0} -> ('REVIEW', 0.5325, 'ed6b77a1e8065e15a733b56dba246b932ca87e74ae361072c9054928aa90319f')"
+        },
+        {
+          "case": "input_2",
+          "passed": true,
+          "expected": "1 unique result over 5 calls",
+          "actual": "1 unique",
+          "note": "{'domain_age_days': 30, 'engagement_ratio': 0.5, 'scam_keyword_count': 1} -> ('SKIP', 1.0, 'dd5913880f916bda80a2d3a0193a936709f3cf4adb4762810cb6a3d9595456d6')"
+        },
+        {
+          "case": "input_3",
+          "passed": true,
+          "expected": "1 unique result over 5 calls",
+          "actual": "1 unique",
+          "note": "{'domain_age_days': 7, 'engagement_ratio': 0.8, 'scam_keyword_count': 2} -> ('SKIP', 1.0, 'a16a0a4f8eb20a1a2dc0d0f4f588de5061f137fdd2f6fb25cc341f646277cdfc')"
+        }
+      ],
+      "passed": 4,
+      "failed": 0
+    },
+    "threshold_mapping": {
+      "cases": [
+        {
+          "case": "decision_matches_thresholds",
+          "passed": true,
+          "expected": "24/24 consistent",
+          "actual": "24/24 consistent",
+          "note": "all consistent"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "monotonicity": {
+      "cases": [
+        {
+          "case": "scam_keywords_nondecreasing",
+          "passed": true,
+          "expected": "risk non-decreasing (>=4 samples)",
+          "actual": [
+            0.9421,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": "younger_domain_nondecreasing",
+          "passed": true,
+          "expected": "risk non-decreasing as domain gets younger (>=4 samples)",
+          "actual": [
+            0.475,
+            0.7435,
+            0.8257,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "note": ""
+        },
+        {
+          "case": "higher_engagement_nondecreasing",
+          "passed": false,
+          "expected": "risk non-decreasing with engagement (>=4 samples)",
+          "actual": [
+            0.7897,
+            0.7267,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "note": ""
+        }
+      ],
+      "passed": 2,
+      "failed": 1
+    },
+    "input_validation": {
+      "cases": [
+        {
+          "case": "engagement_gt_1",
+          "passed": true,
+          "expected": "status in [422]",
+          "actual": 422,
+          "note": ""
+        },
+        {
+          "case": "negative_domain_age",
+          "passed": true,
+          "expected": "status in [422]",
+          "actual": 422,
+          "note": ""
+        },
+        {
+          "case": "negative_scam",
+          "passed": true,
+          "expected": "status in [422]",
+          "actual": 422,
+          "note": ""
+        },
+        {
+          "case": "wrong_type_string",
+          "passed": true,
+          "expected": "status in [422]",
+          "actual": 422,
+          "note": ""
+        },
+        {
+          "case": "huge_number",
+          "passed": true,
+          "expected": "status in [200, 422]",
+          "actual": 200,
+          "note": ""
+        },
+        {
+          "case": "empty_body",
+          "passed": true,
+          "expected": "status in [200, 422]",
+          "actual": 200,
+          "note": ""
+        },
+        {
+          "case": "injection_in_trace_id",
+          "passed": true,
+          "expected": "status in [200, 422]",
+          "actual": 200,
+          "note": "SAFE echo"
+        },
+        {
+          "case": "unknown_extra_field",
+          "passed": true,
+          "expected": "status in [200, 422]",
+          "actual": 422,
+          "note": ""
+        }
+      ],
+      "passed": 8,
+      "failed": 0
+    },
+    "auth_boundary": {
+      "cases": [
+        {
+          "case": "no_key_rejected",
+          "passed": true,
+          "expected": "401/403",
+          "actual": 401,
+          "note": ""
+        },
+        {
+          "case": "bad_key_rejected",
+          "passed": true,
+          "expected": "401/403",
+          "actual": 401,
+          "note": ""
+        },
+        {
+          "case": "sandbox_key_denied_admin_stats",
+          "passed": true,
+          "expected": "401/403 on admin",
+          "actual": 401,
+          "note": ""
+        }
+      ],
+      "passed": 3,
+      "failed": 0
+    },
+    "simulate": {
+      "cases": [
+        {
+          "case": "override_returns_200",
+          "passed": true,
+          "expected": "200",
+          "actual": 200,
+          "note": "{\"baseline\": {\"decision\": \"SKIP\", \"risk_score\": 1.0, \"confidence\": 1.0, \"conflict_triggers\": [\"R1: New domain (<=30d) + unusually high engagement (>=0.50)\", \"R3: Scam keywords present + unusually high"
+        },
+        {
+          "case": "no_state_mutation",
+          "passed": true,
+          "expected": "engine weights unchanged",
+          "actual": "before={'domain_age': 0.4, 'engagement': 0.35, 'scam_keywords': 0.25} after={'domain_age': 0.4, 'engagement': 0.35, 'scam_keywords': 0.25}",
+          "note": ""
+        }
+      ],
+      "passed": 2,
+      "failed": 0
+    },
+    "report": {
+      "cases": [
+        {
+          "case": "valid_outcome_accepted",
+          "passed": true,
+          "expected": "2xx",
+          "actual": 200,
+          "note": ""
+        },
+        {
+          "case": "invalid_outcome_rejected",
+          "passed": true,
+          "expected": "422",
+          "actual": 422,
+          "note": ""
+        }
+      ],
+      "passed": 2,
+      "failed": 0
+    },
+    "onchain_enrichment": {
+      "cases": [
+        {
+          "case": "verified_contract_enriches",
+          "passed": true,
+          "expected": "200 with onchain_enrichment present",
+          "actual": "status=200 enrichment=yes",
+          "note": "{\"chain\": \"ethereum\", \"chain_id\": 1, \"contract_address\": \"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\", \"has_code\": null, \"creation_block\": null, \"contract_age_days\": null, \"source_verification\": {\"is_verified\": null, \"un"
+        },
+        {
+          "case": "junk_contract_graceful",
+          "passed": true,
+          "expected": "200/422 not 500",
+          "actual": 200,
+          "note": ""
+        }
+      ],
+      "passed": 2,
+      "failed": 0
+    }
+  }
+}
