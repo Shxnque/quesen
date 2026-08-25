@@ -13,7 +13,7 @@ state columns.
 
 | Registry | State | Notes |
 | --- | --- | --- |
-| **Smithery.ai** | ✅ **LIVE.** Listing `shinque03/Quesen` is fully populated: `remote: true`, `deploymentUrl: https://quesen--shinque03.run.tools`, `iconUrl` set, **5 tools indexed with input schemas** (`quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`, `quesen.version`), 1 HTTP connection configured. Installable via `npx -y @smithery/cli mcp add shinque03/Quesen`. Listing page: https://smithery.ai/servers/@shinque03/Quesen. Re-verified healthy 2026-07-31 Session 26. | Published in Session 13B via the Smithery Platform API. Release `7df59cac-...` status `SUCCESS`. |
+| **Smithery.ai** | ✅ **LIVE.** Listing `shinque03/Quesen` is fully populated: `remote: true`, `deploymentUrl: https://quesen--shinque03.run.tools`, `iconUrl` set, **5 tools indexed with input schemas** (`quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`, `quesen.version`), 1 HTTP connection configured. Installable via `npx -y @smithery/cli mcp add shinque03/Quesen`. Listing page: https://smithery.ai/servers/@shinque03/Quesen. Re-verified healthy **2026-08-25 Session 31** via full MCP handshake through the canonical client URL `https://server.smithery.ai/@shinque03/quesen/mcp?api_key=…` (`initialize`→200, `notifications/initialized`→202, `tools/list`→5 tools, `tools/call quesen.health`→`{"status":"ok","engine_version":"1.10.0"}`). Latest release `f5b40647` = `SUCCESS`, `type: external_shttp`, `upstreamUrl: https://web-production-aa5ba.up.railway.app/mcp`. **The `deploymentUrl` `quesen--shinque03.run.tools` is Smithery's internal gateway id, NOT the client connect URL — a direct 404 there is expected, not a defect.** | Published via the Smithery Platform API (external_shttp). No GitHub App / repo connection installed and none required. |
 | **MCP.so** | ❌ Not listed. `GET https://mcp.so/server/quesen` returns 404. | Operator dashboard action required. |
 | **Glama.ai** | 🟡 **Prepared.** [`../glama.json`](../glama.json) shipped at repository root claims Quesen for `Shxnque` per the Glama schema at `https://glama.ai/mcp/schemas/server.json`. Operator submission still required: sign in at https://glama.ai, click **+ Add MCP Server**, paste `https://github.com/Shxnque/quesen`. For the remote (streamable-HTTP) surface, additionally add a **Connector** at https://glama.ai/mcp/connectors with URL `https://web-production-aa5ba.up.railway.app/mcp`. Glama's automated indexing pipeline runs security scan + license detection + health test within minutes of submission. **Note:** awesome-mcp-servers PR flow now routes to Glama's ingestion queue, so the pending PR (see below) will surface Quesen automatically once merged. | Glama token available in operator's environment. |
 | **Awesome MCP Servers** | 🟡 PR [`punkpeye/awesome-mcp-servers#10402`](https://github.com/punkpeye/awesome-mcp-servers/pull/10402) — *"Add Quesen — deterministic MCP risk-decision server (Finance & Fintech)"* — **open** as of 2026-07-31. Session 14 opened it; no operator action pending on Quesen's side. Awaiting upstream merge. | Merge unblocks Glama ingestion (per Glama routing). |
@@ -90,20 +90,35 @@ repositories has its own release workflow.
 
 ---
 
-## Verification commands (post-Smithery connection)
+## Verification commands (evidence-driven — 2026-08-25)
 
-After the operator connects Smithery to `Shxnque/quesen`, verify with:
+The listing is an **external** streamable-HTTP release. Verify against the
+**client connect URL**, not the internal gateway id.
 
 ```bash
-# Smithery listing state
-curl -sS https://registry.smithery.ai/servers/shinque03/Quesen | python3 -m json.tool
+# 1. Registry record (management API) — confirms the external release + upstream
+curl -sS -H "Authorization: Bearer $SMITHERY_API_KEY" \
+  https://api.smithery.ai/servers/%40shinque03%2Fquesen/releases | python3 -m json.tool
+# Latest release should be: status=SUCCESS, type=external_shttp,
+#   upstreamUrl=https://web-production-aa5ba.up.railway.app/mcp
 
-# Should now show:
-#   "remote": true,
-#   "deploymentUrl": "https://web-production-aa5ba.up.railway.app/mcp",
-#   "tools": [ ... five entries ... ],
-#   "connections": [ ... at least one HTTP connection ... ]
+# 2. Full MCP handshake through the CLIENT connect URL (this is what works)
+URL="https://server.smithery.ai/@shinque03/quesen/mcp?api_key=$SMITHERY_API_KEY"
+curl -sS -X POST "$URL" -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"probe","version":"1"}}}'
+# -> 200 with serverInfo {name:"quesen", version:"1.10.0"} and an mcp-session-id header
 ```
+
+> **STOPPING RULE (do not reopen without new evidence).**
+> `https://quesen--shinque03.run.tools/mcp` returning HTTP 404 is **NOT** a
+> defect. That host is Smithery's internal deployment identifier stored in the
+> registry `deploymentUrl` field; it is never the client connect URL and is not
+> meant to be hit directly/unauthenticated. MCP clients connect via
+> `server.smithery.ai/@shinque03/quesen/mcp` (or `npx -y @smithery/cli mcp add
+> shinque03/Quesen`), which is verified healthy. Do **not** re-publish the
+> release, install the Smithery GitHub App, or modify the Quesen engine to
+> "fix" this 404 — the integration already works.
 
 ---
 
