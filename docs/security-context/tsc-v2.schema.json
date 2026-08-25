@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quesen.dev/schemas/tsc-v2.schema.json",
+  "title": "Quesen Typed Security Context (TSC) v2",
+  "description": "Canonical request contract for Quesen's generalized deterministic agent-security layer. Additive to the v1 flat-signal contract; selected by the presence of a `tsc_version` field beginning with '2.'. This schema is DESIGN-ONLY (P1). No engine implements it yet.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tsc_version", "subject", "action", "provenance"],
+  "properties": {
+    "tsc_version": {
+      "type": "string",
+      "pattern": "^2\\.[0-9]+$",
+      "description": "Context schema version. Presence with a '2.x' value selects the v2 pipeline. Absent => v1 flat-signal pipeline (unchanged)."
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Identity of the governing policy. The context references a policy; it never embeds executable policy logic.",
+      "properties": {
+        "id": {"type": "string", "maxLength": 128},
+        "version": {"type": "string", "maxLength": 32}
+      }
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The entity performing the action (usually an autonomous agent).",
+      "required": ["kind"],
+      "properties": {
+        "id": {"type": "string", "maxLength": 256},
+        "kind": {"enum": ["agent", "human", "service", "unknown"]},
+        "framework": {"enum": ["langchain", "crewai", "autogen", "ag2", "mcp", "openai_assistants", "raw", "other", "unknown"]},
+        "trust_tier": {"enum": ["trusted", "verified", "unverified", "unknown"], "default": "unknown"}
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "What operation is being attempted. `intent` is free text describing intent and is treated STRICTLY as data - never interpreted as an instruction to the engine.",
+      "required": ["kind"],
+      "properties": {
+        "kind": {"enum": ["tool_call", "http_request", "data_read", "data_write", "data_egress", "message_post", "payment", "code_exec", "file_access", "other"]},
+        "operation": {"type": "string", "maxLength": 128},
+        "intent": {"type": "string", "maxLength": 2000}
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The resource / destination the action affects.",
+      "properties": {
+        "kind": {"enum": ["endpoint", "domain", "contract", "account", "file", "dataset", "recipient", "tool", "service", "other", "unknown"]},
+        "identifier": {"type": "string", "maxLength": 512},
+        "domain": {"type": "string", "maxLength": 253},
+        "trust_tier": {"enum": ["trusted", "verified", "unverified", "unknown"], "default": "unknown"}
+      }
+    },
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The capability being invoked. requested_scopes vs granted_scopes lets the engine reason about privilege mismatch.",
+      "properties": {
+        "id": {"type": "string", "maxLength": 256},
+        "capability_class": {"enum": ["read", "write", "network", "exec", "financial", "admin", "comms", "filesystem", "other"]},
+        "requested_scopes": {"type": "array", "items": {"type": "string", "maxLength": 128}, "maxItems": 64},
+        "granted_scopes": {"type": "array", "items": {"type": "string", "maxLength": 128}, "maxItems": 64}
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Authority model. `granted` claimed by an unattested client is UNVERIFIED and cannot upgrade a decision toward PASS.",
+      "properties": {
+        "requested": {"type": "array", "items": {"type": "string", "maxLength": 128}, "maxItems": 64},
+        "granted": {"type": "array", "items": {"type": "string", "maxLength": 128}, "maxItems": 64},
+        "policy_required": {"type": "array", "items": {"type": "string", "maxLength": 128}, "maxItems": 64}
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Data sensitivity + egress. Drives exfiltration/PII reasoning.",
+      "properties": {
+        "classes": {
+          "type": "array",
+          "items": {"enum": ["public", "internal", "confidential", "pii", "financial", "credential", "secret", "regulated", "unknown"]},
+          "maxItems": 16
+        },
+        "egress": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "to": {"type": "string", "maxLength": 512},
+            "destination_trust": {"enum": ["trusted", "verified", "unverified", "unknown"], "default": "unknown"}
+          }
+        }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Observed / untrusted evidence bag. Includes v1-compatible flat signals so a v1 payload can be losslessly lifted into v2.",
+      "properties": {
+        "prompt_injection": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "FINDINGS about text - not the text itself as policy. patterns are detector labels, not executable instructions.",
+          "properties": {
+            "suspected": {"type": "boolean"},
+            "patterns": {"type": "array", "items": {"type": "string", "maxLength": 64}, "maxItems": 32},
+            "sample_ref": {"type": "string", "maxLength": 128}
+          }
+        },
+        "domain_age_days": {"type": "integer", "minimum": 0},
+        "engagement_ratio": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+        "scam_keyword_count": {"type": "integer", "minimum": 0},
+        "onchain": {"type": "object", "description": "v1.5 on-chain enrichment snapshot (shape defined by quesen.onchain.schemas)."}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "How the context was produced. The engine trusts trusted_metadata/adapter_derived above client_asserted. REQUIRED so trust is never implicit.",
+      "required": ["source"],
+      "properties": {
+        "source": {"enum": ["client_asserted", "adapter_derived", "engine_derived", "trusted_metadata"]},
+        "as_of": {"type": "string", "format": "date-time"},
+        "attestation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "method": {"enum": ["none", "signed", "oauth_introspection", "mtls"], "default": "none"},
+            "verified": {"type": "boolean", "default": false}
+          }
+        },
+        "evidence_refs": {"type": "array", "items": {"type": "string", "maxLength": 256}, "maxItems": 32}
+      }
+    },
+    "client_request_id": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "Caller trace id. EXCLUDED from input_snapshot_hash material (parity with ADR-041)."
+    }
+  }
+}
