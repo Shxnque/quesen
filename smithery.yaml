@@ -1,8 +1,23 @@
 # Smithery.ai manifest — canonical registry entry for Quesen.
 #
-# This is the SUBMISSION SOURCE OF TRUTH for the Smithery registry.
-# The Smithery GitHub App must be installed on this repository
-# (`Shxnque/quesen`) and no other.
+# This file documents the Smithery registry entry for Quesen.
+#
+# HOW THE LIVE LISTING IS ACTUALLY PUBLISHED (evidence, 2026-08-25):
+# The live Smithery listing `@shinque03/quesen` is an EXTERNAL streamable-HTTP
+# release (Smithery internal type `external_shttp`) whose `upstreamUrl` is the
+# Railway endpoint below. It is published via the Smithery Platform API / CLI:
+#   PUT https://api.smithery.ai/servers/%40shinque03%2Fquesen/releases
+#   { "type": "external", "upstreamUrl": "<Live endpoint below>" }
+# NO Smithery GitHub App / repository connection is required for an external
+# release, and none is installed on `Shxnque/quesen` (verified: 0 repo webhooks,
+# GET /servers/shinque03/quesen/repo -> 404). Do NOT install the GitHub App to
+# "fix" the listing — this is a documentation-only repo with nothing to build.
+#
+# CLIENT CONNECT URL (the one that works):
+#   https://server.smithery.ai/@shinque03/quesen/mcp?api_key=<SMITHERY_API_KEY>
+# The registry `deploymentUrl` (quesen--shinque03.run.tools) is Smithery's
+# INTERNAL gateway identifier — it is NOT the client connect URL and returns 404
+# when probed directly. That 404 is expected, not a defect. See docs/registries.md.
 #
 # Live endpoint:  https://web-production-aa5ba.up.railway.app/mcp
 # Transport:      Streamable HTTP (JSON-RPC 2.0 over POST)
