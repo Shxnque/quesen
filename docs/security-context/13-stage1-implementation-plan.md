@@ -1,5 +1,24 @@
 # 13 · Stage 1 Implementation Blueprint (execute only after sign-off)
 
+> **✅ STAGE 1 IMPLEMENTED (Session 27).** Shipped in `Shxnque/Quesen-sib`:
+> isolated `quesen/tsc/` module (`normalize.py`, `decide.py`, `errors.py`,
+> `router.py`), `QUESEN_TSC_V2_ENABLED` flag (**OFF by default**), a dedicated
+> `POST /tsc/validate` route (see D-1 deviation note below), full contract tests
+> (`tests/test_tsc_v2.py`), and an 8-family evaluation suite
+> (`evaluation/tsc_v2/`, 28 fixtures). **Regression: 0 new test failures vs
+> baseline; v1 `/validate` byte-for-byte unchanged.** Production activation is
+> NOT authorized — the flag stays unset in prod.
+>
+> **Enable locally / in staging:** `export QUESEN_TSC_V2_ENABLED=true` then
+> `POST /tsc/validate` with a `tsc_version:"2.0"` body.
+> **Prove it:** `python3 -m pytest tests/test_tsc_v2.py tests/test_tsc_v2_eval.py`
+> and `python3 evaluation/tsc_v2/run.py`.
+>
+> **D-1 deviation (recorded):** the v1 `/validate` model is `extra=forbid`, so a
+> same-endpoint body discriminator would change v1's invalid-input error format
+> and break byte-for-byte. Smallest safe adjustment: v2 lives on a dedicated
+> `/tsc/validate` route whose body still carries the `tsc_version` discriminator.
+
 **Scope:** the *smallest useful* engine implementation of TSC v2, fully isolated,
 flag-gated, with v1 byte-for-byte preserved and instant rollback. **No code is
 written until D-1…D-9 (`12-…`) are approved.**
