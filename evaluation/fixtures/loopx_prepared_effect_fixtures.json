@@ -1,0 +1,174 @@
+{
+  "scenario": "LoopX pilot \u2014 recurring governed internal report delivery",
+  "engine": "https://web-production-aa5ba.up.railway.app/tsc/validate (tsc_version 2.0)",
+  "generated_at": "2026-08-30T19:45:09+00:00",
+  "fixtures": [
+    {
+      "case": "PASS (routine safe path)",
+      "models": "internal summary -> bound trusted channel, standing authority",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "service",
+          "trust_tier": "verified"
+        },
+        "action": {
+          "kind": "message_post",
+          "operation": "deliver_report"
+        },
+        "target": {
+          "kind": "recipient",
+          "identifier": "lark://ops-daily (bound connector)",
+          "trust_tier": "trusted"
+        },
+        "data": {
+          "classes": [
+            "internal"
+          ],
+          "egress": {
+            "to": "lark://ops-daily",
+            "destination_trust": "trusted"
+          }
+        },
+        "tool": {
+          "id": "report.deliver",
+          "capability_class": "comms",
+          "granted_scopes": [
+            "message.post"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "message.post"
+          ],
+          "requested": [
+            "message.post"
+          ]
+        },
+        "provenance": {
+          "source": "trusted_metadata",
+          "attestation": {
+            "method": "signed",
+            "verified": true
+          }
+        }
+      },
+      "receipt": {
+        "decision": "PASS",
+        "reasons": [
+          "NO_ADVERSE_SIGNAL"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "daab6d228be9cb9de808e355c0f02778cd5597911f4228f7859ec7c9c0d77d8d"
+      }
+    },
+    {
+      "case": "REVIEW (meaningful ambiguity)",
+      "models": "report now carries PII -> newly selected external channel",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "service",
+          "trust_tier": "verified"
+        },
+        "action": {
+          "kind": "data_egress",
+          "operation": "deliver_report"
+        },
+        "target": {
+          "kind": "recipient",
+          "identifier": "slack://external-partner (new)",
+          "trust_tier": "unverified"
+        },
+        "data": {
+          "classes": [
+            "pii"
+          ],
+          "egress": {
+            "to": "slack://external-partner",
+            "destination_trust": "unverified"
+          }
+        },
+        "tool": {
+          "id": "report.deliver",
+          "capability_class": "comms",
+          "granted_scopes": [
+            "message.post"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "message.post"
+          ],
+          "requested": [
+            "message.post"
+          ]
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "receipt": {
+        "decision": "REVIEW",
+        "reasons": [
+          "UNVERIFIED_GRANT"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "60ba7fc3acc6f754fb0da6b90d4efd379642184cf46f46a1669262f3f86059be"
+      }
+    },
+    {
+      "case": "BLOCK (catastrophic backstop)",
+      "models": "credential/secret material -> unverified destination",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "service",
+          "trust_tier": "verified"
+        },
+        "action": {
+          "kind": "data_egress",
+          "operation": "deliver_report"
+        },
+        "target": {
+          "kind": "endpoint",
+          "identifier": "https://unbound.example/webhook",
+          "trust_tier": "unverified"
+        },
+        "data": {
+          "classes": [
+            "credential",
+            "secret"
+          ],
+          "egress": {
+            "to": "https://unbound.example/webhook",
+            "destination_trust": "unverified"
+          }
+        },
+        "tool": {
+          "id": "report.deliver",
+          "capability_class": "comms",
+          "granted_scopes": [
+            "message.post"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "message.post"
+          ]
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "receipt": {
+        "decision": "BLOCK",
+        "reasons": [
+          "EGRESS_SECRET_UNTRUSTED"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "90f67cc402b7fb73f3d1fe27fb39a0fae0c052e614cd05aa1de126b7bc17ca1f"
+      }
+    }
+  ]
+}
