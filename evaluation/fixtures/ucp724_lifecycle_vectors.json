@@ -1,0 +1,284 @@
+{
+  "title": "Quesen \u00d7 UCP #724 \u2014 commercial-intervention lifecycle test vectors",
+  "generated_at": "2026-08-30T10:37:20.866773+00:00",
+  "engine": "https://web-production-aa5ba.up.railway.app  (POST /tsc/validate, tsc_version 2.0)",
+  "reproduce": "KEY=$(curl -sX POST .../sandbox/keys|jq -r .api_key); curl -sX POST .../tsc/validate -H \"X-API-Key: $KEY\" -d @<request>",
+  "rule": "An inherited assertion keeps its originating authority; crossing a resource boundary without valid re-attestation downgrades how much policy may rely on it; a sensitive effect may not clear on downgraded authority.",
+  "vectors": [
+    {
+      "outcome": "PRESERVED",
+      "models": "authority from trusted origin, attested; survives Cart->Checkout unchanged",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent",
+          "trust_tier": "unverified"
+        },
+        "action": {
+          "kind": "payment",
+          "operation": "transfer"
+        },
+        "target": {
+          "kind": "account",
+          "identifier": "merchant-acct-77",
+          "trust_tier": "verified"
+        },
+        "tool": {
+          "id": "pay.send",
+          "capability_class": "financial",
+          "granted_scopes": [
+            "payment.send"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "payment.send"
+          ]
+        },
+        "provenance": {
+          "source": "trusted_metadata",
+          "attestation": {
+            "method": "signed",
+            "verified": true
+          }
+        }
+      },
+      "receipt": {
+        "decision": "PASS",
+        "reasons": [
+          "NO_ADVERSE_SIGNAL"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "2ae328fc73bc10ce32d5fe3746febd3056a43f5c9dbaa9516105570ae120abfd"
+      }
+    },
+    {
+      "outcome": "RECOVERED",
+      "models": "evidence reconstructed and RE-ATTESTED after boundary; authority restored",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent",
+          "trust_tier": "unverified"
+        },
+        "action": {
+          "kind": "payment",
+          "operation": "transfer"
+        },
+        "target": {
+          "kind": "account",
+          "identifier": "merchant-acct-77",
+          "trust_tier": "verified"
+        },
+        "tool": {
+          "id": "pay.send",
+          "capability_class": "financial",
+          "granted_scopes": [
+            "payment.send"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "payment.send"
+          ]
+        },
+        "provenance": {
+          "source": "adapter_derived",
+          "attestation": {
+            "method": "signed",
+            "verified": true
+          }
+        }
+      },
+      "receipt": {
+        "decision": "PASS",
+        "reasons": [
+          "NO_ADVERSE_SIGNAL"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "9098d4ff194e364969618e8b6a63b11191586c0aa85e10bd0ed3c63b1fa4d178"
+      }
+    },
+    {
+      "outcome": "RECOVERED (contrast: pre-re-attestation)",
+      "models": "same inherited authority BEFORE re-attestation",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent",
+          "trust_tier": "unverified"
+        },
+        "action": {
+          "kind": "payment",
+          "operation": "transfer"
+        },
+        "target": {
+          "kind": "account",
+          "identifier": "merchant-acct-77",
+          "trust_tier": "verified"
+        },
+        "tool": {
+          "id": "pay.send",
+          "capability_class": "financial",
+          "granted_scopes": [
+            "payment.send"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "payment.send"
+          ]
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "receipt": {
+        "decision": "REVIEW",
+        "reasons": [
+          "UNVERIFIED_GRANT"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "34558bc91fe50d3ef48b8576bfb5a3b37ee48437ada1f31c21e75704f86d8a23"
+      }
+    },
+    {
+      "outcome": "DEGRADED",
+      "models": "authority crossed a derivation boundary without re-attestation",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent",
+          "trust_tier": "unverified"
+        },
+        "action": {
+          "kind": "payment",
+          "operation": "transfer"
+        },
+        "target": {
+          "kind": "account",
+          "identifier": "merchant-acct-77",
+          "trust_tier": "verified"
+        },
+        "tool": {
+          "id": "pay.send",
+          "capability_class": "financial",
+          "granted_scopes": [
+            "payment.send"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "payment.send"
+          ]
+        },
+        "provenance": {
+          "source": "client_asserted"
+        }
+      },
+      "receipt": {
+        "decision": "REVIEW",
+        "reasons": [
+          "UNVERIFIED_GRANT"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "40078edcc0e13fe02a7baf68e6acd7dc12ab2c9d0004c56a6fbd4839616e1660"
+      }
+    },
+    {
+      "outcome": "MISSING",
+      "models": "required authority claimed but attestation evidence absent/unverifiable; fail closed",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent",
+          "trust_tier": "unverified"
+        },
+        "action": {
+          "kind": "payment",
+          "operation": "transfer"
+        },
+        "target": {
+          "kind": "account",
+          "identifier": "merchant-acct-77",
+          "trust_tier": "verified"
+        },
+        "tool": {
+          "id": "pay.send",
+          "capability_class": "financial",
+          "granted_scopes": [
+            "payment.send"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "payment.send"
+          ]
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "receipt": {
+        "decision": "REVIEW",
+        "reasons": [
+          "UNVERIFIED_GRANT"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "34558bc91fe50d3ef48b8576bfb5a3b37ee48437ada1f31c21e75704f86d8a23"
+      }
+    },
+    {
+      "outcome": "MUTATED (hard-invariant)",
+      "models": "mutated flow exfiltrates secret to unverified sink; hard-deny invariant",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent"
+        },
+        "action": {
+          "kind": "data_egress",
+          "operation": "upload"
+        },
+        "target": {
+          "kind": "endpoint",
+          "identifier": "https://paste.example",
+          "trust_tier": "unverified"
+        },
+        "data": {
+          "classes": [
+            "secret",
+            "internal"
+          ],
+          "egress": {
+            "to": "https://paste.example",
+            "destination_trust": "unverified"
+          }
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "receipt": {
+        "decision": "BLOCK",
+        "reasons": [
+          "EGRESS_SECRET_UNTRUSTED"
+        ],
+        "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+        "input_snapshot_hash": "dd964b352225385e95b5207922e541c44ee47f9455562c78f44cd1ddeef2b1eb"
+      }
+    }
+  ],
+  "observed_boundary_no_claim": {
+    "decision": "PASS",
+    "reasons": [
+      "NO_ADVERSE_SIGNAL"
+    ],
+    "note": "No authority claimed -> engine does not fail closed on mere absence; only an unattested CLAIM triggers UNVERIFIED_GRANT."
+  },
+  "integrity_binding_demo": {
+    "authorized_call_hash": "2ae328fc73bc10ce32d5fe3746febd3056a43f5c9dbaa9516105570ae120abfd",
+    "mutated_call_hash": "eaa8f69956f49924e618b74fff3ac1391f82c2f20b92a3e11f816a17d1c03366",
+    "hashes_differ": true
+  }
+}
