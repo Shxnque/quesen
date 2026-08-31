@@ -1,6 +1,13 @@
 # Quesen Typed Security Context (TSC) v2 — P1 Design Package
 
-**Status:** DESIGN / P1 (implementation-ready specification). **No engine implements this yet.**
+**Status:** SHIPPED. The TSC v2 decision surface is live on the deployed engine:
+`POST /tsc/validate` returns `PASS | REVIEW | BLOCK | SKIP` with reason codes and
+the emitted receipt fields, and `GET /tsc/version` reports `tsc_schema_version 2.0,
+engine_version 1.10.0`. See the shipped, reproducible-without-signup surface in
+[`../api-reference.md` → **POST /tsc/validate**](../api-reference.md#post-tsc-validate).
+This document remains the **design rationale** for that surface; where a field
+below is not yet emitted by the deployed engine it is called out inline rather
+than implied to be shipped.
 **Engine baseline at authorship:** `engine_version = 1.10.0` (verified live on Railway `/version`).
 **Wire baseline:** `ASP/1.0` (ADR-040 LC1 gate). Receipt provenance: ADR-041 (`input_snapshot_hash` + `commit_sha`).
 
