@@ -109,6 +109,88 @@ pytest tests -q      # asserts engine state at decision time
 # Re-issue the request; verify input_snapshot_hash matches.
 ```
 
+## POST /tsc/validate
+
+The deterministic **typed-security-context decision surface** (Trust & Safety
+Context v2). A typed context — `subject`, `action`, `target`, `tool`, `data`,
+`provenance` — is normalized, then evaluated to one of `PASS | REVIEW | BLOCK |
+SKIP` with machine reason codes and a self-describing receipt. No model
+inference is in the scoring path, so the same normalized input always yields the
+same verdict. Shipped and live on `engine_version 1.10.0`; `GET /tsc/version`
+reports `tsc_schema_version 2.0`.
+
+**Request** (`tsc_version 2.0`)
+
+```json
+{
+  "tsc_version": "2.0",
+  "subject":    { "kind": "agent", "trust_tier": "unverified" },
+  "action":     { "kind": "payment", "operation": "transfer" },
+  "target":     { "kind": "account", "identifier": "merchant-acct-77", "trust_tier": "verified" },
+  "tool":       { "id": "pay.send", "capability_class": "financial", "granted_scopes": ["payment.send"] },
+  "permissions":{ "granted": ["payment.send"] },
+  "provenance": { "source": "client_asserted" }
+}
+```
+
+**Response** — the emitted receipt fields are carried directly on the response:
+
+```json
+{
+  "tsc_version": "2.0",
+  "decision": "REVIEW",
+  "risk_score": 0.5,
+  "confidence": 0.2143,
+  "reasons": [
+    { "code": "UNVERIFIED_GRANT", "severity": "medium",
+      "message": "authorization claimed by unattested client; cannot PASS a sensitive action" }
+  ],
+  "tags": ["authz", "provenance"],
+  "provenance_summary": { "source": "client_asserted", "attested": false },
+  "engine_version": "1.10.0",
+  "commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+  "input_snapshot_hash": "40078edcc0e13fe02a7baf68e6acd7dc12ab2c9d0004c56a6fbd4839616e1660",
+  "request_id": "…",
+  "latency_ms": 0
+}
+```
+
+### Receipt provenance for /tsc/validate (v1.10) {#tsc-validate-receipt-provenance}
+
+Two receipt fields are **emitted** on every `/tsc/validate` response and make
+the verdict self-describing:
+
+- **`input_snapshot_hash`** · lowercase 64-char SHA-256 hex over the canonical
+  JSON of the **normalized** typed context (NFC-folded, enum/domain-lowercased,
+  list-ordering canonicalized), with `client_request_id` excluded from the hash
+  material. This is distinct from [`POST /validate`](#post-validate)'s hash,
+  which is taken over the **raw** request payload. The public, executable
+  reference for the normalization + hash is
+  [`evaluation/tsc_v2_poc.py`](../evaluation/tsc_v2_poc.py)
+  (`normalize()` → `canonical_json(for_hash=True)` → `input_snapshot_hash()`),
+  which reproduces this field byte-for-byte from the same context.
+- **`commit_sha`** · a 40-char identifier the engine returns to pin the ruleset
+  version that produced the verdict. It is the engine-reported identifier; the
+  binding between it and the executed ruleset is not independently resolvable
+  from the public repository.
+
+**Reproducible without signup** (issues a free sandbox key, then calls the live
+decision surface):
+
+```bash
+BASE=https://web-production-aa5ba.up.railway.app
+KEY=$(curl -sX POST $BASE/sandbox/keys | jq -r .api_key)
+
+# secret egress to an unverified sink -> BLOCK / EGRESS_SECRET_UNTRUSTED
+curl -sX POST $BASE/tsc/validate -H "X-API-Key: $KEY" -H 'Content-Type: application/json' -d '{
+  "tsc_version":"2.0","subject":{"kind":"agent"},
+  "action":{"kind":"data_egress","operation":"upload"},
+  "target":{"kind":"endpoint","identifier":"https://paste.example","trust_tier":"unverified"},
+  "data":{"classes":["secret","internal"],"egress":{"to":"https://paste.example","destination_trust":"unverified"}},
+  "provenance":{"source":"adapter_derived"}}'
+```
+
+
 ## POST /simulate
 
 Counterfactual: what would the decision be with different weights or
