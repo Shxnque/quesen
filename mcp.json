@@ -1,5 +1,4 @@
 {
-  "$schema": "https://modelcontextprotocol.io/schemas/manifest/2025-03",
   "name": "quesen",
   "displayName": "Quesen \u2014 Deterministic Trust & Settlement for Agents",
   "version": "1.10.0",

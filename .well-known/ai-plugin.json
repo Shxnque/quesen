@@ -12,7 +12,7 @@
     "type": "openapi",
     "url": "https://web-production-aa5ba.up.railway.app/openapi.json"
   },
-  "logo_url": "https://senueren.co.za/quesen-logo.png",
+  "logo_url": "https://raw.githubusercontent.com/Shxnque/quesen/main/.github/quesen-icon.png",
   "contact_email": "shinque03@gmail.com",
   "legal_info_url": "https://senueren.co.za/"
 }
