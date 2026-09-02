@@ -73,9 +73,18 @@ architecture = "https://github.com/Shxnque/quesen/blob/main/docs/architecture.md
 registries = "https://github.com/Shxnque/quesen/blob/main/docs/registries.md"
 
 [registries]
-smithery = "https://smithery.ai/server/@Shxnque/quesen"
+smithery = "https://smithery.ai/server/@shinque03/quesen"
+mcp_official_registry = "https://registry.modelcontextprotocol.io/v0/servers?search=quesen"
+glama = "https://glama.ai/mcp/servers/io.github.Shxnque/quesen"
 mcp_so = "https://mcp.so/server/quesen"
 awesome_mcp_servers = "https://github.com/punkpeye/awesome-mcp-servers"
+
+[verification]
+# Published receipts are independently reproducible from the public repo alone.
+verifier = "https://github.com/Shxnque/quesen/blob/main/verify/verify_receipts.py"
+docs = "https://github.com/Shxnque/quesen/blob/main/verify/README.md"
+evidence = "https://raw.githubusercontent.com/Shxnque/quesen/main/verify/three_way_match.json"
+claim = "input_snapshot_hash + contract decision + reason codes reproduce byte-for-byte across published fixture, public reference, and live engine (6/6)."
 
 [contact]
 email = "shinque03@gmail.com"

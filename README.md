@@ -1,8 +1,13 @@
 # Quesen — Developer Portal
 
 [![MCP compatible](https://img.shields.io/badge/MCP-2025--03--26-8B5CF6?labelColor=1F2937)](https://spec.modelcontextprotocol.io/)
+[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.Shxnque%2Fquesen-8B5CF6?labelColor=1F2937)](https://registry.modelcontextprotocol.io/v0/servers?search=quesen)
+[![Smithery](https://img.shields.io/badge/Smithery-%40shinque03%2Fquesen-6366F1?labelColor=1F2937)](https://smithery.ai/server/@shinque03/quesen)
 [![ASP version](https://img.shields.io/badge/ASP-1.0-06B6D4?labelColor=1F2937)](docs/api-reference.md)
 [![Engine version](https://img.shields.io/badge/engine-1.10.0-16A34A?labelColor=1F2937)](https://web-production-aa5ba.up.railway.app/version)
+[![PyPI](https://img.shields.io/pypi/v/quesen-sdk?label=pypi%20quesen-sdk&labelColor=1F2937&color=3775A9)](https://pypi.org/project/quesen-sdk/)
+[![npm](https://img.shields.io/npm/v/quesen-sdk?label=npm%20quesen-sdk&labelColor=1F2937&color=CB3837)](https://www.npmjs.com/package/quesen-sdk)
+[![Verified receipts](https://img.shields.io/badge/receipts-independently%20verifiable-16A34A?labelColor=1F2937)](verify/README.md)
 [![License](https://img.shields.io/badge/license-MIT-6B7280?labelColor=1F2937)](./LICENSE)
 
 > **Quesen** is the deterministic AI decision engine for **A2A (Agent-to-Agent)**

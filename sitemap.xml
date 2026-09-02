@@ -70,4 +70,19 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://github.com/Shxnque/quesen/blob/main/verify/README.md</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raw.githubusercontent.com/Shxnque/quesen/main/verify/verify_receipts.py</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://raw.githubusercontent.com/Shxnque/quesen/main/verify/three_way_match.json</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
