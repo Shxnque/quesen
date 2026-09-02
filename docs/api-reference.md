@@ -84,9 +84,13 @@ self-contained-replayable:
   of the received request payload, with `client_request_id` excluded from the
   hash material. Callers can hash the same payload client-side and prove the
   engine evaluated the exact input they sent.
-- **`commit_sha`** · 40-char lowercase git SHA of `Shxnque/quesen` HEAD live at
-  build time, or the sentinel `"unknown"` when running detached HEAD or a
-  locally-built artifact. Pins the exact ruleset that produced the verdict.
+- **`commit_sha`** · a 40-char lowercase identifier the engine returns to pin the
+  ruleset revision that produced the verdict, or the sentinel `"unknown"`. It is
+  the engine-reported ruleset revision of Quesen's **sovereign (non-public)
+  engine**; it does **not** resolve against a commit in the public
+  `Shxnque/quesen` developer portal. What *is* public and independently
+  reproducible is the `input_snapshot_hash` and the contract-level decision (see
+  the [verification bundle](../verify/README.md)).
 
 **Client-side hash reconstruction:**
 
@@ -100,13 +104,15 @@ def input_snapshot_hash(payload: dict) -> str:
     return hashlib.sha256(canonical).hexdigest()
 ```
 
-**Replay recipe:**
+**Replay recipe** (independently reproducible from this public repo — no hosted
+service or private engine required):
 
 ```
 git clone https://github.com/Shxnque/quesen && cd quesen
-git checkout $COMMIT_SHA
-pytest tests -q      # asserts engine state at decision time
-# Re-issue the request; verify input_snapshot_hash matches.
+python3 verify/verify_receipts.py          # recompute input_snapshot_hash + decision
+python3 verify/verify_receipts.py --live   # also cross-check the live engine
+# The production ruleset commit_sha is a sovereign-engine revision label and is
+# not a checkoutable commit in this public repo — see verify/README.md.
 ```
 
 ## POST /tsc/validate

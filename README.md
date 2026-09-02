@@ -47,14 +47,14 @@ curl -X POST https://web-production-aa5ba.up.railway.app/validate \
 
 ### SDKs
 
-> **Note:** the SDK packages below are in preview and are **not yet published to PyPI / npm**.
-> Until they are, use the HTTP quick start above (or install from the linked source repos).
-> The `base_url` + `X-API-Key` (including the sandbox key above) are identical across all SDKs.
+> **Published.** The SDKs are live on PyPI and npm (`quesen-sdk` `0.4.1` / npm `0.4.0`;
+> `quesen-langchain`, `quesen-crewai`, `quesen-autogen` `0.3.0`). The
+> `base_url` + `X-API-Key` (including the sandbox key above) are identical across all SDKs.
 
 ### Python
 
 ```bash
-pip install quesen-sdk   # preview — not yet on PyPI; install from Shxnque/quesen-sdk-py for now
+pip install quesen-sdk   # PyPI: https://pypi.org/project/quesen-sdk/
 ```
 
 ```python
@@ -71,7 +71,7 @@ if verdict.decision == "SKIP":
 ### JavaScript / TypeScript
 
 ```bash
-npm i quesen-sdk   # preview — not yet on npm; install from Shxnque/quesen-sdk-js for now
+npm i quesen-sdk   # npm: https://www.npmjs.com/package/quesen-sdk
 ```
 
 ```ts
@@ -142,6 +142,23 @@ reproducible. Fully auditable.
 - [Pricing tiers](docs/pricing.md)
 - [FAQ](docs/faq.md)
 - [Registry status](docs/registries.md)
+
+### Independent verification
+
+Published receipts are independently reproducible from this repo alone — no
+hosted service or private engine required:
+
+```bash
+python3 verify/verify_receipts.py          # offline, stdlib-only
+python3 verify/verify_receipts.py --live   # also cross-check the live engine
+```
+
+All six UCP #724 vectors show a byte-for-byte three-way match between the
+published fixture, the public reference, and the live engine
+([`verify/README.md`](verify/README.md), [`verify/three_way_match.json`](verify/three_way_match.json)).
+That doc also states honestly where independent verification stops today (the
+production ruleset `commit_sha` is not publicly resolvable; receipts are not yet
+cryptographically issuer-signed).
 
 ### Tutorials
 
