@@ -10,12 +10,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Independent verification bundle** ([`verify/`](verify/)) — resolves issue #1
+  (*independent replayability of published receipt `commit_sha`*). Ships a
+  runnable, offline, stdlib-only verifier (`verify/verify_receipts.py`, `--live`
+  optional) that recomputes `input_snapshot_hash` + contract `decision` + reason
+  codes for every published UCP #724 vector, plus a frozen three-way-match
+  evidence capture (`verify/three_way_match.json`: published fixture ≡ public
+  reference ≡ live engine, 6/6 byte-for-byte). `verify/README.md` states the
+  verification boundary honestly.
+
+### Changed
+- **Corrected a factually wrong `commit_sha` claim** in `docs/api-reference.md`
+  (`/validate` section) and `CHANGELOG` 0.4.0: `commit_sha` is **not** a git SHA
+  of `Shxnque/quesen` HEAD — it is a revision label of the sovereign (non-public)
+  engine and does not resolve in this public repo. The replay recipe no longer
+  tells readers to `git checkout $COMMIT_SHA` (impossible publicly); it points at
+  the verification bundle instead. This mismatch was the root cause of issue #1.
+- **SDK publication status** updated across `README.md` and `docs/registries.md`:
+  `quesen-sdk` is live on PyPI (v0.4.1) and npm (v0.4.0); `quesen-langchain`,
+  `quesen-crewai`, `quesen-autogen` live on PyPI (v0.3.0). Previous "preview — not
+  yet on PyPI/npm" notes were stale.
+- **Registry tracking** in `docs/registries.md` extended with m8ven Verified
+  (not yet verified) and ASI:One developer-listing rows + operator steps.
+
 ## [0.4.0] — 2026-07-30 · v1.10 receipt provenance (Session 24)
 
 ### Added
 - **Receipt Provenance** shipped in engine `v1.10.0-rc1`. Every `/validate` and `/simulate` response now carries two additional fields:
   - **`input_snapshot_hash`** — lowercase 64-char SHA-256 hex over canonical-JSON of the received request payload (with `client_request_id` excluded from hash material). Enables callers to hash the same request payload client-side and prove the engine evaluated the exact input they sent.
-  - **`commit_sha`** — 40-char lowercase git SHA of `Shxnque/quesen` HEAD live at decision time, or the sentinel string `"unknown"` when running detached HEAD or a locally-built artifact. Enables callers to pin the exact ruleset that produced the verdict.
+  - **`commit_sha`** — 40-char lowercase revision label the engine returns to pin the ruleset that produced the verdict, or the sentinel `"unknown"`. It identifies a revision of Quesen's **sovereign (non-public) engine** and does **not** resolve against a commit in this public developer portal. (This was originally mis-described as `Shxnque/quesen` HEAD; corrected in `[Unreleased]`.) Independently reproducible verification of the receipt is provided by [`verify/`](verify/).
 - `docs/api-reference.md` §POST /validate — new **Receipt provenance** subsection with response schema update, client-side hash reconstruction snippet, and replay recipe.
 
 ### Ecosystem attribution

@@ -18,11 +18,13 @@ state columns.
 | **Glama.ai** | 🟡 **Prepared.** [`../glama.json`](../glama.json) shipped at repository root claims Quesen for `Shxnque` per the Glama schema at `https://glama.ai/mcp/schemas/server.json`. Operator submission still required: sign in at https://glama.ai, click **+ Add MCP Server**, paste `https://github.com/Shxnque/quesen`. For the remote (streamable-HTTP) surface, additionally add a **Connector** at https://glama.ai/mcp/connectors with URL `https://web-production-aa5ba.up.railway.app/mcp`. Glama's automated indexing pipeline runs security scan + license detection + health test within minutes of submission. **Note:** awesome-mcp-servers PR flow now routes to Glama's ingestion queue, so the pending PR (see below) will surface Quesen automatically once merged. | Glama token available in operator's environment. |
 | **Awesome MCP Servers** | 🟡 PR [`punkpeye/awesome-mcp-servers#10402`](https://github.com/punkpeye/awesome-mcp-servers/pull/10402) — *"Add Quesen — deterministic MCP risk-decision server (Finance & Fintech)"* — **open** as of 2026-07-31. Session 14 opened it; no operator action pending on Quesen's side. Awaiting upstream merge. | Merge unblocks Glama ingestion (per Glama routing). |
 | **RapidAPI Hub** | 🟡 **Prepared.** Publishing guide at [`docs/publishing-rapidapi.md`](./publishing-rapidapi.md) — provider metadata, endpoint list, and pricing-plan mapping pre-filled against `v1.10.0-rc1`. RapidAPI does not expose a public REST API for publisher onboarding; the operator must sign in at https://provider.rapidapi.com and paste `https://web-production-aa5ba.up.railway.app/openapi.json`. The RapidAPI token in the operator's environment is a subscriber key (`X-RapidAPI-Key`), not a publisher key. | Consumer key `4f103d13...` verified live but not usable for publishing. |
-| **PyPI — `quesen-sdk`** | ready at v0.2.0, not yet published | Operator holds PyPI token. |
-| **PyPI — `quesen-langchain`** | ready at v0.2.0, not yet published | — |
-| **PyPI — `quesen-crewai`** | ready at v0.2.0, not yet published | — |
-| **PyPI — `quesen-autogen`** | ready at v0.2.0, not yet published | — |
-| **npm — `quesen-sdk`** | ready at v0.2.0, not yet published | Operator holds npm token. |
+| **PyPI — `quesen-sdk`** | ✅ **Published** v0.4.1 · https://pypi.org/project/quesen-sdk/ | — |
+| **PyPI — `quesen-langchain`** | ✅ **Published** v0.3.0 · https://pypi.org/project/quesen-langchain/ | — |
+| **PyPI — `quesen-crewai`** | ✅ **Published** v0.3.0 · https://pypi.org/project/quesen-crewai/ | — |
+| **PyPI — `quesen-autogen`** | ✅ **Published** v0.3.0 · https://pypi.org/project/quesen-autogen/ | — |
+| **npm — `quesen-sdk`** | ✅ **Published** v0.4.0 · https://www.npmjs.com/package/quesen-sdk | — |
+| **m8ven Verified** | 🟡 **Not yet verified.** Public index at https://m8ven.ai/verified lists Quesen + Senueren as *not verified*. Verification = submit the MCP → security/maintenance/reputation evaluation → verdict → badge. No public submit API found at guessed paths; operator submission via the m8ven site required. | Operator dashboard action. |
+| **ASI:One (Fetch.ai / ASI Alliance)** | 🟡 **Inference key live, listing pending.** `https://asi1.ai/developer` supports listing agents / MCP servers / tools via the developer dashboard. The held key is an **inference** key (verified: `POST https://api.asi1.ai/v1/chat/completions`, model `asi1-mini` → 200), not a publishing key — so agent/MCP listing is a dashboard action. Opportunity: the same key can power BEA's AI classifier (unblocks the prior HuggingFace credit-limit stall). | Operator dashboard action for listing. |
 | **OpenAI plugin manifest** | ✅ Prepared. [`.well-known/ai-plugin.json`](../.well-known/ai-plugin.json) points at `senueren.co.za`. | Auto-discovered by ChatGPT / OpenAI clients when hosted at the plugin URL. |
 | **LLM crawler summary** | ✅ Prepared. [`../llms.txt`](../llms.txt) at engine v1.10.0. | Auto-discovered by LLM crawlers. |
 | **Live MCP endpoint** | ✅ **Healthy · engine v1.10.0 · 5 tools live** at `https://web-production-aa5ba.up.railway.app/mcp` | Verified via `initialize` / `tools/list` / `tools/call`. |
@@ -83,10 +85,23 @@ No further Smithery action is required unless a schema, description, or deployme
 
 3. Open the PR.
 
-### 4. PyPI + npm publication
+### 4. PyPI + npm publication — ✅ COMPLETED
 
-Separate action. Operator holds the tokens. Each of the five public sibling
-repositories has its own release workflow.
+All five public SDK packages are published and installable:
+`quesen-sdk` (PyPI v0.4.1 / npm v0.4.0), `quesen-langchain`, `quesen-crewai`,
+`quesen-autogen` (PyPI v0.3.0). No operator action pending.
+
+### 5. m8ven Verified — submit for verification
+
+1. Visit https://m8ven.ai/verified (Quesen currently shows *not verified*).
+2. Submit the Quesen MCP for evaluation (endpoint `https://web-production-aa5ba.up.railway.app/mcp`, repo `https://github.com/Shxnque/quesen`).
+3. The verification bundle in [`../verify/`](../verify/) (runnable verifier + honest boundary) is strong supporting evidence for the security/reputation review.
+
+### 6. ASI:One developer listing
+
+1. Sign in at https://asi1.ai/developer.
+2. List Quesen as an MCP server / tool using the hosted endpoint above.
+3. Reuse the ASI:One inference key for BEA's AI classifier to remove the HuggingFace dependency.
 
 ---
 
