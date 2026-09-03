@@ -10,9 +10,18 @@
 [![Verified receipts](https://img.shields.io/badge/receipts-independently%20verifiable-16A34A?labelColor=1F2937)](verify/README.md)
 [![License](https://img.shields.io/badge/license-MIT-6B7280?labelColor=1F2937)](./LICENSE)
 
-> **Quesen** is the deterministic AI decision engine for **A2A (Agent-to-Agent)**
-> risk evaluation. It is the trust filter that sits between autonomous agents
-> and capital loss.
+> **Quesen** is the **deterministic decision-and-receipt core for agent actions** —
+> a typed security context in, a `PASS / REVIEW / BLOCK / SKIP` verdict out, with
+> machine reason codes and a receipt you can **re-run byte-for-byte and prove**.
+> No model inference is in the scoring path, so the same input always yields the
+> same verdict. It is built to sit **behind** injection detection, **on top of**
+> agent identity, and to **bill per decision** (ASP/402).
+>
+> Unlike log-based governance layers whose audit trail is *their word, kept by
+> them*, a Quesen receipt is **independently verifiable by the caller** —
+> recomputable, and (engine signing enabled) Ed25519-signed. See
+> [`docs/architecture-gap-closers.md`](docs/architecture-gap-closers.md) and
+> client-side **enforcement + receipt verification** in `quesen-sdk` ≥ 0.5.0.
 >
 > This repository is the **public developer portal**. It contains **only**
 > documentation, integration guides, examples, registry manifests, and
