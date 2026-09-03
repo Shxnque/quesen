@@ -61,7 +61,7 @@ curl -X POST https://web-production-aa5ba.up.railway.app/validate \
 
 ### SDKs
 
-> **Published.** The SDKs are live on PyPI and npm (`quesen-sdk` `0.4.1` / npm `0.4.0`;
+> **Published.** The SDKs are live on PyPI and npm (`quesen-sdk` `0.5.0` / npm `0.5.0`;
 > `quesen-langchain`, `quesen-crewai`, `quesen-autogen` `0.3.0`). The
 > `base_url` + `X-API-Key` (including the sandbox key above) are identical across all SDKs.
 
