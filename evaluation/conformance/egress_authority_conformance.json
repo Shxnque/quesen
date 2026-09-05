@@ -1,0 +1,291 @@
+{
+  "kit": "quesen-egress-authority-conformance",
+  "purpose": "Self-contained, OFFLINE-recomputable conformance for the egress/authority decision subset. Resolves criticism-ledger C-003 (sequant: no network dependency) and C-004 (loopx: verdict must be locally replayable, not merely input_snapshot_hash + a claimed commit).",
+  "ruleset_commit_sha": "0095b6183a796ce678086a77e17de6eef9c6a263",
+  "engine_version": "1.10.0",
+  "reference_evaluator": "evaluation/tsc_v2_poc.py (public, stdlib-only)",
+  "normalization_spec": "docs/security-context/03-normalization.md",
+  "network_required": false,
+  "cases": [
+    {
+      "family": "owasp_agentic",
+      "label": "Excessive Agency / sensitive information disclosure",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent"
+        },
+        "action": {
+          "kind": "data_egress",
+          "operation": "upload"
+        },
+        "target": {
+          "kind": "endpoint",
+          "identifier": "https://paste.example",
+          "trust_tier": "unverified"
+        },
+        "data": {
+          "classes": [
+            "secret"
+          ],
+          "egress": {
+            "to": "https://paste.example",
+            "destination_trust": "unverified"
+          }
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "expect": {
+        "decision": "BLOCK",
+        "reason_codes": [
+          "EGRESS_SECRET_UNTRUSTED"
+        ],
+        "input_snapshot_hash": "58cc93c9795d4a8351a46681782a0fb4bf172348690a15ad00c92f99ca4609e2"
+      }
+    },
+    {
+      "family": "owasp_agentic",
+      "label": "Tool misuse / privilege via unattested authority (typical injection outcome)",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent",
+          "trust_tier": "unverified"
+        },
+        "action": {
+          "kind": "code_exec",
+          "operation": "run"
+        },
+        "target": {
+          "kind": "service",
+          "identifier": "prod-1",
+          "trust_tier": "verified"
+        },
+        "tool": {
+          "id": "shell",
+          "capability_class": "exec",
+          "granted_scopes": [
+            "exec"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "exec"
+          ]
+        },
+        "provenance": {
+          "source": "client_asserted"
+        }
+      },
+      "expect": {
+        "decision": "REVIEW",
+        "reason_codes": [
+          "UNVERIFIED_GRANT"
+        ],
+        "input_snapshot_hash": "48712752f03eb5cc22cd84fdb3e6790b3b05ab5b62d85607db6bdffa1305fa26"
+      }
+    },
+    {
+      "family": "owasp_agentic",
+      "label": "control / no adverse signal",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "agent",
+          "trust_tier": "verified"
+        },
+        "action": {
+          "kind": "data_read",
+          "operation": "read"
+        },
+        "target": {
+          "kind": "file",
+          "identifier": "README.md",
+          "trust_tier": "verified"
+        },
+        "provenance": {
+          "source": "trusted_metadata"
+        }
+      },
+      "expect": {
+        "decision": "PASS",
+        "reason_codes": [
+          "NO_ADVERSE_SIGNAL"
+        ],
+        "input_snapshot_hash": "ec4c33df4f0a77aac478011f35ef76804392b2040aa327ecbf3f6cc6c744a8df"
+      }
+    },
+    {
+      "family": "loopx_prepared_effect",
+      "label": "PASS (routine safe path)",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "service",
+          "trust_tier": "verified"
+        },
+        "action": {
+          "kind": "message_post",
+          "operation": "deliver_report"
+        },
+        "target": {
+          "kind": "recipient",
+          "identifier": "lark://ops-daily (bound connector)",
+          "trust_tier": "trusted"
+        },
+        "data": {
+          "classes": [
+            "internal"
+          ],
+          "egress": {
+            "to": "lark://ops-daily",
+            "destination_trust": "trusted"
+          }
+        },
+        "tool": {
+          "id": "report.deliver",
+          "capability_class": "comms",
+          "granted_scopes": [
+            "message.post"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "message.post"
+          ],
+          "requested": [
+            "message.post"
+          ]
+        },
+        "provenance": {
+          "source": "trusted_metadata",
+          "attestation": {
+            "method": "signed",
+            "verified": true
+          }
+        }
+      },
+      "expect": {
+        "decision": "PASS",
+        "reason_codes": [
+          "NO_ADVERSE_SIGNAL"
+        ],
+        "input_snapshot_hash": "daab6d228be9cb9de808e355c0f02778cd5597911f4228f7859ec7c9c0d77d8d"
+      }
+    },
+    {
+      "family": "loopx_prepared_effect",
+      "label": "REVIEW (meaningful ambiguity)",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "service",
+          "trust_tier": "verified"
+        },
+        "action": {
+          "kind": "data_egress",
+          "operation": "deliver_report"
+        },
+        "target": {
+          "kind": "recipient",
+          "identifier": "slack://external-partner (new)",
+          "trust_tier": "unverified"
+        },
+        "data": {
+          "classes": [
+            "pii"
+          ],
+          "egress": {
+            "to": "slack://external-partner",
+            "destination_trust": "unverified"
+          }
+        },
+        "tool": {
+          "id": "report.deliver",
+          "capability_class": "comms",
+          "granted_scopes": [
+            "message.post"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "message.post"
+          ],
+          "requested": [
+            "message.post"
+          ]
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "expect": {
+        "decision": "REVIEW",
+        "reason_codes": [
+          "UNVERIFIED_GRANT"
+        ],
+        "input_snapshot_hash": "60ba7fc3acc6f754fb0da6b90d4efd379642184cf46f46a1669262f3f86059be"
+      }
+    },
+    {
+      "family": "loopx_prepared_effect",
+      "label": "BLOCK (catastrophic backstop)",
+      "request": {
+        "tsc_version": "2.0",
+        "subject": {
+          "kind": "service",
+          "trust_tier": "verified"
+        },
+        "action": {
+          "kind": "data_egress",
+          "operation": "deliver_report"
+        },
+        "target": {
+          "kind": "endpoint",
+          "identifier": "https://unbound.example/webhook",
+          "trust_tier": "unverified"
+        },
+        "data": {
+          "classes": [
+            "credential",
+            "secret"
+          ],
+          "egress": {
+            "to": "https://unbound.example/webhook",
+            "destination_trust": "unverified"
+          }
+        },
+        "tool": {
+          "id": "report.deliver",
+          "capability_class": "comms",
+          "granted_scopes": [
+            "message.post"
+          ]
+        },
+        "permissions": {
+          "granted": [
+            "message.post"
+          ]
+        },
+        "provenance": {
+          "source": "adapter_derived"
+        }
+      },
+      "expect": {
+        "decision": "BLOCK",
+        "reason_codes": [
+          "EGRESS_SECRET_UNTRUSTED"
+        ],
+        "input_snapshot_hash": "90f67cc402b7fb73f3d1fe27fb39a0fae0c052e614cd05aa1de126b7bc17ca1f"
+      }
+    }
+  ],
+  "integrity_flip": {
+    "description": "Mutating target.identifier prod-1 -> prod-2 must change input_snapshot_hash (a prior receipt no longer binds the mutated call).",
+    "hash_prod_1": "48712752f03eb5cc22cd84fdb3e6790b3b05ab5b62d85607db6bdffa1305fa26",
+    "hash_prod_2": "0f140cdb19884ecfa349637209c1f3b83fcd662ea6666f19845734c18e61c10e",
+    "must_differ": true
+  }
+}
