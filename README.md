@@ -174,6 +174,18 @@ That doc also states honestly where independent verification stops today (the
 production ruleset `commit_sha` is not publicly resolvable; receipts are not yet
 cryptographically issuer-signed).
 
+The **egress/authority decision subset** — the part security integrators gate on —
+is now independently *verdict*-replayable offline too, with **zero network**:
+
+```bash
+python3 evaluation/conformance/verify_conformance.py   # offline; recomputes decision+reasons+hash
+```
+
+Six cases (OWASP-agentic + LoopX prepared-Effect PASS/REVIEW/BLOCK) recompute
+byte-for-byte from the public reference evaluator, plus a `prod-1→prod-2`
+integrity-flip check — no signup, key, or hosted call
+([`evaluation/conformance/README.md`](evaluation/conformance/README.md)).
+
 ### Tutorials
 
 - [Moltbook post-guard](docs/tutorials/moltbook-post-guard.md) — deterministic pre-post safety gate for autonomous social agents.

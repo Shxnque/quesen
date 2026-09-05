@@ -84,6 +84,9 @@ awesome_mcp_servers = "https://github.com/punkpeye/awesome-mcp-servers"
 verifier = "https://github.com/Shxnque/quesen/blob/main/verify/verify_receipts.py"
 docs = "https://github.com/Shxnque/quesen/blob/main/verify/README.md"
 evidence = "https://raw.githubusercontent.com/Shxnque/quesen/main/verify/three_way_match.json"
+# Egress/authority verdicts are independently RECOMPUTABLE offline (zero network).
+conformance_kit = "https://github.com/Shxnque/quesen/blob/main/evaluation/conformance/verify_conformance.py"
+conformance_docs = "https://github.com/Shxnque/quesen/blob/main/evaluation/conformance/README.md"
 claim = "input_snapshot_hash + contract decision + reason codes reproduce byte-for-byte across published fixture, public reference, and live engine (6/6)."
 
 [contact]
