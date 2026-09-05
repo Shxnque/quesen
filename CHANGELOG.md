@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Offline egress/authority conformance kit** ([`evaluation/conformance/`](evaluation/conformance/))
+  — makes the decision subset security integrators gate on independently
+  *verdict*-replayable with **zero network**. `verify_conformance.py` (stdlib-only,
+  CI-droppable) recomputes `{decision, reason_codes, input_snapshot_hash}` for 6 cases
+  (OWASP-agentic + LoopX prepared-Effect PASS/REVIEW/BLOCK) from the public reference
+  evaluator, byte-for-byte, plus a `prod-1→prod-2` integrity-flip check — no signup, key,
+  or hosted call. Where `verify/` proves *input integrity* (UCP #724), this proves *verdict
+  reproducibility* for the egress/authority gate. Addresses external feedback that a
+  hosted, closed-ruleset verdict was not locally recomputable.
 - **Independent verification bundle** ([`verify/`](verify/)) — resolves issue #1
   (*independent replayability of published receipt `commit_sha`*). Ships a
   runnable, offline, stdlib-only verifier (`verify/verify_receipts.py`, `--live`

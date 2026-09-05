@@ -28,6 +28,20 @@ QUESEN_BASE_URL=https://web-production-aa5ba.up.railway.app \
 ```
 
 Python 3.8+, standard library only. Output → `evaluation/results/latest.json`
+
+## Independent offline conformance (`conformance/`)
+
+Beyond the black-box domain matrix, [`conformance/`](conformance/) lets a third party
+recompute the **egress/authority verdicts** (`PASS/REVIEW/BLOCK` + reason codes +
+`input_snapshot_hash`) **offline, with zero network**, from the public reference evaluator
+(`tsc_v2_poc.py`) — no sandbox key, no hosted call:
+
+```bash
+python3 evaluation/conformance/verify_conformance.py   # exit 0 = all recomputed
+```
+
+This is the network-free answer to "verify or locally replay the verdict, don't just trust
+`input_snapshot_hash` + a claimed engine commit." See [`conformance/README.md`](conformance/README.md).
 plus a stdout summary; non-zero exit if any invariant fails. The sandbox tier is
 rate-limited to 30 calls/min, so the harness paces keyed calls (~1 / 2.1 s) and
 retries `429` — rate-limiting never masquerades as a finding.

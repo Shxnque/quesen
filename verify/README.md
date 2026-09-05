@@ -67,3 +67,11 @@ description — documented here rather than overclaimed.
 
 - [`verify_receipts.py`](./verify_receipts.py) — runnable, offline, stdlib-only verifier (`--live` optional).
 - [`three_way_match.json`](./three_way_match.json) — frozen evidence capture (published ≡ reference ≡ live).
+
+## See also — egress/authority conformance (offline verdict replay)
+
+[`evaluation/conformance/`](../evaluation/conformance/) extends this bundle to the
+egress/authority decision subset: a zero-network, stdlib-only verifier that recomputes
+`{decision, reason_codes, input_snapshot_hash}` for the OWASP-agentic and LoopX
+prepared-Effect vectors offline. Where this bundle proves *input integrity* for UCP #724,
+that kit proves *verdict reproducibility* for the subset integrators gate on.

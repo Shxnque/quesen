@@ -117,16 +117,22 @@ what is and isn't possible now:
 - **Available in shadow mode (determinism):** replay the same envelope N times /
   over days; identical `decision` + `input_snapshot_hash` + `commit_sha` proves
   the scoring path is deterministic and drift-free.
-- **NOT available today (independent verdict replay):** the ruleset that turns
-  the input into `PASS/REVIEW/BLOCK` is **not public**, so LoopX cannot yet
-  recompute the verdict itself — it would be trusting the hosted engine.
+- **Now available (independent verdict replay) — SHIPPED:** the egress/authority
+  decision subset is recomputable **offline, with zero network**, via a public
+  reference evaluator. LoopX can recompute `PASS/REVIEW/BLOCK` + reason codes +
+  `input_snapshot_hash` itself and assert against a self-contained, `commit_sha`-keyed
+  fixture — no hosted call, no key, no signup:
+  [`evaluation/conformance/verify_conformance.py`](https://github.com/Shxnque/quesen/blob/main/evaluation/conformance/verify_conformance.py)
+  ([kit README](https://github.com/Shxnque/quesen/blob/main/evaluation/conformance/README.md)).
+  The three prepared-Effect cases above (PASS routine / REVIEW ambiguity / BLOCK
+  backstop) are included and recompute byte-for-byte.
 
-**Proposed fix, as part of the pilot:** publish a **versioned, deterministic
-conformance kit** — the labeled fixtures + expected verdicts keyed by
-`commit_sha`, and either the evaluator subset for the egress/authority rules or
-a spec precise enough to reimplement them. Then a `PASS` is replayable against a
-pinned ruleset LoopX can inspect, not a black box. This is the honest bar for
-"admission provider," and I'd rather ship it than hand-wave.
+**What remains a boundary (honest):** the kit reproduces the *contract-level*
+decision/reasons/hash for this subset — it does **not** publish the production risk
+weighting/thresholds, make the production `commit_sha` publicly checkoutable, or
+issuer-sign receipts. So the hosted engine is now an *optimisation*, not a *trust
+dependency*, for the egress/authority gate. Full-ruleset + issuer signature remain the
+roadmap in [`verify/README.md`](https://github.com/Shxnque/quesen/blob/main/verify/README.md).
 
 ## 8. Measurable benefit target (shadow-mode acceptance gate)
 

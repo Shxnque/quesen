@@ -102,6 +102,8 @@ docs:
     url: https://github.com/Shxnque/quesen/blob/main/docs/pricing.md
   - title: Architecture
     url: https://github.com/Shxnque/quesen/blob/main/docs/architecture.md
+  - title: Offline Conformance Kit (independent verdict replay, zero network)
+    url: https://github.com/Shxnque/quesen/blob/main/evaluation/conformance/README.md
 
 # Local (stdio) transport for Claude Desktop / Cursor / Windsurf users who
 # prefer to run the MCP server locally. Not the primary Smithery path; the
