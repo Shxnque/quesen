@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Quesen — Deterministic Agent Decision API",
+    "description": "Deterministic risk-verdict engine for autonomous agents. Same input -> same output (zero LLM in the decision path). Returns SKIP / REVIEW / PROCEED with a risk score, named conflict rules, and a replayable receipt (engine_version, weights, thresholds, input_snapshot_hash, commit_sha). This is the RapidAPI-import spec: it declares `servers` and the `X-API-Key` security scheme that the live /openapi.json omits. Source of wire truth: https://web-production-aa5ba.up.railway.app/openapi.json",
+    "version": "1.10.0",
+    "contact": {"name": "Quesen · Senueren Bureau", "url": "https://senueren.co.za/quesen", "email": "shinque03@gmail.com"},
+    "license": {"name": "See repository", "url": "https://github.com/Shxnque/quesen"}
+  },
+  "servers": [
+    {"url": "https://web-production-aa5ba.up.railway.app", "description": "Quesen production (Railway)"}
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Quesen API key. On RapidAPI, map the gateway's X-RapidAPI-Key to this X-API-Key header (or configure a static RapidAPI Proxy Secret header the backend accepts). Not required for /health, /version, /tsc/version."
+      }
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Liveness + engine version",
+        "description": "Public. No auth.",
+        "security": [],
+        "responses": {"200": {"description": "OK", "content": {"application/json": {"example": {"status": "ok", "engine_version": "1.10.0"}}}}}
+      }
+    },
+    "/version": {
+      "get": {
+        "summary": "Full engine config snapshot",
+        "description": "Public. Weights, thresholds, ASP/on-chain flags.",
+        "security": [],
+        "responses": {"200": {"description": "OK"}}
+      }
+    },
+    "/tsc/version": {
+      "get": {
+        "summary": "Typed Security Context (Agent Firewall) version",
+        "description": "Public. TSC v2 schema + signing status.",
+        "security": [],
+        "responses": {"200": {"description": "OK", "content": {"application/json": {"example": {"tsc_schema_version": "2.0", "engine_version": "1.10.0", "decisions": ["PASS", "REVIEW", "BLOCK", "SKIP"]}}}}}
+      }
+    },
+    "/validate": {
+      "post": {
+        "summary": "Deterministic risk verdict",
+        "description": "Returns SKIP / REVIEW / PROCEED with risk_score, named conflict_triggers, and a replayable receipt (input_snapshot_hash + commit_sha).",
+        "security": [{"ApiKeyAuth": []}],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "domain_age_days": {"type": "integer", "minimum": 0, "description": "Age of the target domain in days."},
+                "engagement_ratio": {"type": "number", "minimum": 0, "maximum": 1, "description": "Engagement ratio 0..1."},
+                "scam_keyword_count": {"type": "integer", "minimum": 0, "description": "Count of scam-indicative keywords."},
+                "chain": {"type": "string", "maxLength": 32, "description": "Optional EVM chain slug for on-chain enrichment (e.g. ethereum, base)."},
+                "contract_address": {"type": "string", "minLength": 42, "maxLength": 42, "description": "Optional 0x-prefixed contract address for on-chain enrichment."},
+                "client_request_id": {"type": "string", "maxLength": 128, "description": "Optional idempotency/correlation id (excluded from the input snapshot hash)."}
+              }
+            },
+            "example": {"domain_age_days": 1, "engagement_ratio": 0.95, "scam_keyword_count": 4}
+          }}
+        },
+        "responses": {"200": {"description": "Decision envelope", "content": {"application/json": {"example": {
+          "decision": "SKIP", "risk_score": 1.0, "confidence": 1.0,
+          "conflict_triggers": ["R1: New domain (<=30d) + unusually high engagement (>=0.50)", "R4: New domain + 3 or more scam keywords"],
+          "engine_version": "1.10.0", "input_snapshot_hash": "8f5a847af8e6...", "commit_sha": "2e4fcc5e5263..."
+        }}}}, "401": {"description": "Missing/invalid API key"}, "429": {"description": "Rate limit exceeded"}}
+      }
+    },
+    "/simulate": {
+      "post": {
+        "summary": "Free counterfactual scoring",
+        "description": "Same inputs as /validate plus optional weights/thresholds overrides. Rate-limited, non-billed.",
+        "security": [{"ApiKeyAuth": []}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "properties": {
+          "domain_age_days": {"type": "integer", "minimum": 0},
+          "engagement_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+          "scam_keyword_count": {"type": "integer", "minimum": 0}
+        }}, "example": {"domain_age_days": 365, "engagement_ratio": 0.2, "scam_keyword_count": 0}}}},
+        "responses": {"200": {"description": "Simulated decision envelope"}}
+      }
+    },
+    "/report": {
+      "post": {
+        "summary": "Post-decision outcome feedback",
+        "description": "Report the realized outcome of a prior decision to improve the conflict-rule feedback loop.",
+        "security": [{"ApiKeyAuth": []}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["request_id", "outcome"], "properties": {
+          "request_id": {"type": "string", "description": "request_id from a prior /validate response."},
+          "outcome": {"type": "string", "description": "Realized outcome label."},
+          "notes": {"type": "string", "maxLength": 1000},
+          "realized_pnl": {"type": "number"},
+          "venue": {"type": "string", "maxLength": 64}
+        }}, "example": {"request_id": "441d031a-dce8-4b59-b3cc-b7b2935e029e", "outcome": "blocked_scam", "notes": "confirmed malicious"}}}},
+        "responses": {"200": {"description": "Accepted"}, "400": {"description": "Missing required field"}}
+      }
+    }
+  }
+}

@@ -15,8 +15,9 @@ RapidAPI's publishing dashboard requires an authenticated web session — the pl
 To publish Quesen:
 
 1. Sign in at [https://provider.rapidapi.com/](https://provider.rapidapi.com/) with the Senueren Bureau operator account.
-2. Click **Add New API** → paste the OpenAPI spec URL: `https://web-production-aa5ba.up.railway.app/openapi.json`.
-3. Fill the fields below (all values are pre-verified against `v1.10.0-rc1`).
+2. Click **Add New API** → **import the corrected OpenAPI file [`docs/rapidapi-openapi.json`](./rapidapi-openapi.json)** in this repo.
+   > **Do NOT import the live `/openapi.json` directly.** Verified 2026-09-09 (Session 42): the live spec emits `servers: null` and `securitySchemes: null`, so RapidAPI cannot auto-detect the base URL or the `X-API-Key` auth on import. `docs/rapidapi-openapi.json` is the same wire contract with `servers` + the `X-API-Key` security scheme filled in, plus curated consumer endpoints and examples.
+3. Fill the fields below (all values are pre-verified against `v1.10.0` live).
 
 ## Provider metadata (paste into the RapidAPI form)
 
@@ -30,7 +31,7 @@ To publish Quesen:
 | **Website / Homepage** | https://senueren.co.za/quesen |
 | **Terms of Service** | https://github.com/Shxnque/quesen/blob/main/docs/faq.md |
 | **Contact email** | shinque03@gmail.com |
-| **OpenAPI URL** | https://web-production-aa5ba.up.railway.app/openapi.json |
+| **OpenAPI spec** | Import [`docs/rapidapi-openapi.json`](./rapidapi-openapi.json) (corrected: declares `servers` + `X-API-Key`). Live wire truth remains `https://web-production-aa5ba.up.railway.app/openapi.json`. |
 | **Auth mode** | Header · `X-API-Key` (map from RapidAPI's `X-RapidAPI-Key` at the gateway) |
 | **Version tag** | 1.10.0 |
 
@@ -84,3 +85,5 @@ After the listing goes live:
 ---
 
 *Prepared 2026-07-31 · Session 26 · Quesen ecosystem alignment. RapidAPI listing is a fresh distribution surface; the sovereign engine remains unchanged and the OpenAPI spec at `/openapi.json` is the single source of truth for the wire contract.*
+
+*Verified & extended 2026-09-09 · Session 42 · Senren. Confirmed the supplied RapidAPI key is a consumer/subscriber key (no publish capability — publishing is an operator web action at `provider.rapidapi.com`). Live `/validate` re-verified functional (deterministic `SKIP`, `input_snapshot_hash` + `commit_sha` present). Added `docs/rapidapi-openapi.json` to close the `servers`/`securitySchemes` import gap in the live spec.*
