@@ -6,16 +6,16 @@ high-impact action runs, you ask Quesen and get one explainable answer —
 exact conflict rules that fired, and a **replayable receipt**. Same inputs → same
 output. No LLM in the scoring loop.
 
-- **Production base URL:** `https://web-production-aa5ba.up.railway.app`
+- **Production base URL:** `https://web-production-3df26.up.railway.app`
 - **Try it in the browser (no setup):** https://senueren.co.za/try
-- **OpenAPI / Swagger:** `https://web-production-aa5ba.up.railway.app/docs`
+- **OpenAPI / Swagger:** `https://web-production-3df26.up.railway.app/docs`
 
 ---
 
 ## 1. Get a free sandbox key (no signup, no card)
 
 ```bash
-curl -X POST https://web-production-aa5ba.up.railway.app/sandbox/keys
+curl -X POST https://web-production-3df26.up.railway.app/sandbox/keys
 ```
 
 Response:
@@ -39,7 +39,7 @@ the product, not an error.
 ## 2. Run your first decision
 
 ```bash
-curl -X POST https://web-production-aa5ba.up.railway.app/validate \
+curl -X POST https://web-production-3df26.up.railway.app/validate \
   -H "X-API-Key: sk_sandbox_..." \
   -H "Content-Type: application/json" \
   -d '{"domain_age_days": 1, "engagement_ratio": 0.95, "scam_keyword_count": 4}'
@@ -75,7 +75,7 @@ same value, which makes every decision auditable and replayable.
 
 ```python
 resp = requests.post(
-    "https://web-production-aa5ba.up.railway.app/validate",
+    "https://web-production-3df26.up.railway.app/validate",
     headers={"X-API-Key": KEY},
     json={"domain_age_days": 1, "engagement_ratio": 0.95, "scam_keyword_count": 4},
 ).json()
@@ -114,5 +114,5 @@ above is a normal Quesen key — your integration code does not change.
 ## 7. Other surfaces
 
 - **MCP (Claude Desktop, Cursor, Windsurf, …):** streamable-HTTP at
-  `https://web-production-aa5ba.up.railway.app/mcp`. See [`mcp.md`](./mcp.md).
+  `https://web-production-3df26.up.railway.app/mcp`. See [`mcp.md`](./mcp.md).
 - **SDKs:** Python, JS/TS, LangChain, CrewAI, AutoGen — see the [README](../README.md).

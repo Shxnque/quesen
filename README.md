@@ -4,7 +4,7 @@
 [![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.Shxnque%2Fquesen-8B5CF6?labelColor=1F2937)](https://registry.modelcontextprotocol.io/v0/servers?search=quesen)
 [![Smithery](https://img.shields.io/badge/Smithery-%40shinque03%2Fquesen-6366F1?labelColor=1F2937)](https://smithery.ai/server/@shinque03/quesen)
 [![ASP version](https://img.shields.io/badge/ASP-1.0-06B6D4?labelColor=1F2937)](docs/api-reference.md)
-[![Engine version](https://img.shields.io/badge/engine-1.10.0-16A34A?labelColor=1F2937)](https://web-production-aa5ba.up.railway.app/version)
+[![Engine version](https://img.shields.io/badge/engine-1.10.0-16A34A?labelColor=1F2937)](https://web-production-3df26.up.railway.app/version)
 [![PyPI](https://img.shields.io/pypi/v/quesen-sdk?label=pypi%20quesen-sdk&labelColor=1F2937&color=3775A9)](https://pypi.org/project/quesen-sdk/)
 [![npm](https://img.shields.io/npm/v/quesen-sdk?label=npm%20quesen-sdk&labelColor=1F2937&color=CB3837)](https://www.npmjs.com/package/quesen-sdk)
 [![Verified receipts](https://img.shields.io/badge/receipts-independently%20verifiable-16A34A?labelColor=1F2937)](verify/README.md)
@@ -32,12 +32,12 @@
 
 | Surface | URL |
 | :--- | :--- |
-| REST API | `https://web-production-aa5ba.up.railway.app` |
-| MCP (Streamable HTTP) | `https://web-production-aa5ba.up.railway.app/mcp` |
-| OpenAPI 3.1 | `https://web-production-aa5ba.up.railway.app/openapi.json` |
-| Swagger UI | `https://web-production-aa5ba.up.railway.app/docs` |
-| Health | `https://web-production-aa5ba.up.railway.app/health` |
-| Version | `https://web-production-aa5ba.up.railway.app/version` |
+| REST API | `https://web-production-3df26.up.railway.app` |
+| MCP (Streamable HTTP) | `https://web-production-3df26.up.railway.app/mcp` |
+| OpenAPI 3.1 | `https://web-production-3df26.up.railway.app/openapi.json` |
+| Swagger UI | `https://web-production-3df26.up.railway.app/docs` |
+| Health | `https://web-production-3df26.up.railway.app/health` |
+| Version | `https://web-production-3df26.up.railway.app/version` |
 
 ---
 
@@ -49,10 +49,10 @@ real deterministic decision against production. Full guide: [`docs/QUICKSTART.md
 
 ```bash
 # 1 · get a free sandbox key
-curl -X POST https://web-production-aa5ba.up.railway.app/sandbox/keys
+curl -X POST https://web-production-3df26.up.railway.app/sandbox/keys
 
 # 2 · evaluate an action (use the api_key from step 1)
-curl -X POST https://web-production-aa5ba.up.railway.app/validate \
+curl -X POST https://web-production-3df26.up.railway.app/validate \
   -H "X-API-Key: sk_sandbox_..." \
   -H "Content-Type: application/json" \
   -d '{"domain_age_days": 1, "engagement_ratio": 0.95, "scam_keyword_count": 4}'
@@ -74,7 +74,7 @@ pip install quesen-sdk   # PyPI: https://pypi.org/project/quesen-sdk/
 ```python
 from quesen_sdk import QuesenClient
 
-q = QuesenClient(base_url="https://web-production-aa5ba.up.railway.app",
+q = QuesenClient(base_url="https://web-production-3df26.up.railway.app",
                  api_key="YOUR_KEY")   # a sandbox key from /sandbox/keys works here
 
 verdict = q.validate(domain_age_days=1, engagement_ratio=0.95, scam_keyword_count=4)
@@ -92,7 +92,7 @@ npm i quesen-sdk   # npm: https://www.npmjs.com/package/quesen-sdk
 import { QuesenClient } from "quesen-sdk";
 
 const q = new QuesenClient({
-  baseUrl: "https://web-production-aa5ba.up.railway.app",
+  baseUrl: "https://web-production-3df26.up.railway.app",
   apiKey: process.env.QUESEN_API_KEY,
 });
 
@@ -195,7 +195,7 @@ integrity-flip check — no signup, key, or hosted call
 
 ## Live status
 
-- Production: `https://web-production-aa5ba.up.railway.app`
+- Production: `https://web-production-3df26.up.railway.app`
 - Health check: `GET /health` returns `{"status":"ok","engine_version":"1.10.0"}`
 - Version snapshot: `GET /version` returns full engine + billing + on-chain flags (ASP/1.0)
 - Uptime and version widget on [senueren.co.za/quesen](https://senueren.co.za/quesen)

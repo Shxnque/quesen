@@ -2,13 +2,13 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Quesen — Deterministic Agent Decision API",
-    "description": "Deterministic risk-verdict engine for autonomous agents. Same input -> same output (zero LLM in the decision path). Returns SKIP / REVIEW / PROCEED with a risk score, named conflict rules, and a replayable receipt (engine_version, weights, thresholds, input_snapshot_hash, commit_sha). This is the RapidAPI-import spec: it declares `servers` and the `X-API-Key` security scheme that the live /openapi.json omits. Source of wire truth: https://web-production-aa5ba.up.railway.app/openapi.json",
+    "description": "Deterministic risk-verdict engine for autonomous agents. Same input -> same output (zero LLM in the decision path). Returns SKIP / REVIEW / PROCEED with a risk score, named conflict rules, and a replayable receipt (engine_version, weights, thresholds, input_snapshot_hash, commit_sha). This is the RapidAPI-import spec: it declares `servers` and the `X-API-Key` security scheme that the live /openapi.json omits. Source of wire truth: https://web-production-3df26.up.railway.app/openapi.json",
     "version": "1.10.0",
     "contact": {"name": "Quesen · Senueren Bureau", "url": "https://senueren.co.za/quesen", "email": "shinque03@gmail.com"},
     "license": {"name": "See repository", "url": "https://github.com/Shxnque/quesen"}
   },
   "servers": [
-    {"url": "https://web-production-aa5ba.up.railway.app", "description": "Quesen production (Railway)"}
+    {"url": "https://web-production-3df26.up.railway.app", "description": "Quesen production (Railway)"}
   ],
   "components": {
     "securitySchemes": {

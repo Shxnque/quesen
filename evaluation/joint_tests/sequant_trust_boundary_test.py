@@ -16,7 +16,7 @@ Fixture data:     ../fixtures/owasp_agentic_vectors.json
 """
 import json, sys, urllib.request, urllib.error
 
-BASE = "https://web-production-aa5ba.up.railway.app"
+BASE = "https://web-production-3df26.up.railway.app"
 
 def _post(path, body, key=None):
     headers = {"Content-Type": "application/json", "User-Agent": "quesen-jointtest/1.0"}

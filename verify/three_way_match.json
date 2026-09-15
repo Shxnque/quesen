@@ -1,6 +1,6 @@
 {
   "captured_at": "2026-09-02T15:45:16.700356+00:00",
-  "engine": "https://web-production-aa5ba.up.railway.app",
+  "engine": "https://web-production-3df26.up.railway.app",
   "endpoint": "POST /tsc/validate (tsc_version 2.0)",
   "note": "Three-way match: published fixture receipt == public reference recompute == live hosted engine.",
   "vectors": [

@@ -1,7 +1,7 @@
 # API Reference
 
 Full HTTP contract for every public endpoint. Base URL:
-`https://web-production-aa5ba.up.railway.app`
+`https://web-production-3df26.up.railway.app`
 
 ## Authentication
 
@@ -184,7 +184,7 @@ the verdict self-describing:
 decision surface):
 
 ```bash
-BASE=https://web-production-aa5ba.up.railway.app
+BASE=https://web-production-3df26.up.railway.app
 KEY=$(curl -sX POST $BASE/sandbox/keys | jq -r .api_key)
 
 # secret egress to an unverified sink -> BLOCK / EGRESS_SECRET_UNTRUSTED

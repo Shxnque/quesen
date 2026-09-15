@@ -13,11 +13,11 @@ state columns.
 
 | Registry | State | Notes |
 | --- | --- | --- |
-| **Smithery.ai** | ✅ **LIVE.** Listing `shinque03/Quesen` is fully populated: `remote: true`, `deploymentUrl: https://quesen--shinque03.run.tools`, `iconUrl` set, **5 tools indexed with input schemas** (`quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`, `quesen.version`), 1 HTTP connection configured. Installable via `npx -y @smithery/cli mcp add shinque03/Quesen`. Listing page: https://smithery.ai/servers/@shinque03/Quesen. Re-verified healthy **2026-08-25 Session 31** via full MCP handshake through the canonical client URL `https://server.smithery.ai/@shinque03/quesen/mcp?api_key=…` (`initialize`→200, `notifications/initialized`→202, `tools/list`→5 tools, `tools/call quesen.health`→`{"status":"ok","engine_version":"1.10.0"}`). Latest release `f5b40647` = `SUCCESS`, `type: external_shttp`, `upstreamUrl: https://web-production-aa5ba.up.railway.app/mcp`. **The `deploymentUrl` `quesen--shinque03.run.tools` is Smithery's internal gateway id, NOT the client connect URL — a direct 404 there is expected, not a defect.** | Published via the Smithery Platform API (external_shttp). No GitHub App / repo connection installed and none required. |
+| **Smithery.ai** | ✅ **LIVE.** Listing `shinque03/Quesen` is fully populated: `remote: true`, `deploymentUrl: https://quesen--shinque03.run.tools`, `iconUrl` set, **5 tools indexed with input schemas** (`quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`, `quesen.version`), 1 HTTP connection configured. Installable via `npx -y @smithery/cli mcp add shinque03/Quesen`. Listing page: https://smithery.ai/servers/@shinque03/Quesen. Re-verified healthy **2026-08-25 Session 31** via full MCP handshake through the canonical client URL `https://server.smithery.ai/@shinque03/quesen/mcp?api_key=…` (`initialize`→200, `notifications/initialized`→202, `tools/list`→5 tools, `tools/call quesen.health`→`{"status":"ok","engine_version":"1.10.0"}`). Latest release `f5b40647` = `SUCCESS`, `type: external_shttp`, `upstreamUrl: https://web-production-3df26.up.railway.app/mcp`. **The `deploymentUrl` `quesen--shinque03.run.tools` is Smithery's internal gateway id, NOT the client connect URL — a direct 404 there is expected, not a defect.** | Published via the Smithery Platform API (external_shttp). No GitHub App / repo connection installed and none required. |
 | **MCP.so** | ❌ Not listed. `GET https://mcp.so/server/quesen` returns 404. | Operator dashboard action required. |
-| **Glama.ai** | 🟡 **Prepared.** [`../glama.json`](../glama.json) shipped at repository root claims Quesen for `Shxnque` per the Glama schema at `https://glama.ai/mcp/schemas/server.json`. Operator submission still required: sign in at https://glama.ai, click **+ Add MCP Server**, paste `https://github.com/Shxnque/quesen`. For the remote (streamable-HTTP) surface, additionally add a **Connector** at https://glama.ai/mcp/connectors with URL `https://web-production-aa5ba.up.railway.app/mcp`. Glama's automated indexing pipeline runs security scan + license detection + health test within minutes of submission. **Note:** awesome-mcp-servers PR flow now routes to Glama's ingestion queue, so the pending PR (see below) will surface Quesen automatically once merged. | Glama token available in operator's environment. |
+| **Glama.ai** | 🟡 **Prepared.** [`../glama.json`](../glama.json) shipped at repository root claims Quesen for `Shxnque` per the Glama schema at `https://glama.ai/mcp/schemas/server.json`. Operator submission still required: sign in at https://glama.ai, click **+ Add MCP Server**, paste `https://github.com/Shxnque/quesen`. For the remote (streamable-HTTP) surface, additionally add a **Connector** at https://glama.ai/mcp/connectors with URL `https://web-production-3df26.up.railway.app/mcp`. Glama's automated indexing pipeline runs security scan + license detection + health test within minutes of submission. **Note:** awesome-mcp-servers PR flow now routes to Glama's ingestion queue, so the pending PR (see below) will surface Quesen automatically once merged. | Glama token available in operator's environment. |
 | **Awesome MCP Servers** | 🟡 PR [`punkpeye/awesome-mcp-servers#10402`](https://github.com/punkpeye/awesome-mcp-servers/pull/10402) — *"Add Quesen — deterministic MCP risk-decision server (Finance & Fintech)"* — **open** as of 2026-07-31. Session 14 opened it; no operator action pending on Quesen's side. Awaiting upstream merge. | Merge unblocks Glama ingestion (per Glama routing). |
-| **RapidAPI Hub** | 🟡 **Prepared.** Publishing guide at [`docs/publishing-rapidapi.md`](./publishing-rapidapi.md) — provider metadata, endpoint list, and pricing-plan mapping pre-filled against `v1.10.0-rc1`. RapidAPI does not expose a public REST API for publisher onboarding; the operator must sign in at https://provider.rapidapi.com and paste `https://web-production-aa5ba.up.railway.app/openapi.json`. The RapidAPI token in the operator's environment is a subscriber key (`X-RapidAPI-Key`), not a publisher key. | Consumer key `4f103d13...` verified live but not usable for publishing. |
+| **RapidAPI Hub** | 🟡 **Prepared.** Publishing guide at [`docs/publishing-rapidapi.md`](./publishing-rapidapi.md) — provider metadata, endpoint list, and pricing-plan mapping pre-filled against `v1.10.0-rc1`. RapidAPI does not expose a public REST API for publisher onboarding; the operator must sign in at https://provider.rapidapi.com and paste `https://web-production-3df26.up.railway.app/openapi.json`. The RapidAPI token in the operator's environment is a subscriber key (`X-RapidAPI-Key`), not a publisher key. | Consumer key `4f103d13...` verified live but not usable for publishing. |
 | **PyPI — `quesen-sdk`** | ✅ **Published** v0.4.1 · https://pypi.org/project/quesen-sdk/ | — |
 | **PyPI — `quesen-langchain`** | ✅ **Published** v0.3.0 · https://pypi.org/project/quesen-langchain/ | — |
 | **PyPI — `quesen-crewai`** | ✅ **Published** v0.3.0 · https://pypi.org/project/quesen-crewai/ | — |
@@ -27,7 +27,7 @@ state columns.
 | **ASI:One (Fetch.ai / ASI Alliance)** | 🟡 **Inference key live, listing pending.** `https://asi1.ai/developer` supports listing agents / MCP servers / tools via the developer dashboard. The held key is an **inference** key (verified: `POST https://api.asi1.ai/v1/chat/completions`, model `asi1-mini` → 200), not a publishing key — so agent/MCP listing is a dashboard action. Opportunity: the same key can power BEA's AI classifier (unblocks the prior HuggingFace credit-limit stall). | Operator dashboard action for listing. |
 | **OpenAI plugin manifest** | ✅ Prepared. [`.well-known/ai-plugin.json`](../.well-known/ai-plugin.json) points at `senueren.co.za`. | Auto-discovered by ChatGPT / OpenAI clients when hosted at the plugin URL. |
 | **LLM crawler summary** | ✅ Prepared. [`../llms.txt`](../llms.txt) at engine v1.10.0. | Auto-discovered by LLM crawlers. |
-| **Live MCP endpoint** | ✅ **Healthy · engine v1.10.0 · 5 tools live** at `https://web-production-aa5ba.up.railway.app/mcp` | Verified via `initialize` / `tools/list` / `tools/call`. |
+| **Live MCP endpoint** | ✅ **Healthy · engine v1.10.0 · 5 tools live** at `https://web-production-3df26.up.railway.app/mcp` | Verified via `initialize` / `tools/list` / `tools/call`. |
 
 ---
 
@@ -38,7 +38,7 @@ state columns.
 - **Glama.ai** · [`glama.json`](../glama.json) at this repository's root (schema `https://glama.ai/mcp/schemas/server.json`).
 - **OpenAI plugin** · [`.well-known/ai-plugin.json`](../.well-known/ai-plugin.json).
 - **LLM crawlers** · [`../llms.txt`](../llms.txt).
-- **RapidAPI Hub** · [`../docs/publishing-rapidapi.md`](./publishing-rapidapi.md) (provider onboarding walk-through; the OpenAPI spec at `https://web-production-aa5ba.up.railway.app/openapi.json` is the wire-contract source of truth).
+- **RapidAPI Hub** · [`../docs/publishing-rapidapi.md`](./publishing-rapidapi.md) (provider onboarding walk-through; the OpenAPI spec at `https://web-production-3df26.up.railway.app/openapi.json` is the wire-contract source of truth).
 
 All six files are aligned with production (engine v1.10.0; five tools
 `quesen.validate`, `quesen.simulate`, `quesen.report`, `quesen.health`,
@@ -94,7 +94,7 @@ All five public SDK packages are published and installable:
 ### 5. m8ven Verified — submit for verification
 
 1. Visit https://m8ven.ai/verified (Quesen currently shows *not verified*).
-2. Submit the Quesen MCP for evaluation (endpoint `https://web-production-aa5ba.up.railway.app/mcp`, repo `https://github.com/Shxnque/quesen`).
+2. Submit the Quesen MCP for evaluation (endpoint `https://web-production-3df26.up.railway.app/mcp`, repo `https://github.com/Shxnque/quesen`).
 3. The verification bundle in [`../verify/`](../verify/) (runnable verifier + honest boundary) is strong supporting evidence for the security/reputation review.
 
 ### 6. ASI:One developer listing
@@ -115,7 +115,7 @@ The listing is an **external** streamable-HTTP release. Verify against the
 curl -sS -H "Authorization: Bearer $SMITHERY_API_KEY" \
   https://api.smithery.ai/servers/%40shinque03%2Fquesen/releases | python3 -m json.tool
 # Latest release should be: status=SUCCESS, type=external_shttp,
-#   upstreamUrl=https://web-production-aa5ba.up.railway.app/mcp
+#   upstreamUrl=https://web-production-3df26.up.railway.app/mcp
 
 # 2. Full MCP handshake through the CLIENT connect URL (this is what works)
 URL="https://server.smithery.ai/@shinque03/quesen/mcp?api_key=$SMITHERY_API_KEY"

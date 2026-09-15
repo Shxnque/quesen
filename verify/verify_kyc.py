@@ -42,7 +42,7 @@ sys.path.insert(0, _EVAL)
 
 import tsc_v2_poc as poc  # noqa: E402
 
-BASE = "https://web-production-aa5ba.up.railway.app"
+BASE = "https://web-production-3df26.up.railway.app"
 VECTORS = os.path.join(_EVAL, "fixtures", "kyc_decision_vectors.json")
 
 

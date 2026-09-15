@@ -23,7 +23,7 @@ under two rules:
 ## Run it
 
 ```bash
-QUESEN_BASE_URL=https://web-production-aa5ba.up.railway.app \
+QUESEN_BASE_URL=https://web-production-3df26.up.railway.app \
   python3 evaluation/domain_matrix.py         # self-serves a free sandbox key
 ```
 
