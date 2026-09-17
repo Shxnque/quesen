@@ -9,6 +9,7 @@
 [![npm](https://img.shields.io/npm/v/quesen-sdk?label=npm%20quesen-sdk&labelColor=1F2937&color=CB3837)](https://www.npmjs.com/package/quesen-sdk)
 [![Verified receipts](https://img.shields.io/badge/receipts-independently%20verifiable-16A34A?labelColor=1F2937)](verify/README.md)
 [![License](https://img.shields.io/badge/license-MIT-6B7280?labelColor=1F2937)](./LICENSE)
+[![X](https://img.shields.io/badge/X-%40SenuerenGroup-1F2937?labelColor=1F2937)](https://x.com/SenuerenGroup)
 
 > **Quesen** is the **deterministic decision-and-receipt core for agent actions** —
 > a typed security context in, a `PASS / REVIEW / BLOCK / SKIP` verdict out, with
@@ -230,6 +231,15 @@ SDK contributions belong in the corresponding public SDK repository:
 - AutoGen: [Shxnque/quesen-autogen](https://github.com/Shxnque/quesen-autogen)
 
 Security issues: please read [`SECURITY.md`](SECURITY.md) before filing publicly.
+
+---
+
+## Community
+
+Follow build updates, agent-governance notes, and Quesen releases on X:
+**[@SenuerenGroup](https://x.com/SenuerenGroup)** · web: [senueren.co.za](https://senueren.co.za) · [senueren.co.za/quesen](https://senueren.co.za/quesen).
+
+If a Quesen integration or a merged contribution helped your project, a follow or a note at [@SenuerenGroup](https://x.com/SenuerenGroup) is always appreciated.
 
 ---
 
