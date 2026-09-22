@@ -157,6 +157,7 @@ reproducible. Fully auditable.
 - [Pricing tiers](docs/pricing.md)
 - [FAQ](docs/faq.md)
 - [Registry status](docs/registries.md)
+- [Evidence & case studies](https://senueren.co.za/evidence) — verified upstream merges + live, byte-for-byte replayable receipts. Engineering/standards evidence only; **no customer traction is claimed.**
 
 ### Independent verification
 
