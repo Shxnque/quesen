@@ -23,6 +23,8 @@
 > recomputable, and (engine signing enabled) Ed25519-signed. See
 > [`docs/architecture-gap-closers.md`](docs/architecture-gap-closers.md) and
 > client-side **enforcement + receipt verification** in `quesen-sdk` ≥ 0.5.0.
+> **Production engine signing is live** — verify a real signed receipt yourself in
+> [`docs/verify-live-receipt.md`](docs/verify-live-receipt.md) (no trust in Senueren required).
 >
 > This repository is the **public developer portal**. It contains **only**
 > documentation, integration guides, examples, registry manifests, and
