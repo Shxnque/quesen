@@ -1,0 +1,85 @@
+{
+  "vectors": [
+    {
+      "id": "C4a-omitted",
+      "description": "AllowedMerchants omitted; arbitrary merchant M2 in the checkout.",
+      "sdk_result": {
+        "kind": "violations",
+        "value": []
+      },
+      "expected": [],
+      "match": true,
+      "authorization_meaning": "OPEN on the merchant dimension. Omission == 'unconstrained here', NOT deny. The SDK runs no merchant evaluator and fabricates no default allowed-set. A buyer who wants a merchant restriction MUST add an explicit AllowedMerchants constraint.",
+      "spec_citation": "constraints.py check_checkout_constraints iterates open_mandate.constraints only; with no AllowedMerchants present, no merchant evaluator is created."
+    },
+    {
+      "id": "C4a-explicit-pass",
+      "description": "AllowedMerchants=[M1]; checkout merchant == M1.",
+      "sdk_result": {
+        "kind": "violations",
+        "value": []
+      },
+      "expected": [],
+      "match": true,
+      "authorization_meaning": "ALLOWED by an explicit, present constraint (not by omission).",
+      "spec_citation": "AllowedMerchantsEvaluator.evaluate(): merchant_matches(M1,M1) -> []."
+    },
+    {
+      "id": "C4a-explicit-deny",
+      "description": "AllowedMerchants=[M1]; checkout merchant == M2 (not allowed).",
+      "sdk_result": {
+        "kind": "violations",
+        "value": [
+          "Merchant Other Merchant not in allowed list"
+        ]
+      },
+      "expected": [
+        "Merchant Other Merchant not in allowed list"
+      ],
+      "match": true,
+      "authorization_meaning": "DENIED by an explicit constraint. This is the only way to get a merchant deny; it is a present restriction, never an inferred default.",
+      "spec_citation": "AllowedMerchantsEvaluator.evaluate(): no merchant_matches -> ['Merchant ... not in allowed list']."
+    },
+    {
+      "id": "C4a-missing-merchant",
+      "description": "AllowedMerchants=[M1]; checkout.merchant is None.",
+      "sdk_result": {
+        "kind": "violations",
+        "value": [
+          "Missing merchant in checkout"
+        ]
+      },
+      "expected": [
+        "Missing merchant in checkout"
+      ],
+      "match": true,
+      "authorization_meaning": "FAIL-CLOSED: when a merchant restriction is present but the checkout omits the merchant, the evaluator does not treat 'absent' as 'benign' \u2014 it reports a violation.",
+      "spec_citation": "AllowedMerchantsEvaluator.evaluate(): 'if not merchant_data: return [Missing merchant...]'."
+    },
+    {
+      "id": "C0-unknown-constraint",
+      "description": "A checkout constraint whose type is not in the registered set.",
+      "sdk_result": {
+        "kind": "raised",
+        "value": "ValueError: Unknown checkout constraint type: <class '__main__._UnknownConstraint'>"
+      },
+      "expected": "ValueError (fail-closed; never silently skipped)",
+      "match": true,
+      "authorization_meaning": "REJECT / fail-closed. An unrecognised constraint MUST NOT be silently skipped \u2014 skipping it is indistinguishable from 'no constraint', which is the omission case C4a governs. Failing closed keeps the two apart.",
+      "spec_citation": "agent_authorization.md Verification rule: 'Any unknown Constraints MUST be treated as failing evaluation.' + error `unresolved_constraint`."
+    },
+    {
+      "id": "C4b-delivery-timing",
+      "description": "Author wishes to bind a delivery window at checkout.",
+      "sdk_result": {
+        "kind": "unconstructable",
+        "value": "registered checkout constraint types = ['checkout.allowed_merchants', 'checkout.line_items']; a delivery-timing checkout constraint type is ABSENT"
+      },
+      "expected": "no delivery-timing checkout constraint type exists",
+      "match": true,
+      "authorization_meaning": "NORMATIVE_QUESTION / unconstrained-by-construction. There is no checkout-side constraint type for delivery timing, so a mandate cannot bind it today. This is a vocabulary gap, NOT an omission-semantics question. If the spec later wants it enforceable, that is a vocabulary addition; until then delivery-timing enforcement lives outside AP2 checkout-mandate evaluation.",
+      "spec_citation": "constraints.py create_checkout_evaluator registers only AllowedMerchants + LineItems checkout evaluators."
+    }
+  ],
+  "all_match": true
+}

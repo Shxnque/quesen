@@ -1,0 +1,50 @@
+{
+  "$schema_note": "AP2 #332 checkout-authorization conformance vectors. Static declaration; verify_ap2_332.py exercises the real AP2 SDK and must reproduce each sdk_result. Two records per vector: sdk_result (mechanical, SDK-computed) and authorization_meaning (normative, recorded).",
+  "thread": "https://github.com/google-agentic-commerce/AP2/discussions/332",
+  "verified_against": {"repo": "google-agentic-commerce/AP2", "ref": "main", "commit": "e1ea56d", "path": "code/sdk/python"},
+  "registered_checkout_constraint_types": ["checkout.allowed_merchants", "checkout.line_items"],
+  "vectors": [
+    {
+      "id": "C4a-omitted",
+      "input": {"open_checkout_mandate_constraints": [], "checkout_merchant": "M2 (arbitrary)"},
+      "sdk_result": {"kind": "violations", "value": []},
+      "authorization_meaning": "OPEN on the merchant dimension. Omission == 'unconstrained here', not deny. No default allowed-set fabricated.",
+      "spec_citation": "constraints.py check_checkout_constraints iterates constraints only; absent AllowedMerchants => no merchant evaluator."
+    },
+    {
+      "id": "C4a-explicit-pass",
+      "input": {"open_checkout_mandate_constraints": ["AllowedMerchants([M1])"], "checkout_merchant": "M1"},
+      "sdk_result": {"kind": "violations", "value": []},
+      "authorization_meaning": "Allowed by an explicit, present constraint (not by omission).",
+      "spec_citation": "AllowedMerchantsEvaluator.evaluate(): merchant_matches(M1,M1) -> []."
+    },
+    {
+      "id": "C4a-explicit-deny",
+      "input": {"open_checkout_mandate_constraints": ["AllowedMerchants([M1])"], "checkout_merchant": "M2"},
+      "sdk_result": {"kind": "violations", "value": ["Merchant Other Merchant not in allowed list"]},
+      "authorization_meaning": "Denied by an explicit constraint. The only way to get a merchant deny; a present restriction, never an inferred default.",
+      "spec_citation": "AllowedMerchantsEvaluator.evaluate(): no merchant_matches -> ['Merchant ... not in allowed list']."
+    },
+    {
+      "id": "C4a-missing-merchant",
+      "input": {"open_checkout_mandate_constraints": ["AllowedMerchants([M1])"], "checkout_merchant": null},
+      "sdk_result": {"kind": "violations", "value": ["Missing merchant in checkout"]},
+      "authorization_meaning": "Fail-closed: when a restriction is present but the checkout omits the merchant, absent is not treated as benign.",
+      "spec_citation": "AllowedMerchantsEvaluator.evaluate(): 'if not merchant_data: return [Missing merchant...]'."
+    },
+    {
+      "id": "C0-unknown-constraint",
+      "input": {"open_checkout_mandate_constraints": ["<unregistered type>"]},
+      "sdk_result": {"kind": "raised", "value": "ValueError: Unknown checkout constraint type: ..."},
+      "authorization_meaning": "Reject / fail-closed. Unknown MUST NOT be silently skipped (else indistinguishable from omission).",
+      "spec_citation": "agent_authorization.md: 'Any unknown Constraints MUST be treated as failing evaluation.' + unresolved_constraint."
+    },
+    {
+      "id": "C4b-delivery-timing",
+      "input": {"desired": "bind a delivery window at checkout"},
+      "sdk_result": {"kind": "unconstructable", "value": "no delivery-timing checkout constraint type is registered"},
+      "authorization_meaning": "NORMATIVE_QUESTION / unconstrained-by-construction. Vocabulary gap, not omission semantics. Enforceability would require a vocabulary addition.",
+      "spec_citation": "constraints.py create_checkout_evaluator registers only AllowedMerchants + LineItems."
+    }
+  ]
+}
