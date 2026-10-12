@@ -1,0 +1,39 @@
+{
+  "thread": "https://github.com/openamer/openamer/issues/69",
+  "verified_against": "openamer/openamer main @ 1c9aa71 (envelope + trust model as described by the maintainer 2026-10-08); no OpenAmer code imported",
+  "posted_as": "Shxnque",
+  "status": "runnable; 6 vectors; python3 verify_openamer_69.py exits 0",
+  "envelope_model": {
+    "signed_body": ["sender", "recipient", "kind", "payload", "nonce", "ts"],
+    "canonicalization": "sorted-key JSON, compact separators",
+    "signature": "ed25519 (their scheme) if `cryptography` present; else labelled hmac-sha256 stand-in",
+    "replay_tolerance_seconds": 300,
+    "new_kind": "result.receipt"
+  },
+  "receipt_payload": {
+    "task_id": "nonce of the task envelope being answered",
+    "input_snapshot_hash": "sha256 over the exact inputs",
+    "code_version": "commit sha / pinned version that ran",
+    "policy_version": "guardian policy id",
+    "outputs_hash": "sha256 over declared outputs",
+    "outcome": "reason code",
+    "units_consumed": "resource the run consumed (binds the grant budget)"
+  },
+  "A_side_checks": {
+    "1_signature": "B sent it, unaltered (their Envelope.verify, unchanged)",
+    "2_binding": "task_id == the nonce A requested (reject a receipt for someone else's task)",
+    "3_reproducibility": "A re-runs inputs against code_version and compares outputs_hash (trust -> verify)",
+    "4_freshness": "ts within the 300s replay window",
+    "5_admissibility": "units_consumed <= bounded grant budget AND outcome in grant scope (makes the advertised-but-unenforced trust.py budget/scope bite at the receipt)"
+  },
+  "vectors": [
+    {"id": "R1-valid", "expected": "ACCEPT"},
+    {"id": "R2-binding", "expected": "REJECT", "gap": "receipt for a different task"},
+    {"id": "R3-reproducibility", "expected": "REJECT", "gap": "declared result not reproducible from inputs@code_version"},
+    {"id": "R4-freshness", "expected": "REJECT", "gap": "replayed outside 300s window"},
+    {"id": "R5-signature", "expected": "REJECT", "gap": "body tampered after signing"},
+    {"id": "R6-budget-admissibility", "expected": "REJECT", "gap": "consumed 8 units > grant budget 5 (the unenforced trust.py budget made to bite)"}
+  ],
+  "maps_to": "Quesen decision-receipt (ADR-041 input_snapshot_hash+commit_sha; ADR-051 Ed25519 signing) + admissibility / GrantConstraints (ADR-052)",
+  "notes": "Implementation-neutral. No OpenAmer systems tested; the envelope shape is reconstructed from the maintainer's own description. The signature primitive is not the subject; the payload binding, reproducibility, and budget-admissibility are."
+}

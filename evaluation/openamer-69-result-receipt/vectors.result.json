@@ -1,0 +1,91 @@
+{
+  "signature_alg": "ed25519",
+  "replay_tolerance_seconds": 300,
+  "vectors": [
+    {
+      "id": "R1-valid",
+      "description": "Signed, task-bound, reproducible, fresh, in-scope, under budget.",
+      "verdict": "ACCEPT",
+      "checks": {
+        "signature": true,
+        "freshness": true,
+        "binding": true,
+        "reproducibility": true,
+        "admissibility": true
+      },
+      "expected": "ACCEPT",
+      "match": true
+    },
+    {
+      "id": "R2-binding",
+      "description": "Receipt task_id != the nonce A requested (a receipt for someone else's task).",
+      "verdict": "REJECT",
+      "checks": {
+        "signature": true,
+        "freshness": true,
+        "binding": false,
+        "reproducibility": true,
+        "admissibility": true
+      },
+      "expected": "REJECT",
+      "match": true
+    },
+    {
+      "id": "R3-reproducibility",
+      "description": "Declared outputs_hash does not match A's re-run of inputs@code_version \u2014 the competence-vs-verify case.",
+      "verdict": "REJECT",
+      "checks": {
+        "signature": true,
+        "freshness": true,
+        "binding": true,
+        "reproducibility": false,
+        "admissibility": true
+      },
+      "expected": "REJECT",
+      "match": true
+    },
+    {
+      "id": "R4-freshness",
+      "description": "Signed receipt replayed outside the 300s freshness window.",
+      "verdict": "REJECT",
+      "checks": {
+        "signature": true,
+        "freshness": false,
+        "binding": true,
+        "reproducibility": true,
+        "admissibility": true
+      },
+      "expected": "REJECT",
+      "match": true
+    },
+    {
+      "id": "R5-signature",
+      "description": "Payload mutated after signing; signature no longer covers the body.",
+      "verdict": "REJECT",
+      "checks": {
+        "signature": false,
+        "freshness": true,
+        "binding": true,
+        "reproducibility": false,
+        "admissibility": false
+      },
+      "expected": "REJECT",
+      "match": true
+    },
+    {
+      "id": "R6-budget-admissibility",
+      "description": "Valid+reproducible receipt whose units_consumed (8) exceeds the bounded grant budget (5) \u2014 the advertised-but-unenforced budget made to bite at the receipt.",
+      "verdict": "REJECT",
+      "checks": {
+        "signature": true,
+        "freshness": true,
+        "binding": true,
+        "reproducibility": true,
+        "admissibility": false
+      },
+      "expected": "REJECT",
+      "match": true
+    }
+  ],
+  "all_match": true
+}
