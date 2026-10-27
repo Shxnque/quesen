@@ -21,7 +21,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://web-production-3df26.up.railway.app/mcp",
+      "url": "https://api.senueren.co.za/mcp",
       "headers": [
         {
           "name": "X-API-Key",

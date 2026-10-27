@@ -5,7 +5,7 @@
 # HOW THE LIVE LISTING IS ACTUALLY PUBLISHED (evidence, 2026-08-25):
 # The live Smithery listing `@shinque03/quesen` is an EXTERNAL streamable-HTTP
 # release (Smithery internal type `external_shttp`) whose `upstreamUrl` is the
-# Railway endpoint below. It is published via the Smithery Platform API / CLI:
+# live endpoint below. It is published via the Smithery Platform API / CLI:
 #   PUT https://api.smithery.ai/servers/%40shinque03%2Fquesen/releases
 #   { "type": "external", "upstreamUrl": "<Live endpoint below>" }
 # NO Smithery GitHub App / repository connection is required for an external
@@ -19,7 +19,7 @@
 # INTERNAL gateway identifier — it is NOT the client connect URL and returns 404
 # when probed directly. That 404 is expected, not a defect. See docs/registries.md.
 #
-# Live endpoint:  https://web-production-3df26.up.railway.app/mcp
+# Live endpoint:  https://api.senueren.co.za/mcp
 # Transport:      Streamable HTTP (JSON-RPC 2.0 over POST)
 # MCP spec:       https://spec.modelcontextprotocol.io/specification/2025-03-26/
 # Engine version: 1.10.0
@@ -32,7 +32,7 @@
 
 startCommand:
   type: http
-  url: https://web-production-3df26.up.railway.app/mcp
+  url: https://api.senueren.co.za/mcp
 
 name: quesen
 displayName: Quesen — Deterministic Trust & Settlement for Agents
@@ -119,7 +119,7 @@ local:
     QUESEN_BASE_URL:
       description: Base URL of the Quesen API (production or self-hosted)
       required: true
-      example: https://web-production-3df26.up.railway.app
+      example: https://api.senueren.co.za
     QUESEN_API_KEY:
       description: API key issued via https://senueren.co.za/quesen
       required: true

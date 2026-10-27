@@ -11,16 +11,16 @@ are fully runnable against live production; nothing here requires trusting Senue
 ## 1. Fetch the engine's public key (self-published)
 
 ```bash
-curl -s https://web-production-3df26.up.railway.app/tsc/version | jq .signing
+curl -s https://api.senueren.co.za/tsc/version | jq .signing
 # { "alg": "ed25519", "public_key_hex": "<hex>", "key_id": "tsc-ed25519-…" }
 ```
 
 ## 2. Get a free sandbox key and a signed decision
 
 ```bash
-KEY=$(curl -s -X POST https://web-production-3df26.up.railway.app/sandbox/keys | jq -r .api_key)
+KEY=$(curl -s -X POST https://api.senueren.co.za/sandbox/keys | jq -r .api_key)
 
-curl -s -X POST https://web-production-3df26.up.railway.app/tsc/validate \
+curl -s -X POST https://api.senueren.co.za/tsc/validate \
   -H "X-API-Key: $KEY" -H "Content-Type: application/json" \
   -d '{"tsc_version":"2.0","subject":{"kind":"agent"},"action":{"kind":"data_egress"},
        "provenance":{"source":"adapter_derived"},
@@ -41,7 +41,7 @@ UTF-8, no key sorting) — the same bytes `quesen-sdk` (`canonical_receipt_bytes
 import json, httpx
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
-BASE = "https://web-production-3df26.up.railway.app"
+BASE = "https://api.senueren.co.za"
 pub  = httpx.get(f"{BASE}/tsc/version").json()["signing"]["public_key_hex"]
 rec  = <paste the receipt JSON from step 2>
 

@@ -48,7 +48,7 @@ sys.path.insert(0, _EVAL)
 
 import tsc_v2_poc as poc  # noqa: E402  (public reference: normalize + hash + decide)
 
-BASE = "https://web-production-3df26.up.railway.app"
+BASE = "https://api.senueren.co.za"
 VECTORS = os.path.join(_EVAL, "fixtures", "ucp724_lifecycle_vectors.json")
 
 

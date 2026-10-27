@@ -14,7 +14,7 @@ Design goals (per the External Validation Program):
     from implementation bugs (surface exists but behaves wrong).
 
 Usage:
-    QUESEN_BASE_URL=https://web-production-3df26.up.railway.app \
+    QUESEN_BASE_URL=https://api.senueren.co.za \
     python3 evaluation/domain_matrix.py            # self-serves a sandbox key
     # or provide your own:  QUESEN_API_KEY=sk_...  python3 evaluation/domain_matrix.py
 
@@ -33,7 +33,7 @@ import urllib.request
 import urllib.error
 from datetime import datetime, timezone
 
-BASE = os.environ.get("QUESEN_BASE_URL", "https://web-production-3df26.up.railway.app").rstrip("/")
+BASE = os.environ.get("QUESEN_BASE_URL", "https://api.senueren.co.za").rstrip("/")
 API_KEY = os.environ.get("QUESEN_API_KEY", "").strip()
 TIMEOUT = float(os.environ.get("QUESEN_TIMEOUT", "30"))
 

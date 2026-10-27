@@ -36,7 +36,7 @@
   ],
   "transports": {
     "streamable-http": {
-      "url": "https://web-production-3df26.up.railway.app/mcp",
+      "url": "https://api.senueren.co.za/mcp",
       "protocolVersion": "2025-03-26"
     },
     "stdio": {
@@ -53,9 +53,9 @@
   },
   "install": {
     "http": {
-      "url": "https://web-production-3df26.up.railway.app/mcp",
-      "baseUrl": "https://web-production-3df26.up.railway.app",
-      "openapi": "https://web-production-3df26.up.railway.app/openapi.json"
+      "url": "https://api.senueren.co.za/mcp",
+      "baseUrl": "https://api.senueren.co.za",
+      "openapi": "https://api.senueren.co.za/openapi.json"
     },
     "stdio": {
       "command": "python",
