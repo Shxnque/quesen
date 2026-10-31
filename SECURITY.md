@@ -41,7 +41,7 @@ Out of scope:
 - Denial-of-service via traffic volume.
 - Findings that require an already-compromised host or already-leaked API key.
 - Any issue in a third-party service Quesen integrates with (Stripe, Coinbase
-  Commerce, Oracle Cloud, GitHub, PyPI, npm) — report those directly to the
+  Commerce, GitHub, PyPI, npm) — report those directly to the
   vendor.
 
 ## Cryptographic and protocol claims

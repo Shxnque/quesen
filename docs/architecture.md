@@ -58,7 +58,7 @@ behavior other than latency measurement.
 
 ## Operational profile
 
-- Deployed on a dedicated always-on VM (Oracle Cloud, `eu-frankfurt-1`) behind Caddy with automatic HTTPS. Single worker, no serverless cold starts.
+- Served from a dedicated always-on VM behind Caddy (automatic HTTPS). Single worker, no serverless cold starts.
 - Rate-limited per API key (fixed 60-second window; configurable per key).
 - API keys carry per-key pricing metadata; earnings tracked in-memory (durable
   log = Telegram HQ).
