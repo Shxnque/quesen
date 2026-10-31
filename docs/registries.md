@@ -55,7 +55,7 @@ The following actions **cannot be automated** (or, in Smithery's case, have now 
 The Smithery listing `shinque03/Quesen` was published programmatically via the Smithery CLI. State:
 
 - `remote: true`
-- `deploymentUrl: https://quesen--shinque03.run.tools` (Smithery proxy → Railway MCP endpoint)
+- `deploymentUrl: https://quesen--shinque03.run.tools` (Smithery proxy → Quesen MCP endpoint at `https://api.senueren.co.za/mcp`)
 - `iconUrl: https://api.smithery.ai/servers/shinque03/Quesen/icon` (Smithery CDN)
 - All 5 tools indexed with full input schemas
 - Listing page: https://smithery.ai/servers/@shinque03/Quesen

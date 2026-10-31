@@ -2,7 +2,7 @@
 
 **Purpose:** resolve the nine open decisions from `11-open-decisions.md` with
 technical rationale so the operator can approve/adjust in one pass. **This is a
-review-gate artifact.** No `Quesen-sib` runtime code changes until these are
+review-gate artifact.** No private-engine runtime code changes until these are
 signed off.
 
 **Status:** RECOMMENDED · pending operator sign-off.
@@ -35,7 +35,7 @@ Stage 1 proceeds**. "None (v1)" = no change for existing v1 traffic.
 
 | Environment | Impact under approved decisions | Action required | When |
 | --- | --- | --- | --- |
-| **`Quesen-sib` engine** | New isolated `quesen/tsc/` module + `QUESEN_TSC_V2_ENABLED` flag; `engine.py` v1 path **untouched** | Stage 1 (see `13-…`) | after sign-off |
+| **Private engine** | New isolated `quesen/tsc/` module + `QUESEN_TSC_V2_ENABLED` flag; `engine.py` v1 path **untouched** | Stage 1 (see `13-…`) | after sign-off |
 | **ASP wire (ADR-040)** | Stays `ASP/1.0`; `/version` advertises `supported_tsc_versions` | additive `/version` field | Stage 1 |
 | **`quesen` (public docs / `mcp.json` / OpenAPI)** | Document v2 body discriminator + response vocab | docs + schema publish | Stage 1 |
 | **Evaluation harness** | v1 matrix stays baseline; add typed suites (authz/egress/injection) | Evaluation v2 | after Stage 1 |

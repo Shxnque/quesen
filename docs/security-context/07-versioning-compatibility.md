@@ -30,7 +30,7 @@ LC1 gate invariant (ADR-040) and every SDK's version assertion.
 
 1. No v1 field renamed, removed, or semantically changed.
 2. v1 decision vocabulary (`PROCEED/REVIEW/SKIP`) is unchanged **for v1 requests**.
-3. v1 golden tests in `Quesen-sib` must pass untouched after v2 lands.
+3. v1 golden tests in the private engine must pass untouched after v2 lands.
 4. `input_snapshot_hash` + `commit_sha` (ADR-041) present on **both** v1 and v2 responses, same algorithm.
 5. SDKs that ignore unknown response fields keep working against v2 responses.
 

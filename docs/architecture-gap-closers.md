@@ -3,7 +3,7 @@
 A competitive review (arcjet, kontext, tenuo, openfirma, AgentKey, …) surfaced
 four gaps between Quesen and adjacent agent-governance layers. This is the
 official design for closing them **without diluting the moat** (deterministic,
-zero-LLM, replayable). It is reflected across the ecosystem: engine (`Quesen-sib`,
+zero-LLM, replayable). It is reflected across the ecosystem: engine (private,
 sovereign), SDKs (`quesen-sdk-py` / `quesen-sdk-js`), and this portal.
 
 ## Positioning (one line)
@@ -52,7 +52,7 @@ send_funds("0xabc", 5)   # raises TscBlocked unless PASS
 when the engine signs, against a published engine public key. This upgrades the
 receipt from *recomputable* to *issuer-attributable* — the `signature_capability`
 the AGV crosswalk currently marks intentionally omitted. Engine-side signing lands
-in `Quesen-sib`; the SDK is forward-compatible today (unsigned receipts verify at
+in the private engine; the SDK is forward-compatible today (unsigned receipts verify at
 the structural level).
 
 **Why this beats a tamper-evident vendor log:** their audit is *their word, kept by

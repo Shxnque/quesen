@@ -8,7 +8,7 @@ engine_version 1.10.0`. See the shipped, reproducible-without-signup surface in
 This document remains the **design rationale** for that surface; where a field
 below is not yet emitted by the deployed engine it is called out inline rather
 than implied to be shipped.
-**Engine baseline at authorship:** `engine_version = 1.10.0` (verified live on Railway `/version`).
+**Engine baseline at authorship:** `engine_version = 1.10.0` (verified live on the production `/version` endpoint).
 **Wire baseline:** `ASP/1.0` (ADR-040 LC1 gate). Receipt provenance: ADR-041 (`input_snapshot_hash` + `commit_sha`).
 
 ---

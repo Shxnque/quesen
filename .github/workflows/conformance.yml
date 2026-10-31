@@ -3,7 +3,7 @@ name: conformance
 # Anti-drift gate (BEA criticism-ledger C-003 / C-004): the offline reference
 # evaluator MUST reproduce the published egress/authority conformance fixtures
 # byte-for-byte (decision + reason codes + input_snapshot_hash), with NO network.
-# The engine repo (Quesen-sib) runs the mirror-image parity test against the same
+# The private engine repo runs the mirror-image parity test against the same
 # fixtures, so engine and public reference are bound to byte-for-byte agreement.
 
 on:

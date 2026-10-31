@@ -2,7 +2,7 @@
 
 ## The problem with a flat contract
 
-The v1 `/validate` request (see `Shxnque/Quesen-sib · quesen/schemas.py ·
+The v1 `/validate` request (see `the private engine · schemas.py ·
 ValidateRequest`) is three optional scalars plus optional on-chain inputs. It can
 express exactly one question: *"how scam-shaped is this opportunity?"* Every new
 security question a caller has asked on the intelligence surface — *"is this tool

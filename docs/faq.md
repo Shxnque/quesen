@@ -47,8 +47,7 @@ and durably logged to a Telegram audit channel.
 
 ### What is the latency profile?
 
-Warm: 5–10 ms end-to-end (deterministic engine, no I/O). Cold-start after
-Railway idle: 5–30 seconds. On-chain enrichment adds an RPC + Blockscout round
+Warm: 5–10 ms end-to-end (deterministic engine, no I/O). The engine runs on an always-on VM (Oracle Cloud), so there is no serverless cold start. On-chain enrichment adds an RPC + Blockscout round
 trip only when opted-in.
 
 ### How do I get an API key?

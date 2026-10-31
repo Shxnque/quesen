@@ -1,6 +1,6 @@
 # 13 · Stage 1 Implementation Blueprint (execute only after sign-off)
 
-> **✅ STAGE 1 IMPLEMENTED (Session 27).** Shipped in `Shxnque/Quesen-sib`:
+> **✅ STAGE 1 IMPLEMENTED (Session 27).** Shipped in the private Quesen engine:
 > isolated `quesen/tsc/` module (`normalize.py`, `decide.py`, `errors.py`,
 > `router.py`), `QUESEN_TSC_V2_ENABLED` flag (**OFF by default**), a dedicated
 > `POST /tsc/validate` route (see D-1 deviation note below), full contract tests

@@ -1,7 +1,7 @@
 # 08 · Security Invariants (future golden tests)
 
 These are the invariants a v2 implementation MUST satisfy. Each is written so it
-can become a golden test in `Quesen-sib/tests/`. The reference POC
+can become a golden test in the private engine's test suite. The reference POC
 (`evaluation/tsc_v2_poc.py`) already demonstrates the starred (★) ones.
 
 | # | Invariant | Status in POC |

@@ -11,7 +11,7 @@ support.
 Resolve open decisions (transport, ASP version, `unauthorized_claim` policy).
 **Gate:** operator sign-off on `11-open-decisions.md`.
 
-### Stage 1 — Engine: additive models behind a flag (`Quesen-sib`)
+### Stage 1 — Engine: additive models behind a flag (private engine)
 - Add v2 request/response Pydantic models (`schemas.py`) *alongside* v1 — nothing removed.
 - Add `normalize()` + typed validation + reference `decide()` for the typed context, gated by presence of `tsc_version` and/or `QUESEN_TSC_V2_ENABLED`.
 - **Engine core (`engine.py`) stays pure**; v1 `evaluate()` untouched. v2 decision path is a new pure function.
