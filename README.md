@@ -10,6 +10,7 @@
 [![Verified receipts](https://img.shields.io/badge/receipts-independently%20verifiable-16A34A?labelColor=1F2937)](verify/README.md)
 [![License](https://img.shields.io/badge/license-MIT-6B7280?labelColor=1F2937)](./LICENSE)
 [![X](https://img.shields.io/badge/X-%40SenuerenGroup-1F2937?labelColor=1F2937)](https://x.com/SenuerenGroup)
+[![quesen MCP server](https://mcprush.com/badge/quelum-wilson-quesen-deterministic-agent-decision/card.svg)](https://mcprush.com/to/quelum-wilson-quesen-deterministic-agent-decision?ref=badge)
 
 > **Quesen** is the **deterministic decision-and-receipt core for agent actions** —
 > a typed security context in, a `PASS / REVIEW / BLOCK / SKIP` verdict out, with
